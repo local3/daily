@@ -1,6 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import logo from './styles/images/logo.svg';
+import './styles/css/App.css';
 
 function App() {
   return (
@@ -13,6 +13,16 @@ function App() {
           bbb
           ccc
           ddd
+          kk
+          mm
+          bb
+          vvv
+
+          dd
+          nnn
+          eee
+
+          www
         </p>
         <a
           className="App-link"
