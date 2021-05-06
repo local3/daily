@@ -21,3 +21,5 @@ Language.create(
     },
   ]
 )
+
+User.create!(email: 'test1@example.com', password: 'test1', password_confirmation: 'test1', language_id: 1)
