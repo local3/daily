@@ -1,10 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import logo from '../styles/images/logo.svg';
+import Router from '../Router'
+import '../styles/css/App.css';
 
 function App() {
   return (
     <div className="App">
+      <Router/>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -13,6 +15,16 @@ function App() {
           bbb
           ccc
           ddd
+          kk
+          mm
+          bb
+          vvv
+
+          dd
+          nnn
+          eee
+
+          www
         </p>
         <a
           className="App-link"
