@@ -1,22 +1,10 @@
 import React from 'react'
-// import axios from 'axios';
+import axios from 'axios';
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 
 class Signup extends React.Component {
-  get axios() {
-    const axiosBase = require('axios');
-    return axiosBase.create({
-        baseURL: process.env.REACT_APP_DEV_API_URL,
-        headers: {
-            'Content-Type': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest'
-        },
-        responseType: 'json'
-    });
-  }
-  
   state = {
     user: {
       email: '',
@@ -28,7 +16,7 @@ class Signup extends React.Component {
   }
 
   componentDidMount() {
-    this.axios.get(`/languages`)
+    axios.get(`/languages`)
       .then(res => {
         const languages = res.data;
         this.setState({ languages });
@@ -65,11 +53,11 @@ class Signup extends React.Component {
 
     const user = this.state.user
 
-    this.axios.post(`http://jsonplaceholder.typicode.com/users`, { user })
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
+    // this.axios.post(`http://jsonplaceholder.typicode.com/users`, { user })
+    //   .then(res => {
+    //     console.log(res);
+    //     console.log(res.data);
+    //   })
   }
 
   render(){

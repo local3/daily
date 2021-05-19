@@ -6,17 +6,6 @@ import '../styles/css/App.css';
 
 // function App() 
 class App extends React.Component{  
-  // get axios() {
-  //   const axiosBase = require('axios');
-  //   return axiosBase.create({
-  //       baseURL: process.env.REACT_APP_DEV_API_URL,
-  //       headers: {
-  //           'Content-Type': 'application/json',
-  //           'X-Requested-With': 'XMLHttpRequest'
-  //       },
-  //       responseType: 'json'
-  //   });
-  // }
   render() {
     return (
       <div className="App">
