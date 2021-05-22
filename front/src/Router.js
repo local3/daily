@@ -8,6 +8,8 @@ import Help from './pages/Help'
 import About from './pages/About'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
+import Header from './components/Header'
+import Footer from './components/Footer'
 
 
 // const pages = [
@@ -22,25 +24,29 @@ import Login from './pages/Login'
 // https://qiita.com/k-penguin-sato/items/e46725edba00013a8300
 const Router = () => {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path={'/home'}>
-          <Home />
-        </Route>
-        <Route exact path={'/help'}>
-          <Help />
-        </Route>
-				<Route exact path={'/about'}>
-          <About />
-        </Route>
-				<Route exact path={'/signup'}>
-          <Signup />
-        </Route>
-				<Route exact path={'/login'}>
-          <Login />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <Header/>
+        <Switch>
+          <Route exact path={'/'}>
+            <Home />
+          </Route>
+          <Route exact path={'/help'}>
+            <Help />
+          </Route>
+          <Route exact path={'/about'}>
+            <About />
+          </Route>
+          <Route exact path={'/signup'}>
+            <Signup />
+          </Route>
+          <Route exact path={'/login'}>
+            <Login />
+          </Route>
+        </Switch>
+        <Footer/>
+      </BrowserRouter>
+    </>
   )
 }
 
