@@ -8,8 +8,10 @@ import Help from './pages/Help'
 import About from './pages/About'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
+
 import Header from './components/Header'
 import Footer from './components/Footer'
+import Calendar from './pages/Calendar'
 
 
 // const pages = [
@@ -42,6 +44,9 @@ const Router = () => {
           </Route>
           <Route exact path={'/login'}>
             <Login />
+          </Route>
+          <Route exact path={'/calendar'}>
+            <Calendar />
           </Route>
         </Switch>
         <Footer/>
