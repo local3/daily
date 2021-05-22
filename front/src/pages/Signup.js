@@ -1,8 +1,6 @@
 import React from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
 
 class Signup extends React.Component {
   state = {
@@ -20,31 +18,52 @@ class Signup extends React.Component {
       .then(res => {
         const languages = res.data;
         this.setState({ languages });
-        console.log(res)
+        console.log(languages)
+      })
+
+    axios.get(`/current_user`)
+      .then(res => {
+        const currentUser = res.data;
+        this.setState({ currentUser });
+        console.log(currentUser)
       })
   }
 
-  handleEmailInput = e => {
+  handleChangeEmail = e => {
+		console.log(e);
     this.setState({
-      email: e.target.value
+      user: {
+				...this.state.user,
+				email: e.target.value
+			}
     });
   };
 
-  handlePasswordInput = e => {
+  handleChangePassword = e => {
     this.setState({
-      password: e.target.value
+			user: {
+				...this.state.user,
+				password: e.target.value
+			}
     });
   };
 
-  handlePasswordConfirmationInput = e => {
+  handleChangePasswordConfirmation = e => {
     this.setState({
-      passwordConfirmation: e.target.value
+			user: {
+				...this.state.user,
+				passwordConfirmation: e.target.value
+			}
     });
   };
 
-  handleLanguageInput = e => {
+  handleChangeLanguage = e => {
+		console.log(e);
     this.setState({
-      languageId: e.target.value
+			user: {
+				...this.state.user,
+				languageId: e.target.value
+			}
     });
   };
 
@@ -52,55 +71,51 @@ class Signup extends React.Component {
     event.preventDefault();
 
     const user = this.state.user
+		console.log(user);
 
-    // this.axios.post(`http://jsonplaceholder.typicode.com/users`, { user })
-    //   .then(res => {
-    //     console.log(res);
-    //     console.log(res.data);
-    //   })
+    axios.post(`/users`, { user })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
   }
 
   render(){
     return(
       <div>
-        <Header/>
        	<h1>会員登録ページ</h1>
-          <form onSubmit={this.handleSubmit}>
-            <label>メールアドレス：</label>
-            <input type="text"
-              name="email" 
-              value={this.state.user.email} 
-              onChange={this.handleEmailInput}
-            />
+        <form onSubmit={this.handleSubmit}>
+          <label>メールアドレス：</label>
+          <input type="text"
+            name="email"  
+            onChange={this.handleChangeEmail}
+          />
 
-            <br/>
+          <br/>
 
-            <label>パスワード：</label>
-            <input type="text"
-              name="password" 
-              value={this.state.user.password} 
-              onChange={this.handleInput}
-            />
+          <label>パスワード：</label>
+          <input type="text"
+            name="password"  
+            onChange={this.handleChangePassword}
+          />
 
-            <br/>
+          <br/>
 
-            <label>パスワード確認用：</label>
-            <input type="text"
-              name="password_confirmation" 
-              value={this.state.user.passwordConfirmation} 
-              onChange={this.handleInput}
-            />
+          <label>パスワード確認用：</label>
+          <input type="text"
+            name="password_confirmation" 
+            onChange={this.handleChangePasswordConfirmation}
+          />
 
-            <br/>
+          <br/>
 
-            <label>言語選択：</label>
-            <input type="text"
-              name="language" 
-              value={this.state.user.email} 
-              onChange={this.handleInput}
-            />
-         </form>
-				<Footer/>
+          <label>言語選択：</label>
+          <select onChange={this.handleChangeLanguage}>
+            {this.state.languages.map(language => <option key={language.id} value={language.id}>{language.name}</option>)}
+          </select>
+          <br/>
+          <button type="submit">会員登録する</button>
+        </form>
       </div>
     )
   }
