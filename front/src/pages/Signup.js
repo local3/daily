@@ -1,124 +1,128 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 
-class Signup extends React.Component {
-  state = {
-    user: {
-      email: '',
-      password: '',
-      passwordConfirmation: '',
-      languageId: 1
-    },
-    languages: [],
-  }
+function Signup() {
+  const initUser =
+      {
+        email: '',
+        password: '',
+        passwordConfirmation: '',
+        languageId: 1
+      }
+  
+  const [user, setUser] = useState(initUser);
+  const [languages, setLanguages] = useState([])  
 
-  componentDidMount() {
+  const componentDidMount = () => {
     axios.get(`/languages`)
       .then(res => {
         const languages = res.data;
-        this.setState({ languages });
+        setLanguages(languages);
         console.log(languages)
       })
 
-    axios.get(`/current_user`)
-      .then(res => {
-        const currentUser = res.data;
-        this.setState({ currentUser });
-        console.log(currentUser)
-      })
+    // axios.get(`/current_user`)
+    //   .then(res => {
+    //     const currentUser = res.data;
+    //     this.setState({ currentUser });
+    //     console.log(currentUser)
+    //   })
   }
 
-  handleChangeEmail = e => {
-		console.log(e);
-    this.setState({
-      user: {
-				...this.state.user,
+  useEffect(componentDidMount, [])
+
+  const handleChangeEmail = (e) => {
+		// console.log(e);
+    setUser(
+      {
+				...user,
 				email: e.target.value
 			}
-    });
+    );
   };
 
-  handleChangePassword = e => {
-    this.setState({
-			user: {
-				...this.state.user,
+  const handleChangePassword = (e) => {
+    setUser(
+			{
+				...user,
 				password: e.target.value
 			}
-    });
+    );
   };
 
-  handleChangePasswordConfirmation = e => {
-    this.setState({
-			user: {
-				...this.state.user,
+  const handleChangePasswordConfirmation = (e) => {
+    setUser(
+			{
+				...user,
 				passwordConfirmation: e.target.value
 			}
-    });
+    );
   };
 
-  handleChangeLanguage = e => {
-		console.log(e);
-    this.setState({
-			user: {
-				...this.state.user,
+  const handleChangeLanguage = (e) => {
+		// console.log(e);
+    setUser(
+			{
+				...user,
 				languageId: e.target.value
 			}
-    });
+    );
   };
 
-  handleSubmit = event => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    const user = this.state.user
 		console.log(user);
 
-    axios.post(`/users`, { user })
+    axios.post(`/users`, {user: user})
       .then(res => {
         console.log(res);
         console.log(res.data);
       })
   }
 
-  render(){
-    return(
-      <div>
-       	<h1>会員登録ページ</h1>
-        <form onSubmit={this.handleSubmit}>
-          <label>メールアドレス：</label>
-          <input type="text"
-            name="email"  
-            onChange={this.handleChangeEmail}
-          />
+  return(
+    <div>
+      <h1>会員登録ページ</h1>
+      <form onSubmit={handleSubmit}>
+        <label>メールアドレス：</label>
+        <input type="text"
+          name="email"  
+          onChange={handleChangeEmail}
+        />
 
-          <br/>
+        <br/>
 
-          <label>パスワード：</label>
-          <input type="text"
-            name="password"  
-            onChange={this.handleChangePassword}
-          />
+        <label>パスワード：</label>
+        <input type="text"
+          name="password"  
+          onChange={handleChangePassword}
+        />
 
-          <br/>
+        <br/>
 
-          <label>パスワード確認用：</label>
-          <input type="text"
-            name="password_confirmation" 
-            onChange={this.handleChangePasswordConfirmation}
-          />
+        <label>パスワード確認用：</label>
+        <input type="text"
+          name="password_confirmation" 
+          onChange={handleChangePasswordConfirmation}
+        />
 
-          <br/>
+        <br/>
 
-          <label>言語選択：</label>
-          <select onChange={this.handleChangeLanguage}>
-            {this.state.languages.map(language => <option key={language.id} value={language.id}>{language.name}</option>)}
-          </select>
-          <br/>
-          <button type="submit">会員登録する</button>
-        </form>
-      </div>
-    )
-  }
+        <label>言語選択：</label>
+        <select onChange={handleChangeLanguage}>
+          {languages.map(language => 
+            <option key={language.id} value={language.id}>
+              {language.name}
+            </option>)
+          }
+        </select>
+        <br/>
+        <button type="submit">会員登録する</button>
+      </form>
+    </div>
+  )
 }
 
 export default Signup;
