@@ -22,12 +22,12 @@ function Signup() {
         console.log(languages)
       })
 
-    // axios.get(`/current_user`)
-    //   .then(res => {
-    //     const currentUser = res.data;
-    //     this.setState({ currentUser });
-    //     console.log(currentUser)
-    //   })
+    axios.get(`/current_user`)
+      .then(res => {
+        const currentUser = res.data;
+        // this.setState({ currentUser });
+        console.log(currentUser)
+      })
   }
 
   useEffect(componentDidMount, [])
