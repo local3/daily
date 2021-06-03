@@ -5,9 +5,7 @@ import { AuthContext } from "../Auth";
 
 function Signup() {
   const auth = useContext(AuthContext);
-  // console.log("Signup Component")
-  // console.log(auth)
-
+  
   const initUser =
       {
         email: '',

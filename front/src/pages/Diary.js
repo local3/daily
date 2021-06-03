@@ -5,7 +5,7 @@ import Footer from '../components/Footer'
 import axios from 'axios';
 import { AuthContext } from "../Auth";
 import { useParams } from "react-router-dom";
-
+import axios from 'axios';
 
 function Diary() {
   const initelements = {
@@ -45,6 +45,7 @@ function Diary() {
 
     axios.post(`/`)
   }
+
   return(
     <>
       <form onSubmit={handleSubmit}>
