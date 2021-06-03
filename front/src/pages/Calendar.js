@@ -16,7 +16,7 @@ import "react-dates/lib/css/_datepicker.css";
 
 import "../styles/css/react-dates-custom.css";
 
-function CustomReactDatesDateRangePicker() {
+function Calendar() {
   const dateFormat = "YYYY-MM-DD";
   const [date, setDate] = useState();
   const [focused, setFocused] = useState(true);
@@ -67,4 +67,4 @@ function CustomReactDatesDateRangePicker() {
   );
 }
 
-export default CustomReactDatesDateRangePicker;
+export default Calendar;
