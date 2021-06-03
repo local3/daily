@@ -7,9 +7,15 @@ class Header extends React.Component {
       <div>
         Header
         <div>
-          <Link to='/signup'>会員登録画面へ　/　</Link>
-          
-          <Link to='/login'>ログイン画面へ</Link>
+          <p>
+            <Link to='/'>トップおエージ</Link>
+          </p>
+          <p>
+            <Link to='/login'>ログイン画面へ</Link>
+          </p>
+          <p>
+            <Link to='/signup'>会員登録画面へ</Link>
+          </p>
         </div>
       </div>
     )

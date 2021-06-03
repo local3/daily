@@ -1,20 +1,17 @@
 class SessionsController < ApplicationController
-  def create
-    user = User.find_by(email: params[:session][:email])
-    # logger.debug user.inspect
-    # logger.debug params.inspect
-    # logger.debug session.inspect
 
+  def create
+    user = User.find_by(email: params[:session][:email].downcase)
     # authenticateメソッドは、has_secure_passwordが提供するメソッド。認証ができないとfalseを返す。
     if user && user.authenticate(params[:session][:password])
-      # logger.debug "login before"
       login(user)
+      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
     else
     end
   end
 
   def destroy
-    logout
+    log_out if logged_in?
   end
 
   def current_user
