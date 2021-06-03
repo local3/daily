@@ -27,6 +27,15 @@ const Diary = (props) => {
         //   })
         // }
       })
+    axios.get(`/diaries/user_diaries`)
+      .then(res => {
+        console.log(res)
+        // if(res.data.diary){
+        //   setDiary({
+        //     jaContent: res.data.diary.content
+        //   })
+        // }
+      })
   }
 
   useEffect(() => {

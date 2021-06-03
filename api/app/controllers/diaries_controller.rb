@@ -1,8 +1,7 @@
 class DiariesController < ApplicationController
   def user_diaries
     diaries = @current_user.diaries
-
-    return diaries
+    return render json: {diaries: diaries, state:"success",msg:"Success"}
   end
 
   def create
@@ -19,7 +18,7 @@ class DiariesController < ApplicationController
 
   private
     def diary_params
-      params.require(:diary).permit(:ja_content)
+      params.require(:diary).permit(:ja_content, :date)
     end
 
     def diary_content_params
