@@ -12,6 +12,7 @@ import Login from './pages/Login'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Calendar from './pages/Calendar'
+import Diary from './pages/Diary'
 
 
 // const pages = [
@@ -39,12 +40,14 @@ const Router = () => {
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/calendar" component={Calendar} />
+              <Route exact path={'/diary/:date'} component={Diary} />
             </AuthProvider>
           </Switch>
           <AuthProvider>
             <Footer/>
           </AuthProvider>
         </BrowserRouter>
+
     </>
   )
 }
