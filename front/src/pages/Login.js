@@ -1,93 +1,93 @@
-import React from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom'
+import { AuthContext } from "../Auth";
 
-class Login extends React.Component {
+const Login = () => {
+  const auth = useContext(AuthContext);
+  // console.log("Login Component")
+  // console.log(auth)
 
-  state = {
-    session: {
-      email: '',
-      password: '',
-      rememberMe: false
-    }
-  };
+  const initSession = {
+    email: '',
+    password: '',
+    rememberMe: false
+  }
+  const [session, setSession] = useState(initSession)
 
-  handleChangeEmail = e => {
-		console.log(e);
-    this.setState({
-      session: {
-				...this.state.session,
+  const handleChangeEmail = (e) => {
+    // console.log(e)
+    setSession({
+				...session,
 				email: e.target.value
-			}
     });
+    // console.log (session)
   };
 
-  handleChangePassword = e => {
-    this.setState({
-			session: {
-				...this.state.session,
-				password: e.target.value
-			}
+  const handleChangePassword = (e) => {
+    // console.log(e)
+    setSession({
+      ...session,
+      password: e.target.value
     });
+    // console.log (session)
   };
 
-  handleChangeRemember = e => {
-    console.log(e);
-    this.setState({
-			session: {
-				...this.state.session,
-				rememberMe: e.target.checked
-			}
+  const handleChangeRemember = (e) => {
+    // console.log(e);
+    setSession({
+      ...session,
+      rememberMe: e.target.checked
     });
+    // console.log (session)
   };
 
-  handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
-    const session = this.state.session
-		console.log(session);
+    // const session = this.state.session
+		// console.log(session);
 
-    axios.post(`/login`, { session })
+    axios.post(`/login`, { session: session })
       .then(res => {
-        console.log(res);
-        console.log(res.data);
+        // console.log(res);
+        // console.log(res.data);
+        auth.login(res.data.data)
       })
   };
 
-  render(){
-    return(
-      <div>
-        <h1>ログインページ</h1>
-          <form onSubmit={this.handleSubmit}>
-            <label>メールアドレス：</label>
-            <input type="text"
-              name="email"  
-              onChange={this.handleChangeEmail}
-            />
+  return(
+    <div>
+      <h1>ログインページ</h1>
+        <form onSubmit={handleSubmit}>
+          <label>メールアドレス：</label>
+          <input type="text"
+            name="email"  
+            onChange={handleChangeEmail}
+          />
 
-            <br/>
+          <br/>
 
-            <label>パスワード：</label>
-            <input type="text"
-              name="password"  
-              onChange={this.handleChangePassword}
-            />
+          <label>パスワード：</label>
+          <input type="text"
+            name="password"  
+            onChange={handleChangePassword}
+          />
 
-            <br/>
+          <br/>
 
-            <label>記憶する：</label>
-            <input type="checkbox"
-              name="remember_me"
-              onChange={this.handleChangeRemember}
-            />
+          <label>記憶する：</label>
+          <input type="checkbox"
+            name="remember_me"
+            onChange={handleChangeRemember}
+          />
 
-            <br/>
+          <br/>
 
-						<button type="submit">ログイン</button>
-         </form>
-      </div>
-    )
-  }
+          <button type="submit">ログイン</button>
+        </form>
+    </div>
+  )
 }
 
 export default Login;

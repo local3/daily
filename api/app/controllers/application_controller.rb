@@ -18,11 +18,7 @@ class ApplicationController < ActionController::API
   end
 
   def login(user)
-    # logger.debug "before session"
-    # logger.debug session.inspect
     session[:user_id] = user.id
-    # logger.debug "after session"
-    # logger.debug session.inspect
   end
 
   def remember(user)
@@ -40,14 +36,20 @@ class ApplicationController < ActionController::API
   end
 
   # 現在のユーザーをログアウトする
-  def log_out
-    forget(current_user)
+  def logout
+    # なぜか@current_userに値が入らないので再定義
+    @current_user ||= User.find_by(id: session[:user_id])
+    forget(@current_user)
     session.delete(:user_id)
     @current_user = nil
   end
 
   def logged_in?
-    !current_user.nil?
+    logger.debug("logged_in?")
+    logger.debug(@current_user)
+    # !@current_user.nil?
+    !session[:user_id].nil?
+    # true
   end
 
   private
