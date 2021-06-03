@@ -9,6 +9,7 @@ import About from './pages/About'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
 import Calendar from './pages/Calendar'
+import Diary from './pages/Diary'
 
 
 // const pages = [
@@ -42,6 +43,9 @@ const Router = () => {
         </Route>
         <Route exact path={'/calendar'}>
           <Calendar />
+        </Route>
+        <Route exact path={'/diary/:date'}>
+          <Diary />
         </Route>
       </Switch>
     </BrowserRouter>
