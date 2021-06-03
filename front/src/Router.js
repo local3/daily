@@ -12,6 +12,7 @@ import Login from './pages/Login'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Calendar from './pages/Calendar'
+import Diary from './pages/Diary'
 
 
 // const pages = [
@@ -47,6 +48,9 @@ const Router = () => {
           </Route>
           <Route exact path={'/calendar'}>
             <Calendar />
+          </Route>
+          <Route exact path={'/diary/:date'}>
+            <Diary />
           </Route>
         </Switch>
         <Footer/>
