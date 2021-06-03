@@ -14,12 +14,6 @@ import Footer from './components/Footer'
 import Calendar from './pages/Calendar'
 import Diary from './pages/Diary'
 
-
-// const pages = [
-//   'Home',
-// 	'Help'
-// ];
-
 // pages.forEach(page => import page from `./pages/${page}`)
 
 // ルーティング設定

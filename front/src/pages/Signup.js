@@ -5,9 +5,7 @@ import { AuthContext } from "../Auth";
 
 function Signup() {
   const auth = useContext(AuthContext);
-  // console.log("Signup Component")
-  // console.log(auth)
-
+  
   const initUser =
       {
         email: '',
@@ -25,13 +23,6 @@ function Signup() {
         const languages = res.data;
         setLanguages(languages);
         // console.log(languages)
-      })
-
-    axios.get(`/current_user`)
-      .then(res => {
-        const currentUser = res.data;
-        // this.setState({ currentUser });
-        // console.log(currentUser)
       })
   }
 

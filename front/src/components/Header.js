@@ -9,13 +9,13 @@ const Header = () => {
   const handleClickLogout = () => {
     axios.delete(`/logout`)
       .then(res => {
-        // console.log("logoutしました")
         auth.logout()
       })
   }
   return(
     <div>
       Header
+      {/* ログイン中であれば表示する内容 */}
       { auth.isLoggedIn &&
         <>
           <div>ログイン中：{ auth.currentUser && auth.currentUser.email }</div>
@@ -27,6 +27,7 @@ const Header = () => {
           </a>
         </>
       }
+      {/* ログイン中でなければ表示する内容 */}
       { !auth.isLoggedIn &&
         <>
           <p>
