@@ -1,11 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from "../Auth";
 import axios from "axios"
 
 const Header = () => {
   const auth = useContext(AuthContext);
-  
+
   const handleClickLogout = () => {
     axios.delete(`/logout`)
       .then(res => {
