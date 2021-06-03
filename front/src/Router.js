@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-
+import { AuthProvider } from "./Auth";
 
 // ページファイルインポート
 import Home from './pages/Home'
@@ -27,30 +27,24 @@ import Calendar from './pages/Calendar'
 const Router = () => {
   return (
     <>
-      <BrowserRouter>
-        <Header/>
-        <Switch>
-          <Route exact path={'/'}>
-            <Home />
-          </Route>
-          <Route exact path={'/help'}>
-            <Help />
-          </Route>
-          <Route exact path={'/about'}>
-            <About />
-          </Route>
-          <Route exact path={'/signup'}>
-            <Signup />
-          </Route>
-          <Route exact path={'/login'}>
-            <Login />
-          </Route>
-          <Route exact path={'/calendar'}>
-            <Calendar />
-          </Route>
-        </Switch>
-        <Footer/>
-      </BrowserRouter>
+        <BrowserRouter>
+          <AuthProvider>
+            <Header/>
+          </AuthProvider>
+          <Switch>
+            <AuthProvider>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/help" component={Help} />
+              <Route exact path="/about" component={About} />
+              <Route exact path="/signup" component={Signup} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/calendar" component={Calendar} />
+            </AuthProvider>
+          </Switch>
+          <AuthProvider>
+            <Footer/>
+          </AuthProvider>
+        </BrowserRouter>
     </>
   )
 }

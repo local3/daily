@@ -11,16 +11,11 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    log_out if logged_in?
+    logout if logged_in?
   end
 
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
-    # logger.debug "session current_user"
-    # logger.debug session.inspect
-    # logger.debug @current_user
-    # logger.debug "after current_user"
-    # logger.debug session[:user_id]
     if @current_user
       return render json: {data: @current_user, session: session.inspect, state:"success",msg:"Success"} , status: 200
     else
