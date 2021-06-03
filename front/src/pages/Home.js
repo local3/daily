@@ -6,8 +6,8 @@ function Home() {
 //   const value = useContext(AuthContext);
 //   console.log(value)
   const auth = useContext(AuthContext);
-  console.log("Signup Component")
-  console.log(auth)
+  // console.log("Signup Component")
+  // console.log(auth)
   return(
     <div>
       Home

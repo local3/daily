@@ -5,18 +5,12 @@ import axios from "axios"
 
 const Header = () => {
   const auth = useContext(AuthContext);
-  console.log("Header log")
-  if(auth.isLoggedIn){
-    console.log("login中")
-  }else{
-    console.log("loginしてない")
-  }
-  console.log(auth)
   
   const handleClickLogout = () => {
     axios.delete(`/logout`)
       .then(res => {
-        console.log("logoutしました")
+        // console.log("logoutしました")
+        auth.logout()
       })
   }
   return(
@@ -24,8 +18,7 @@ const Header = () => {
       Header
       { auth.isLoggedIn &&
         <>
-          {console.log("reder login")}
-          <div>ログイン中：{ auth.currentUser.email }</div>
+          <div>ログイン中：{ auth.currentUser && auth.currentUser.email }</div>
           <p>
             <Link to='/'>トップページ</Link>
           </p>
@@ -36,7 +29,6 @@ const Header = () => {
       }
       { !auth.isLoggedIn &&
         <>
-          {console.log("reder not login")}
           <p>
             <Link to='/'>トップページ</Link>
           </p>

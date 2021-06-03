@@ -5,8 +5,8 @@ import { AuthContext } from "../Auth";
 
 function Signup() {
   const auth = useContext(AuthContext);
-  console.log("Signup Component")
-  console.log(auth)
+  // console.log("Signup Component")
+  // console.log(auth)
 
   const initUser =
       {
@@ -24,14 +24,14 @@ function Signup() {
       .then(res => {
         const languages = res.data;
         setLanguages(languages);
-        console.log(languages)
+        // console.log(languages)
       })
 
     axios.get(`/current_user`)
       .then(res => {
         const currentUser = res.data;
         // this.setState({ currentUser });
-        console.log(currentUser)
+        // console.log(currentUser)
       })
   }
 
@@ -78,12 +78,12 @@ function Signup() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-		console.log(user);
+		// console.log(user);
 
     axios.post(`/users`, {user: user})
       .then(res => {
-        console.log(res);
-        console.log(res.data);
+        // console.log(res);
+        // console.log(res.data);
       })
   }
 

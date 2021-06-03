@@ -1,23 +1,35 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useHistory } from 'react-router';
 
 const initialContext = {
   currentUser: null,
-  isLoggedIn: false
+  isLoggedIn: false,
 }
 const AuthContext = React.createContext(initialContext);
 
 const AuthProvider = (props) => {
-  console.log(props)
-  console.log(props.children)
+  const history = useHistory();
+  
+  const login = (loggedInUser) => {
+    setCurrentUser(loggedInUser)
+    // console.log(loggedInUser)
+    loggedInUser ? setIsLoggedIn(true) : setIsLoggedIn(false)
+    history.push('/')
+  }
+
+  const logout = () => {
+    setCurrentUser(null)
+    setIsLoggedIn(false)
+    history.push('/login')
+  }
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [currentUser, setCurrentUser] = useState({})
+
   const fetchCurrentUser = () => {
     axios.get(`/current_user`)
       .then(res => {
-        console.log("current USer")
-        // console.log(res)
-        // const currentUser = res.data;
+        // console.log(res.data)
         setCurrentUser(res.data.data)
         res.data.data === null ? setIsLoggedIn(false) : setIsLoggedIn(true)
       })
@@ -26,14 +38,12 @@ const AuthProvider = (props) => {
   useEffect(() => {
     fetchCurrentUser()
   }, []);
-  const value = {currentUser, isLoggedIn}
+  const value = {currentUser, isLoggedIn, login, logout}
   return (
     <AuthContext.Provider
       value={value}
     >
-      {/* <div> */}
-        { props.children }
-      {/* </div> */}
+      { props.children }
     </AuthContext.Provider>
   );
 }
