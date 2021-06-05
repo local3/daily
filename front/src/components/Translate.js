@@ -22,6 +22,7 @@ function Translate (props) {
     axios.get(`https://translation.googleapis.com/language/translate/v2`, { params: params }).then(res => {
       // https://qiita.com/mfykmn/items/4a3afbad46b04f92da29
       // HTML文字列の特殊文字をデコードする
+      // 文字列の変更があるごとに翻訳していては、翻訳の無料枠を超えてしまう可能性があるためボタンで翻訳
       const parser = new DOMParser();
       const doc = parser.parseFromString(res.data["data"]["translations"][0]["translatedText"], "text/html");
       setTranslatedText(doc.body.innerText)
