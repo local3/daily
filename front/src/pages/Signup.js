@@ -1,9 +1,11 @@
 import React, {useState, useEffect, useContext} from 'react'
 import axios from 'axios';
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { AuthContext } from "../Auth";
 
 function Signup() {
+  // URL遷移用
+  const history = useHistory();
   const auth = useContext(AuthContext);
   
   const initUser =
@@ -73,6 +75,7 @@ function Signup() {
 
     axios.post(`/users`, {user: user})
       .then(res => {
+        history.push('/')
         // console.log(res);
         // console.log(res.data);
       })

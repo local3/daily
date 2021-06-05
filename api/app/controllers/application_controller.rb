@@ -38,7 +38,7 @@ class ApplicationController < ActionController::API
   # 現在のユーザーをログアウトする
   def logout
     # なぜか@current_userに値が入らないので再定義
-    @current_user ||= User.find_by(id: session[:user_id])
+    # @current_user ||= User.find_by(id: session[:user_id])
     forget(@current_user)
     session.delete(:user_id)
     @current_user = nil
