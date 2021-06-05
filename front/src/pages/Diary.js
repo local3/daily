@@ -6,44 +6,74 @@ import { AuthContext } from "../Auth";
 import { useParams } from "react-router-dom";
 
 function Diary() {
+  console.log('diary');
+  const auth = useContext(AuthContext);
   const {date} = useParams();
-  const initElements = {
+  const initformContent = {
     diary: {
       jaContent: "",
       date: date
     },
     diaryContent: {
-      languageId: 1,
+      languageId: auth.currentUser.language_id,
       content: ""
     }
   }
-  // console.log(process.env.REACT_APP_GCP_TRANSLATE_API_KEY);
-
   const [elements, setElement] = useState(initElements);
   const [languages, setLanguages] = useState([]);
+  const [isEdit, setIsEdit] = useState(false);
+  const [formContent, setFormContent] = useState(initformContent);
 
   const componentDidMount = () => {
+    console.log('userEffect')
     axios.get(`/languages`)
       .then(res => {
         const languages = res.data;
         setLanguages(languages);
-        // console.log(languages)
       })
-    axios.get(`/diaries/user_diaries`)
+    axios.get(`/diaries/${formContent.diary.date}`)
       .then(res => {
-        console.log(res)
-        // if(res.data.diary){
-        //   setDiary({
-        //     jaContent: res.data.diary.content
-        //   })
-        // }
+        const existDiary = res.data.diary;
+        console.log(existDiary)
+        if(existDiary){
+          setIsEdit(true);
+          setExistDiary(existDiary);
+          console.log(formContent)
+        }
       })
   }
 
   useEffect(componentDidMount, [])
 
+  const getDiaryContent = (diary) => {
+    console.log(formContent.diaryContent)
+    return diary.diary_contents[0]
+    // return diary.diary_contents.find(d => d.language_id === formContent.diaryContent.languageId)
+  }
+
+  const setExistDiary = (existDiary) => {
+    console.log(existDiary)
+    console.log(formContent)
+    const existDiaryContent = getDiaryContent(existDiary)
+    console.log(existDiaryContent)
+    setFormContent(
+      {
+        diary: {
+          ...formContent.diary,
+          jaContent: existDiary.ja_content
+        },
+        diaryContent: {
+          ...formContent.diaryContent,
+          languageId: existDiaryContent.language_id,
+          content: existDiaryContent.content
+        }
+      }
+      );
+    console.log(formContent)
+  };
+
   const handleChangeLanguage = (e) => {
-    setElement(
+    setFormContent(
       {
         diary: {
           ...elements.diary,
@@ -95,6 +125,8 @@ function Diary() {
 
   return(
     <>
+      {console.log(auth.currentUser)}
+      {console.log(formContent)}
       <form onSubmit={handleSubmit}>
         <label>日本語日記</label>
         <textarea onChange={handleChangeJapaneseDiary}></textarea>
@@ -105,7 +137,7 @@ function Diary() {
         <label>言語選択：</label>
         <select onChange={handleChangeLanguage}>
           {languages.map(language => 
-            <option key={language.id} value={language.id}>
+            <option key={language.id} value={language.id} selected={auth.currentUser.language_id === language.id ? true : false}>
               {language.name}
             </option>)
           }

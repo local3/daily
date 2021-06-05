@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/diaries/user_diaries', to: 'diaries#user_diaries'
   get '/diaries/:date', to: 'diaries#show'
   get '/current_user', to: 'sessions#current_user'
+  patch '/diaries/:date', to: 'diaries#update'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
 
