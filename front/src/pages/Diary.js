@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext} from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import Translate from '../components/Translate'
 import axios from 'axios';
 import { AuthContext } from "../Auth";
 import { useParams } from "react-router-dom";
@@ -154,6 +155,10 @@ function Diary() {
         <br/>
         <button type="submit">でけた！</button>
       </form>
+
+      <div>
+          <Translate jaContent={formContent.diary.jaContent} />
+      </div>
     </>
   )
 }
