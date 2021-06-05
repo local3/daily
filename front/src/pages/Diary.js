@@ -5,19 +5,21 @@ import Footer from '../components/Footer'
 import axios from 'axios';
 import { AuthContext } from "../Auth";
 import { useParams } from "react-router-dom";
-import axios from 'axios';
 
 function Diary() {
-  const initelements = {
+  const {date} = useParams();
+  const initElements = {
     diary: {
-      jaContent: ""
+      jaContent: "",
+      date: date
     },
     diaryContent: {
       languageId: 1,
       content: ""
     }
   }
-  const [elements, setElement] = useState(initelements);
+
+  const [elements, setElement] = useState(initElements);
   const [languages, setLanguages] = useState([]);
 
   const componentDidMount = () => {
@@ -34,22 +36,64 @@ function Diary() {
   const handleChangeLanguage = (e) => {
     setElement(
       {
-        ...elements.diaryContent,
-        languageId: e.target.value
+        diary: {
+          ...elements.diary,
+        },
+        diaryContent: {
+          ...elements.diaryContent,
+          languageId: e.target.value
+        }
       }
     );
   };
 
+  const handleChangeJapaneseDiary = (e) => {
+    setElement(
+      {
+        diary: {
+          ...elements.diary,
+          jaContent: e.target.value
+        },
+        diaryContent: {
+          ...elements.diaryContent
+        }
+      }
+    );
+  };
+
+  const handleChangeDiaryContent = (e) => {
+    setElement(
+      {
+        diary: {
+          ...elements.diary
+        },
+        diaryContent: {
+          ...elements.diaryContent,
+          content: e.target.value
+        }
+      }
+    )
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post(`/`)
+    axios.post(`/diaries`, elements)
+      .then(res => {
+        console.log(res)
+      })
   }
 
   return(
     <>
       <form onSubmit={handleSubmit}>
-      <label>言語選択：</label>
+        <label>日本語日記</label>
+        <textarea onChange={handleChangeJapaneseDiary}></textarea>
+        <br/>
+        <label>外国語日記</label>
+        <textarea onChange={handleChangeDiaryContent}></textarea>
+        <br/>
+        <label>言語選択：</label>
         <select onChange={handleChangeLanguage}>
           {languages.map(language => 
             <option key={language.id} value={language.id}>
@@ -57,6 +101,8 @@ function Diary() {
             </option>)
           }
         </select>
+        <br/>
+        <button type="submit">でけた！</button>
       </form>
     </>
   )
