@@ -5,8 +5,17 @@ class DiariesController < ApplicationController
   end
 
   def create
+    # date_param = params[:diary][:date].split('-').map(&: to_i)
+    # date = Date.new(date_param[0], date_param[1], date_param[2])
+    # logger.debug date
+    logger.debug diary_params
+    logger.debug diary_content_params
+    logger.debug Diary.column_names
     diary = @current_user.diaries.build(diary_params)
+    diary.save
     diary_content = diary.diary_contents.build(diary_content_params)
+    diary_content.save
+    return render json: {diary: diary, diary_content: diary_content ,state:"success",msg:"Success"}
   end
 
   def show
@@ -20,7 +29,7 @@ class DiariesController < ApplicationController
     def diary_params
       params.require(:diary).permit(:ja_content, :date)
     end
-
+    
     def diary_content_params
       params.require(:diary_content).permit(:language_id, :content)
     end
