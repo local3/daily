@@ -21,9 +21,19 @@ class DiariesController < ApplicationController
 
   def show
     logger.debug params
-    diary = Diary.find_by(user_id: @current_user.id, date: params[:date])
+    diary = Diary.find_by(user_id: @current_user.id, date: params[:date]).as_json(include: :diary_contents)
     return render json: {diary: diary, state:"success",msg:"Success"}
-    
+  end
+
+  def update
+    logger.debug params
+    diary = Diary.find_by(user_id: @current_user.id, date: params[:date])
+    diary_content = diary.diary_contents
+    logger.debug(diary)
+    logger.debug(diary_content)
+    diary.update(diary_params)
+    diary_content.update(diary_content_params)
+    return render json: {diary: diary, diary_content: diary_content, state:"success",msg:"Success"}
   end
 
   private
