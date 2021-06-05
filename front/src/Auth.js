@@ -18,8 +18,9 @@ const AuthProvider = (props) => {
   // 他コンポーネントからauth.loginやauth.logoutの形で呼び出せる。
   // 呼び出すと、Contextで管理されているログイン情報が更新される
   const login = (loggedInUser) => {
+    // setCurrentUser(null)
     setCurrentUser(loggedInUser)
-    loggedInUser ? setIsLoggedIn(true) : setIsLoggedIn(false)
+    setIsLoggedIn(true)
     history.push('/')
   }
 
