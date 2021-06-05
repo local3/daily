@@ -1,9 +1,12 @@
 import React, {useState, useEffect, useContext} from 'react'
 import { Link } from 'react-router-dom'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
 import Translate from '../components/Translate'
 import axios from 'axios';
 import { AuthContext } from "../Auth";
 import { useParams } from "react-router-dom";
+
 
 function Diary() {
   console.log('diary');
@@ -19,7 +22,6 @@ function Diary() {
       content: ""
     }
   }
-  const [elements, setElement] = useState(initElements);
   const [languages, setLanguages] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [formContent, setFormContent] = useState(initformContent);
@@ -30,6 +32,7 @@ function Diary() {
       .then(res => {
         const languages = res.data;
         setLanguages(languages);
+        // console.log(languages)
       })
     axios.get(`/diaries/${formContent.diary.date}`)
       .then(res => {
@@ -76,10 +79,10 @@ function Diary() {
     setFormContent(
       {
         diary: {
-          ...elements.diary,
+          ...formContent.diary,
         },
         diaryContent: {
-          ...elements.diaryContent,
+          ...formContent.diaryContent,
           languageId: e.target.value
         }
       }
@@ -87,27 +90,27 @@ function Diary() {
   };
 
   const handleChangeJapaneseDiary = (e) => {
-    setElement(
+    setFormContent(
       {
         diary: {
-          ...elements.diary,
+          ...formContent.diary,
           jaContent: e.target.value
         },
         diaryContent: {
-          ...elements.diaryContent
+          ...formContent.diaryContent
         }
       }
     );
   };
 
   const handleChangeDiaryContent = (e) => {
-    setElement(
+    setFormContent(
       {
         diary: {
-          ...elements.diary
+          ...formContent.diary
         },
         diaryContent: {
-          ...elements.diaryContent,
+          ...formContent.diaryContent,
           content: e.target.value
         }
       }
@@ -116,11 +119,18 @@ function Diary() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    axios.post(`/diaries`, elements)
-      .then(res => {
-        console.log(res)
-      })
+    
+    if(isEdit){
+      axios.patch(`/diaries/${formContent.diary.date}`, formContent)
+        .then(res =>{
+          console.log(res)
+        })
+    }else{
+      axios.post(`/diaries`, formContent)
+        .then(res => {
+          console.log(res)
+        })
+    }
   }
 
   return(
@@ -129,10 +139,10 @@ function Diary() {
       {console.log(formContent)}
       <form onSubmit={handleSubmit}>
         <label>日本語日記</label>
-        <textarea onChange={handleChangeJapaneseDiary}></textarea>
+        <textarea onChange={handleChangeJapaneseDiary} value={formContent.diary.jaContent}></textarea>
         <br/>
         <label>外国語日記</label>
-        <textarea onChange={handleChangeDiaryContent}></textarea>
+        <textarea onChange={handleChangeDiaryContent} value={formContent.diaryContent.content}></textarea>
         <br/>
         <label>言語選択：</label>
         <select onChange={handleChangeLanguage}>
@@ -145,7 +155,10 @@ function Diary() {
         <br/>
         <button type="submit">でけた！</button>
       </form>
-      <Translate jaContent={elements.diary.jaContent} />
+
+      <div>
+          <Translate jaContent={formContent.diary.jaContent} />
+      </div>
     </>
   )
 }

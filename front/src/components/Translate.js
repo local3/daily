@@ -10,7 +10,7 @@ function Translate (props) {
     const text = props.jaContent
     const fromLang = 'ja'
     const toLang = 'en'
-  
+    console.log(text)
     // 翻訳
     const params = {
       key: process.env.REACT_APP_GCP_TRANSLATE_API_KEY,
