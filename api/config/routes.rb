@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :users, only: [:create, :update]
   resources :diaries, only: [:create]
 
-  get '/user_diaries', to: 'diaries#user_diaries'
+  get '/diaries/user_diaries', to: 'diaries#user_diaries'
   get '/diaries/:date', to: 'diaries#show'
   get '/current_user', to: 'sessions#current_user'
   post   '/login',   to: 'sessions#create'

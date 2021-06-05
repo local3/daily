@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       login(user)
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      @current_user ||= User.find_by(id: session[:user_id])
+      # @current_user ||= User.find_by(id: session[:user_id])
       return render json: {data: @current_user, session: session.inspect, state:"success",msg:"Success"} , status: 200
     else
       return render json: {data: nil, session: session.inspect, state:"success",msg:"Success"} , status: 200
