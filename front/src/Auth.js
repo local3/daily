@@ -17,17 +17,32 @@ const AuthProvider = (props) => {
   
   // 他コンポーネントからauth.loginやauth.logoutの形で呼び出せる。
   // 呼び出すと、Contextで管理されているログイン情報が更新される
-  const login = (loggedInUser) => {
+  const login = (session) => {
     // setCurrentUser(null)
-    setCurrentUser(loggedInUser)
-    setIsLoggedIn(true)
-    history.push('/')
+    axios.post(`/login`, { session: session })
+      .then(res => {
+        setCurrentUser(res.data.data)
+        setIsLoggedIn(true)
+        history.push('/')
+      })
   }
 
   const logout = () => {
-    setCurrentUser(null)
-    setIsLoggedIn(false)
-    history.push('/login')
+    axios.delete(`/logout`)
+      .then(res => {
+        setCurrentUser(null)
+        setIsLoggedIn(false)
+        history.push('/login')
+      })
+  }
+
+  const signup = (user) => {
+    axios.post(`/users`, { user: user })
+      .then(res => {
+        setCurrentUser(res.data.data)
+        setIsLoggedIn(true)
+        history.push('/')
+      })
   }
 
   // state定義
@@ -49,7 +64,7 @@ const AuthProvider = (props) => {
   }, []);
 
   // 各コンポーネントに最終的に送る内容
-  const value = {currentUser, isLoggedIn, login, logout}
+  const value = {currentUser, isLoggedIn, login, logout, signup}
 
   return (
     // .Providerで値を送り、各コンポーネントでuseContext(AuthContext)で情報を受け取る

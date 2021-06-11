@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-import logo from '../styles/images/logo.svg';
+import React from 'react';
 import Router from '../Router'
 import '../styles/css/App.css';
 

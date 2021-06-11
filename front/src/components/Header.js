@@ -1,16 +1,12 @@
-import React, { useContext, useMemo } from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from "../Auth";
-import axios from "axios"
 
 const Header = () => {
   const auth = useContext(AuthContext);
 
   const handleClickLogout = () => {
-    axios.delete(`/logout`)
-      .then(res => {
-        auth.logout()
-      })
+    auth.logout()
   }
   return(
     <div>
@@ -25,6 +21,9 @@ const Header = () => {
           <a href='#' onClick={handleClickLogout}>
             ログアウト
           </a>
+          <p>
+            <Link to='/calendar'>カレンダーへ</Link>
+          </p>
         </>
       }
       {/* ログイン中でなければ表示する内容 */}

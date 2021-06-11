@@ -1,12 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react'
-import axios from 'axios';
-import { Link } from 'react-router-dom'
+import React, { useState, useContext } from 'react'
 import { AuthContext } from "../Auth";
 
 const Login = () => {
   const auth = useContext(AuthContext);
-  // console.log("Login Component")
-  // console.log(auth)
 
   const initSession = {
     email: '',
@@ -16,44 +12,29 @@ const Login = () => {
   const [session, setSession] = useState(initSession)
 
   const handleChangeEmail = (e) => {
-    // console.log(e)
     setSession({
 				...session,
 				email: e.target.value
     });
-    // console.log (session)
   };
 
   const handleChangePassword = (e) => {
-    // console.log(e)
     setSession({
       ...session,
       password: e.target.value
     });
-    // console.log (session)
   };
 
   const handleChangeRemember = (e) => {
-    // console.log(e);
     setSession({
       ...session,
       rememberMe: e.target.checked
     });
-    // console.log (session)
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    // const session = this.state.session
-		// console.log(session);
-
-    axios.post(`/login`, { session: session })
-      .then(res => {
-        // console.log(res);
-        // console.log(res.data);
-        auth.login(res.data.data)
-      })
+    auth.login(session)
   };
 
   return(
