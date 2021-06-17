@@ -2,9 +2,11 @@ Rails.application.routes.draw do
   # root 'static_pages/home'
   root to: 'static_pages#home'
 
-  resources :users, only: [:create, :update]
+  resources :users, only: [:create]
   resources :diaries, only: [:create]
+  resources :password_resets, only: [:new, :edit]
 
+  patch '/users/update', to: 'users#update'
   get '/diaries/user_diaries', to: 'diaries#user_diaries'
   get '/diaries/:date', to: 'diaries#show'
   get '/current_user', to: 'sessions#current_user'

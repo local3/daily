@@ -11,6 +11,24 @@ class UsersController < ApplicationController
   end
 
   def update
+    if params[:session]
+      user = User.find_by(email: params[:session][:email].downcase)
+      logger.debug(user.inspect)
+    else
+      return "本人確認が入力されていません"
+    end
+    
+    if user && user.authenticate(params[:session][:password])
+      logger.debug(user.inspect)
+      user.update!(user_params)
+      if user == @current_user
+        "変更できました"
+      else
+        "user存在しません、またはログインユーザーと一致しませんでした"
+      end
+    else
+      "user存在しません、またはログインユーザーと一致しませんでした"
+    end
   end
 
   private

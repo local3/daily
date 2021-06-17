@@ -87,7 +87,8 @@ function Signup() {
       <form onSubmit={handleSubmit}>
         <label>メールアドレス：</label>
         <input type="text"
-          name="email"  
+          name="email"
+          value={user.email}
           onChange={handleChangeEmail}
         />
 

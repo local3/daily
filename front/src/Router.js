@@ -13,6 +13,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import Calendar from './pages/Calendar'
 import Diary from './pages/Diary'
+import UserEdit from './pages/UserEdit'
 
 // pages.forEach(page => import page from `./pages/${page}`)
 
@@ -35,6 +36,7 @@ const Router = () => {
               <Route exact path="/login" component={Login} />
               <Route exact path="/calendar" component={Calendar} />
               <Route exact path={'/diary/:date'} component={Diary} />
+              <Route exact path={'/edit'} component={UserEdit} />
             </AuthProvider>
           </Switch>
           <AuthProvider>
