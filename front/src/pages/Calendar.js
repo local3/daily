@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import axios from "axios";
 
 import { SingleDatePicker } from "react-dates";
 import moment from "moment";
@@ -20,7 +17,7 @@ function Calendar() {
   const dateFormat = "YYYY-MM-DD";
   const [date, setDate] = useState();
   const [focused, setFocused] = useState(true);
-  console.log(date)
+  // console.log(date)
   // const [existDates, setExistDates] = useState(["火曜日,　2021年6月8日"]);
   // const addSelectClassName = () => {
     // axios.get('/user_diary')

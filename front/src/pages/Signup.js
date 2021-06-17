@@ -1,13 +1,9 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios';
-import { useHistory } from 'react-router-dom'
 import { AuthContext } from "../Auth";
 
 function Signup() {
-  // URL遷移用
-  const history = useHistory();
-  const auth = useContext(AuthContext);
-  
+  const auth = useContext(AuthContext);  
   const initUser =
       {
         email: '',
@@ -70,15 +66,7 @@ function Signup() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-		// console.log(user);
-
-    axios.post(`/users`, {user: user})
-      .then(res => {
-        history.push('/')
-        // console.log(res);
-        // console.log(res.data);
-      })
+    auth.Signup(user)
   }
 
   return(

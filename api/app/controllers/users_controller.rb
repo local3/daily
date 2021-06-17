@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     else
         logger.debug "not save"
     end
-    render json: user.inspect
+    return render json: {data: user, state:"success",msg:"Success"} , status: 200
   end
 
   def update
