@@ -2,12 +2,13 @@ import React, { useState } from 'react'
 import axios from 'axios';
 
 function Translate (props) {
+  console.log(props)
   const [translatedText, setTranslatedText] = useState('')
   const handleTranslateClick = () => {
     const text = props.jaContent
     const fromLang = 'ja'
     // console.log(props)
-    const toLang = props.languages.find(language => language.id === Number(props.languageId)).code
+    const toLang = props.language.code
     // console.log(text)
     // 翻訳
     const params = {
