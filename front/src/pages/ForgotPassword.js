@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import axios from 'axios';
-import { AuthContext } from "../Auth";
 
-function ForgotPassword() {
+const ForgotPassword = () => {
   const [email, setEmail] = useState();
 
   const handleChangeEmail = (e) => {
@@ -13,11 +12,7 @@ function ForgotPassword() {
   }
 
   const handleSubmit = (e) => {
-    axios.get(`/password_resets/edit`, email)
-      .then(res => {
-        // console.log(res);
-        // console.log(res.data);
-      })
+ 
   }
 
   return(

@@ -1,9 +1,9 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useState, useEffect, useContext, useReducer} from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import axios from 'axios';
-import { AuthContext } from "../Auth";
+import { AuthContext } from "../store/Auth";
 
 function UserEdit() {
   const auth = useContext(AuthContext);
@@ -24,7 +24,7 @@ function UserEdit() {
   const [user, setUser] = useState(initUser);
   const [session, setSession] = useState(initSession);
   const [languages, setLanguages] = useState([]);
-
+  
   const componentDidMount = () => {
     axios.get(`/languages`)
       .then(res => {
@@ -40,6 +40,8 @@ function UserEdit() {
       languageId: auth.currentUser.language_id
     })
   }
+
+  
 
   useEffect(componentDidMount, [])
   useEffect(initUserData, [auth])
@@ -110,7 +112,7 @@ function UserEdit() {
     const userParams = columnNames.reduce(reducer, {})
     console.log(userParams)
     axios.patch(`/users/update`, {
-      session: session, 
+      session: session,
       user: userParams
     })
       .then(res => {
