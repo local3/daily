@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 import axios from 'axios';
 import { useHistory } from 'react-router-dom'
-import { AuthContext } from "../Auth";
+import { AuthContext } from "../store/Auth";
 
 function Signup() {
   // URL遷移用

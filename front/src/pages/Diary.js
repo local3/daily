@@ -4,11 +4,11 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Translate from '../components/Translate'
 import axios from 'axios';
-import { AuthContext } from "../Auth";
+import { AuthContext } from "../store/Auth";
 import { useParams } from "react-router-dom";
 
 
-function Diary() {
+const Diary = () => {
   console.log('diary');
   const auth = useContext(AuthContext);
   const {date} = useParams();

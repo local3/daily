@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
-import { AuthContext } from "../Auth";
+import { AuthContext } from "../store/Auth";
 import { useParams } from "react-router-dom";
 
 function Translate (props) {
