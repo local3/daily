@@ -1,7 +1,7 @@
 import React,{ useEffect, useReducer } from 'react'
 import { useHistory } from 'react-router';
 
-const initialState = { msg: null ,status: 200}
+const initialState = { msg: null, status: 200 }
 export const ErrorContext = React.createContext(initialState)
 const errorReducer = (state, action) => {
 		switch(action.status){
@@ -11,7 +11,6 @@ const errorReducer = (state, action) => {
 				return { initialState }
 		}
 }
-
 const ErrorProvider = (props) => {
 	const history = useHistory()
 	const [errorState, dispatch] = useReducer(errorReducer, initialState)

@@ -32,21 +32,20 @@ const Router = () => {
             <Header/>
             <ErrorMsg/>
             <Switch>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/help" component={Help} />
-                <Route exact path="/about" component={About} />
-                <Route exact path="/signup" component={Signup} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/calendar" component={Calendar} />
-                <Route exact path={'/diary/:date'} component={Diary} />
-                <Route exact path={'/edit'} component={UserEdit} />
-                <Route exact path={'/password_reset'} component={ForgotPassword} />
+              <Route exact path="/" component={Home} />
+              <Route exact path="/help" component={Help} />
+              <Route exact path="/about" component={About} />
+              <Route exact path="/signup" component={Signup} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/calendar" component={Calendar} />
+              <Route exact path={'/diary/:date'} component={Diary} />
+              <Route exact path={'/edit'} component={UserEdit} />
+              <Route exact path={'/password_reset'} component={ForgotPassword} />
             </Switch>
             <Footer/>
           </AuthProvider>
         </ErrorProvider>
       </BrowserRouter>
-
     </>
   )
 }

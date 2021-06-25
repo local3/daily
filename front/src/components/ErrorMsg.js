@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, { useContext } from 'react'
 import { ErrorContext } from '../store/ErrorProvider'
 
 const ErrorMsg = () => {
@@ -9,4 +9,4 @@ const ErrorMsg = () => {
 		</div>
 	)
 }
-export default ErrorMsg;
+export default ErrorMsg
