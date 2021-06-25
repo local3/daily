@@ -1,7 +1,15 @@
 class DiariesController < ApplicationController
-  def user_diaries
+  require "date"
+  require_relative "../utils/date.rb"
+  require_relative "../utils/string.rb"
+
+  def exist_dates
     diaries = @current_user.diaries
-    return render json: {diaries: diaries, state:"success",msg:"Success"}
+    exist_dates = diaries.pluck(:date).map do |exist_date|
+      parsed_date = Date.parse(exist_date.to_s)
+      parsed_date.strftime("#{getJaDay(parsed_date)}曜日, %Y年#{removeHeadZero(parsed_date.mon)}月#{removeHeadZero(parsed_date.mday)}日")
+    end
+    return render json: {exist_dates: exist_dates, state:"success", msg:"Success"}
   end
 
   def create
