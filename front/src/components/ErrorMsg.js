@@ -5,7 +5,7 @@ const ErrorMsg = () => {
 	const { errorState } = useContext(ErrorContext)
 	return(
 		<>
-    	{errorState}
+    	{errorState.msg}
 		</>
 	)
 }

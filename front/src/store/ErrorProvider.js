@@ -1,23 +1,16 @@
 import React,{ useReducer } from 'react'
 
-const initialState = { errMsg: null }
+const initialState = { msg: null, status: 200 }
 export const ErrorContext = React.createContext(initialState)
 const errorReducer = (state, action) => {
-		switch(action){
+		switch(action.status){
 			case(422):
-				return { ...state, msg: action.msg }
+				return { ...state, msg: "エラーが発生しました", className: 'warning' }
 		}
 }
-
 const ErrorProvider = (props) => {
 	const [errorState, dispatch] = useReducer(errorReducer, initialState)
 	const value = {errorState, dispatch}
-	// console.log(errorState)
-	// console.log(dispatch)
-	// console.log(props)
-	// console.log(children)
-	// console.log(props.children)
-	// console.log(typeof(props.children))
 	return(
 		<ErrorContext.Provider
 			value={value}
