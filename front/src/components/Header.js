@@ -5,7 +5,6 @@ import { AuthContext } from "../store/Auth";
 const Header = () => {
   // console.log("header")
   const auth = useContext(AuthContext);
-  // console.log(auth)
 
   const handleClickLogout = () => {
     auth.logout()
