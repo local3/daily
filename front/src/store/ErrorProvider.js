@@ -12,8 +12,8 @@ const errorReducer = (state, action) => {
 const ErrorProvider = (props) => {
 	const [errorState, dispatch] = useReducer(errorReducer, initialState)
 	const value = {errorState, dispatch}
-	// console.log(errorState)
-	// console.log(dispatch)
+	console.log(errorState)
+	console.log(dispatch)
 	// console.log(props)
 	// console.log(children)
 	// console.log(props.children)
