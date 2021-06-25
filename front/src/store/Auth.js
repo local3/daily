@@ -12,7 +12,6 @@ const AuthContext = React.createContext(initialContext);
 
 // Router.jsで使う。propsにRouter.jsでラップしたコンポーネントたちが入る。
 const AuthProvider = (props) => {
-  // console.log("auth")
   // URL遷移用
   const history = useHistory();
   // state定義

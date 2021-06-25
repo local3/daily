@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { AuthContext } from "../store/Auth";
 
 const Login = () => {

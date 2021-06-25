@@ -1,12 +1,12 @@
-import React, {useContext} from 'react'
+import React, { useContext } from 'react'
 import { ErrorContext } from '../store/ErrorProvider'
 
 const ErrorMsg = () => {
 	const { errorState } = useContext(ErrorContext)
 	return(
 		<>
-    	{errorState}
+    	{errorState.msg}
 		</>
 	)
 }
-export default ErrorMsg;
+export default ErrorMsg
