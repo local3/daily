@@ -71,7 +71,7 @@ const AuthProvider = (props) => {
   // レンダリング後にユーザーの取得を行う
   useEffect(() => {
     fetchCurrentUser()
-  }, []);
+  }, [isLoggedIn]);
 
   // 各コンポーネントに最終的に送る内容
   const value = {currentUser, isLoggedIn, login, logout, signup}
