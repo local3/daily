@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { ErrorContext } from '../store/ErrorProvider'
 import axios from 'axios'
 import { useHistory } from 'react-router';
 
@@ -17,6 +18,7 @@ const AuthProvider = (props) => {
   // state定義
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [currentUser, setCurrentUser] = useState({})
+  const error = useContext(ErrorContext)
 
   // 他コンポーネントからauth.loginやauth.logoutの形で呼び出せる。
   // 呼び出すと、Contextで管理されているログイン情報が更新される
@@ -49,6 +51,11 @@ const AuthProvider = (props) => {
         setCurrentUser(res.data.data)
         setIsLoggedIn(true)
         history.push('/')
+      })
+
+      .catch(err => {
+        console.log(err.message)
+        error.dispatch({msg: err.response.statusText, status: err.response.status})
       })
   }
 
