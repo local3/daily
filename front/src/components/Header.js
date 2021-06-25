@@ -1,6 +1,11 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
+<<<<<<< HEAD
 import { AuthContext } from "../Auth";
+=======
+import { AuthContext } from "../store/Auth";
+import axios from "axios"
+>>>>>>> 4e397311fdecea35f2dcdf7529f70aa74f2ece11
 
 const Header = () => {
   // console.log("header")

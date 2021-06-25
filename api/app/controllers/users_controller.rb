@@ -17,7 +17,10 @@ class UsersController < ApplicationController
     else
       return "本人確認が入力されていません"
     end
-    
+
+    return "有効な値ではありません" if params[:session][:language_id]
+
+
     if user && user.authenticate(params[:session][:password])
       logger.debug(user.inspect)
       user.update!(user_params)

@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react'
-import { AuthContext } from "../Auth";
+import React, { useState, useEffect, useContext } from 'react'
+import { AuthContext } from "../store/Auth";
 
 const Login = () => {
   const auth = useContext(AuthContext);

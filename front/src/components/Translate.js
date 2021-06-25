@@ -1,5 +1,10 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+<<<<<<< HEAD
+=======
+import { AuthContext } from "../store/Auth";
+import { useParams } from "react-router-dom";
+>>>>>>> 4e397311fdecea35f2dcdf7529f70aa74f2ece11
 
 function Translate (props) {
   console.log(props)
