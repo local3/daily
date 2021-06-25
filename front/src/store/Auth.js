@@ -15,6 +15,7 @@ const AuthProvider = (props) => {
   // console.log("auth")
   // URL遷移用
   const history = useHistory();
+  // console.log(history)
   // state定義
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [currentUser, setCurrentUser] = useState({})
