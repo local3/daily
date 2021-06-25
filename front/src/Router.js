@@ -26,14 +26,12 @@ import ForgotPassword from './pages/ForgotPassword'
 const Router = () => {
   return (
     <>
-        <BrowserRouter>
-          <ErrorProvider>
-            <AuthProvider>
-              <Header/>
-              <ErrorMsg/>
-            </AuthProvider>
+      <BrowserRouter>
+        <ErrorProvider>
+          <AuthProvider>
+            <Header/>
+            <ErrorMsg/>
             <Switch>
-              <AuthProvider>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/help" component={Help} />
                 <Route exact path="/about" component={About} />
@@ -43,13 +41,11 @@ const Router = () => {
                 <Route exact path={'/diary/:date'} component={Diary} />
                 <Route exact path={'/edit'} component={UserEdit} />
                 <Route exact path={'/password_reset'} component={ForgotPassword} />
-              </AuthProvider>
             </Switch>
-            <AuthProvider>
-              <Footer/>
-            </AuthProvider>
-          </ErrorProvider>
-        </BrowserRouter>
+            <Footer/>
+          </AuthProvider>
+        </ErrorProvider>
+      </BrowserRouter>
 
     </>
   )
