@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :password_resets, only: [:new, :edit]
 
   patch '/users/update', to: 'users#update'
-  get '/diaries/user_diaries', to: 'diaries#user_diaries'
+  get '/diaries/exist_dates', to: 'diaries#exist_dates'
   get '/diaries/:date', to: 'diaries#show'
   get '/current_user', to: 'sessions#current_user'
   patch '/diaries/:date', to: 'diaries#update'

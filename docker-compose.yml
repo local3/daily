@@ -26,6 +26,7 @@ services:
     cpu_quota: 20000
     volumes:
       - ./front:/app
+      - node_module_volumes:/app/node_modules
     ports:
       - '8080:3000'
     tty: true
@@ -35,3 +36,4 @@ services:
 volumes:
   mysql_data:
   bundle:
+  node_module_volumes:

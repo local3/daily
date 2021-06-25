@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import axios from 'axios'
 import { SingleDatePicker } from "react-dates";
 import moment from "moment";
 import IconButton from "@material-ui/core/IconButton";
@@ -17,23 +17,24 @@ function Calendar() {
   const dateFormat = "YYYY-MM-DD";
   const [date, setDate] = useState();
   const [focused, setFocused] = useState(true);
-  // console.log(date)
-  // const [existDates, setExistDates] = useState(["火曜日,　2021年6月8日"]);
-  // const addSelectClassName = () => {
-    // axios.get('/user_diary')
-    //   .then(res => {
-    //     setExistDates(res.data)
-    //   })
-    // setExistDates();
-    // console.log(existDates);
-    // existDates.forEach( e => {
-    //   document
-        // .querySelector(`aria-label=${e.date}`)
-        // .addClassName("CalendarDay__selected", "CalendarDay__selected_3");
-  //   });
-  // };
-  // useEffect(addSelectClassName);
-  
+  const [existDates, setExistDates] = useState([]);
+  const initExistDatesEffect = () => {
+    axios.get('/diaries/exist_dates')
+      .then(res => {
+        setExistDates(res.data.exist_dates)
+      })
+  };
+  const addClassName = () => {
+    if(existDates.length > 0){
+      existDates.forEach(date => {
+        const element = document.querySelector(`td[aria-label='${date}']`)
+        element && element.classList.add('exist_date')
+      });
+    }
+  }
+  useEffect(initExistDatesEffect, []);
+  useEffect(addClassName, [existDates])
+
   return (
     <>
       <SingleDatePicker
