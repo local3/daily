@@ -66,7 +66,7 @@ function Signup() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    auth.Signup(user)
+    auth.signup(user)
   }
 
   return(

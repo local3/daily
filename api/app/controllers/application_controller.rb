@@ -1,4 +1,4 @@
-require '../utils/bool'
+# require '../utils/bool'
 class ApplicationController < ActionController::API
   # APIモードでは、Cookieを有効にするために要記載 https://qiita.com/k_kind/items/e26f03f4e24551b46b98
   include ActionController::Cookies
@@ -8,8 +8,8 @@ class ApplicationController < ActionController::API
   def set_current_user
     # logger.debug("User".constantize.exists?(id: 1))
     # logger.debug("User".constantize.exists?(id: 2))
-    logger.debug("\n\n\nBefore")
-    logger.debug check_exist?("User", "id", 1)
+    # logger.debug("\n\n\nBefore")
+    # logger.debug check_exist?("User", "id", 1)
     if (user_id = session[:user_id])
       @current_user ||= User.find_by(id: user_id)
     elsif (user_id = cookies.signed[:user_id])
