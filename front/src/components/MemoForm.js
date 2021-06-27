@@ -16,7 +16,6 @@ const MemoForm = (props) => {
     axios.get(`/memos/${props.memoId}`)
       .then(res => {
         const existMemo = res.data
-        console.log(existMemo)
         existMemo ? setIsEdit(true) : setIsEdit(false)
         setMemo({
           ...memo,
@@ -36,7 +35,6 @@ const MemoForm = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(memo)
     isEdit 
       ? axios.patch(`/memos/${props.memoId}`, { memo: memo })
           .then(res => {
