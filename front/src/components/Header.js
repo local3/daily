@@ -32,7 +32,7 @@ const Header = () => {
             <Link to='/memos'>メモ一蘭へ</Link>
           </p>
           <ModalWrapper text="メモる">
-            <MemoForm/>
+            <MemoForm memoId={null}/>
           </ModalWrapper>
         </>
       }

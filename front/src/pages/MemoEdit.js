@@ -1,9 +1,9 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import { AuthContext } from "../store/Auth"
 import { useParams } from "react-router-dom";
 import MemoForm from '../components/MemoForm';
 
-const MemoEdit = (props) => {
+const MemoEdit = () => {
 
   const auth = useContext(AuthContext);
   const { memoId } = useParams()

@@ -17,10 +17,12 @@ const MemoForm = (props) => {
       .then(res => {
         const existMemo = res.data
         existMemo ? setIsEdit(true) : setIsEdit(false)
-        setMemo({
-          ...memo,
-          content: existMemo.content
-        })
+        if(existMemo){
+          setMemo({
+            ...memo,
+            content: existMemo.content
+          })
+        }
       })
   }
 
