@@ -1,6 +1,9 @@
 import React from 'react'
+
+// 高階層コンポーネント系
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { AuthProvider } from "./store/Auth";
+import CheckAuth from "./hocs/CheckAuth"
 
 // ページファイルインポート
 import Home from './pages/Home'
@@ -37,10 +40,12 @@ const Router = () => {
               <Route exact path="/about" component={About} />
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/login" component={Login} />
-              <Route exact path="/calendar" component={Calendar} />
-              <Route exact path={'/diary/:date'} component={Diary} />
-              <Route exact path={'/edit'} component={UserEdit} />
-              <Route exact path={'/password_reset'} component={ForgotPassword} />
+              <CheckAuth>
+                <Route exact path="/calendar" component={Calendar} />
+                <Route exact path={'/diary/:date'} component={Diary} />
+                <Route exact path={'/edit'} component={UserEdit} />
+                <Route exact path={'/password_reset'} component={ForgotPassword} />
+              </CheckAuth>
             </Switch>
             <Footer/>
           </AuthProvider>
