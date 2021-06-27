@@ -13,6 +13,8 @@ const ModalWrapper = (props) => {
     setIsOpen(!isOpen)
   }
 
+  // Modalの中身で、toggleModal()を使ってModalを閉じれるようにする
+  // 汎用性を上げるためにchildrenにしており、個別でpropsを渡せないのでcomponentをcloneして入れ直している
   const childrenWithProps = React.Children.map(props.children, child => {
     if (React.isValidElement(child)) {
       return React.cloneElement(child, { toggleModal });
@@ -20,7 +22,7 @@ const ModalWrapper = (props) => {
     return child;
   });
 
-  console.log(childrenWithProps)
+  // console.log(childrenWithProps)
 
   return(
     <>
