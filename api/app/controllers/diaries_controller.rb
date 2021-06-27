@@ -1,5 +1,11 @@
 class DiariesController < ApplicationController
+  # 日にち変換用
   require "date"
+  # HTML文字列アンエスケープ用
+  require 'cgi'
+  # 翻訳機能
+  require "google/cloud/translate/v2"
+
   require_relative "../utils/date.rb"
   require_relative "../utils/string.rb"
 
@@ -41,6 +47,14 @@ class DiariesController < ApplicationController
     diary.update(diary_params)
     diary_content.update(diary_content_params)
     return render json: {diary: diary, diary_content: diary_content, state:"success",msg:"Success"}
+  end
+
+  def translate_text
+    translate = Google::Cloud::Translate::V2.new
+    language = Language.find_by(id: params[:language_id])
+    translation = translate.translate(params[:ja_content], from: 'ja', to: language.code)
+    # CGIをつかってアンエスケープ
+    return render json: CGI.unescapeHTML(translation.text) 
   end
 
   private

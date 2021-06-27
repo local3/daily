@@ -22,7 +22,7 @@ function Diary() {
   const [languages, setLanguages] = useState([])
   const [isEdit, setIsEdit] = useState(false)
   const [formContent, setFormContent] = useState(initformContent)
-  const [selectedLanguage, setSelectedLanguage] = useState({id: 1, name: '英語', code: 'en'})
+  // const [selectedLanguage, setSelectedLanguage] = useState({id: 1, name: '英語', code: 'en'})
   const initLanguagesEffect = () => {
     console.log("init effect")
     axios.get(`/languages`)
@@ -38,7 +38,7 @@ function Diary() {
       // console.log(auth)
       // console.log(languages)
       // console.log(selectedLanguage)
-      setSelectedLanguage(getLanguage(auth.currentUser.language_id))
+      // setSelectedLanguage(getLanguage(auth.currentUser.language_id))
       axios.get(`/diaries/${formContent.diary.date}`)
         .then(res => {
           const existDiary = res.data.diary;
@@ -62,7 +62,7 @@ function Diary() {
 
   const getDiaryContent = (diary) => {
     const language = auth.currentUser && getLanguage(auth.currentUser.language_id) ? getLanguage(auth.currentUser.language_id) : getLanguage(1)
-    setSelectedLanguage(language)
+    // setSelectedLanguage(language)
     return diary.diary_contents.find(dc => {
       return Number(dc.language_id) === Number(language.id)
     })
@@ -97,7 +97,7 @@ function Diary() {
         }
       }
     );
-    setSelectedLanguage(getLanguage(e.target.value))
+    // setSelectedLanguage(getLanguage(e.target.value))
   };
 
   const handleChangeJapaneseDiary = (e) => {
@@ -164,7 +164,7 @@ function Diary() {
       </form>
       <div>
           <Translate
-            language={selectedLanguage}
+            languageId={formContent.diaryContent.languageId}
             jaContent={formContent.diary.jaContent}
           />
       </div>

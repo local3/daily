@@ -8,9 +8,10 @@ Rails.application.routes.draw do
 
   patch '/users/update', to: 'users#update'
   get '/diaries/exist_dates', to: 'diaries#exist_dates'
+  get '/diaries/translate_text', to: 'diaries#translate_text'
   get '/diaries/:date', to: 'diaries#show'
-  get '/current_user', to: 'sessions#current_user'
   patch '/diaries/:date', to: 'diaries#update'
+  get '/current_user', to: 'sessions#current_user'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
 
