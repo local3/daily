@@ -3,7 +3,6 @@ import axios from 'axios'
 import { AuthContext } from "../store/Auth"
 
 const MemoForm = (props) => {
-
   const auth = useContext(AuthContext);
 
   const initMemo = {
@@ -40,9 +39,11 @@ const MemoForm = (props) => {
     isEdit 
       ? axios.patch(`/memos/${props.memoId}`, { memo: memo })
           .then(res => {
+            props.toggleModal()
           })
       : axios.post(`/memos`, { memo: memo })
           .then(res => {
+            props.toggleModal()
           })
   };
 

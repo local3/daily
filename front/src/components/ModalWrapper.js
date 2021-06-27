@@ -13,12 +13,21 @@ const ModalWrapper = (props) => {
     setIsOpen(!isOpen)
   }
 
+  const childrenWithProps = React.Children.map(props.children, child => {
+    if (React.isValidElement(child)) {
+      return React.cloneElement(child, { toggleModal });
+    }
+    return child;
+  });
+
+  console.log(childrenWithProps)
+
   return(
     <>
       <button onClick={toggleModal}>{props.text}</button>
       <Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)}>
         <button onClick={toggleModal}>閉じる</button>
-        { props.children }
+        {childrenWithProps}
       </Modal>
     </>
   )
