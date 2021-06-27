@@ -17,6 +17,7 @@ const ModalWrapper = (props) => {
     <>
       <button onClick={toggleModal}>{props.text}</button>
       <Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)}>
+        <button>閉じる</button>
         { props.children }
       </Modal>
     </>

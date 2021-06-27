@@ -1,33 +1,32 @@
-import React, { useState, useContext, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import axiso from 'axios'
-import { AuthContext } from "../store/Auth";
+import React, { useState, useContext } from 'react'
+import axios from 'axios'
+import { AuthContext } from "../store/Auth"
+import { useParams } from "react-router-dom";
+import MemoForm from '../components/MemoForm';
 
-const MemoTop = () => {
+const MemoEdit = (props) => {
+
   const auth = useContext(AuthContext);
-
-  const initMemos = []
-  const [memos, setMemos] = useState(initMemos)
-
-  const initEffect = () => {
-    axiso.get('/memos/user_memos')
-      .then(res => {
-        setMemos(res.data.memos)
-      })
-  }
-
-  useEffect(initEffect,[])
-
+  const { memoId } = useParams()
+  
   return(
-    <div>
-      <h1>メモ一蘭</h1>
-        <ul>
-          {memos.map(memo => {
-            <Link to={`/memos/${memo.id}`}>{memo.content.slice(0, 10)}</Link>
-          })}
-        </ul>
-    </div>
+    <>
+      <MemoForm memoId={memoId}/>
+      {/* <h1>メモーダル</h1>
+      <button onClick={() => setIsOpen(false)}>閉じる</button>
+      <form onSubmit={handleSubmit}>
+        <label>内容：</label>
+        <textarea type="text"
+          name="content"  
+          onChange={handleChangeContent}
+        />
+
+        <br/>
+
+        <button type="submit">めも！</button>
+      </form> */}
+    </>
   )
 }
 
-export default MemoTop;
+export default MemoEdit;

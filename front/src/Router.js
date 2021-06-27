@@ -49,7 +49,7 @@ const Router = () => {
                 <Route exact path={'/diary/:date'} component={Diary} />
                 <Route exact path={'/edit'} component={UserEdit} />
                 <Route exact path={'/memos'} component={MemoTop} />
-                <Route exact path={'/memos/:id'} component={MemoEdit} />
+                <Route exact path={'/memos/:memoId'} component={MemoEdit} />
               </CheckAuth>
             </Switch>
             <Footer/>

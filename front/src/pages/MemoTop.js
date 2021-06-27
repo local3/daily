@@ -17,13 +17,13 @@ const MemoTop = () => {
   }
 
   useEffect(initEffect,[])
-  console.log(memos)
+  
   return(
     <div>
       <h1>メモ一蘭</h1>
       <ul>
         {memos.map(memo => 
-          <Link to={`/memos/${memo.id}`}>{memo.content}</Link>
+          <Link to={`/memos/${memo.id}`} key={memo.id}>{memo.content.slice(0, 2)}</Link>
         )}
       </ul>
     </div>

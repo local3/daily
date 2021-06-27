@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from "../store/Auth";
-import MemoCreate from './MemoCreate';
+import MemoForm from './MemoForm';
 import ModalWrapper from './ModalWrapper';
 
 const Header = () => {
@@ -32,7 +32,7 @@ const Header = () => {
             <Link to='/memos'>メモ一蘭へ</Link>
           </p>
           <ModalWrapper text="メモる">
-            <MemoCreate/>
+            <MemoForm/>
           </ModalWrapper>
         </>
       }

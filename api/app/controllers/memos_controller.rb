@@ -14,7 +14,7 @@ class MemosController < ApplicationController
 
   def show
     memo = Memo.find_by(id: params[:id])
-
+    return render json: memo
   end
 
   def update
