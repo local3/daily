@@ -23,15 +23,10 @@ const AuthProvider = (props) => {
   // 他コンポーネントからauth.loginやauth.logoutの形で呼び出せる。
   // 呼び出すと、Contextで管理されているログイン情報が更新される
   const login = (session) => {
-    // setCurrentUser(null)
-    // console.log(isLoggedIn)
-    // console.log(currentUser)
     axios.post(`/login`, { session: session })
       .then(res => {
         setCurrentUser(res.data.data)
         setIsLoggedIn(true)
-        // console.log(isLoggedIn)
-        // console.log(currentUser)
         history.push('/')
       })
   }
