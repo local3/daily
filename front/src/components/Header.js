@@ -1,6 +1,8 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from "../store/Auth";
+import MemoForm from './MemoForm';
+import ModalWrapper from './ModalWrapper';
 
 const Header = () => {
   // console.log("header")
@@ -9,8 +11,9 @@ const Header = () => {
   const handleClickLogout = () => {
     auth.logout()
   }
+
   return(
-    <div>
+    <header>
       Header
       {/* ログイン中であれば表示する内容 */}
       { auth.isLoggedIn &&
@@ -25,6 +28,12 @@ const Header = () => {
           <p>
             <Link to='/calendar'>カレンダーへ</Link>
           </p>
+          <p>
+            <Link to='/memos'>メモ一蘭へ</Link>
+          </p>
+          <ModalWrapper text="メモる">
+            <MemoForm memoId={null}/>
+          </ModalWrapper>
         </>
       }
       {/* ログイン中でなければ表示する内容 */}
@@ -41,7 +50,7 @@ const Header = () => {
           </p>
         </>
       }
-    </div>
+    </header>
   )
 }
 
