@@ -60,6 +60,7 @@ const AuthProvider = (props) => {
       .then(res => {
         setCurrentUser(res.data.data)
         res.data.data === null ? setIsLoggedIn(false) : setIsLoggedIn(true)
+        
       })
   }
 

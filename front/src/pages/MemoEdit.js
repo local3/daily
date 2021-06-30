@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { AuthContext } from "../store/Auth"
 import { useParams } from "react-router-dom";
 import MemoForm from '../components/MemoForm';
+import ModalWrapper from '../components/ModalWrapper';
 
 const MemoEdit = () => {
 
@@ -10,7 +11,10 @@ const MemoEdit = () => {
   
   return(
     <>
-      <MemoForm memoId={memoId}/>
+      <MemoForm memoId={memoId} toggleModal={null}/>
+      {/* <ModalWrapper text="メモる">
+        <MemoForm memoId={memoId}/>
+      </ModalWrapper> */}
     </>
   )
 }

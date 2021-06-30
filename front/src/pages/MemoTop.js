@@ -31,7 +31,7 @@ const MemoTop = () => {
       <ul>
         {memos.map(memo => 
           <li key={memo.id}>
-            <Link to={`/memos/${memo.id}`}>{memo.content.slice(0, 2)}</Link>
+            <Link to={`/memos/${memo.id}`}>{memo.content.slice(0, 5)}</Link>
             <button onClick={(e) => destroyMemo(e, memo.id)}>削除</button>
           </li>
         )}

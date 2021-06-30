@@ -1,9 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react'
 import axios from 'axios'
 import { AuthContext } from "../store/Auth"
+import { useHistory } from 'react-router';
 
 const MemoForm = (props) => {
   const auth = useContext(AuthContext);
+  const history = useHistory()
 
   const initMemo = {
     content: ''
@@ -39,11 +41,11 @@ const MemoForm = (props) => {
     isEdit 
       ? axios.patch(`/memos/${props.memoId}`, { memo: memo })
           .then(res => {
-            props.toggleModal()
+            isEdit ? history.push('/memos') : props.toggleModal()
           })
       : axios.post(`/memos`, { memo: memo })
           .then(res => {
-            props.toggleModal()
+            isEdit ? history.push('/memos') : props.toggleModal()
           })
   };
 
