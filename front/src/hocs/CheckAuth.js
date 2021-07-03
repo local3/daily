@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { ErrorContext } from '../store/ErrorProvider'
 import { useHistory } from 'react-router';
 import { AuthContext } from "../store/Auth";
@@ -9,12 +9,19 @@ const CheckAuth = (props) => {
   const { dispatch } = useContext(ErrorContext)
   const history = useHistory()
   
-  if(auth.isLoggedIn && auth.currentUser){
-    return props.children
+  if(auth.isFetchingAuth){
+    return null
   }else{
-    dispatch({status: 422, msg: "ログインが必要です"})
-    return <Redirect to={'/login'} />
+    if(auth.isLoggedIn && auth.currentUser){
+      return props.children
+    }else if(!auth.isLoggedIn || !auth.currentUser){
+      dispatch({status: 422, msg: "ログインが必要です"})
+      return <Redirect to={'/login'} />
+    }
+
+    return null
   }
+
 }
 
 export default CheckAuth;

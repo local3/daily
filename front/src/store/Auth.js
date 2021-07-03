@@ -2,31 +2,31 @@ import React, { useState, useEffect, useContext } from 'react'
 import { ErrorContext } from '../store/ErrorProvider'
 import axios from 'axios'
 import { useHistory } from 'react-router';
+import { LoadContext } from './LoadProvider';
 
 // 初期状態登録
 const initialContext = {
   currentUser: null,
   isLoggedIn: false,
+  isFetchingAuth: true
 }
 // Context作成。このAuthContextに他のコンポーネントからアクセスすることで、ログイン情報を持ってこれる
 const AuthContext = React.createContext(initialContext);
-
 // Router.jsで使う。propsにRouter.jsでラップしたコンポーネントたちが入る。
 const AuthProvider = (props) => {
   // URL遷移用
   const history = useHistory();
   // state定義
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [currentUser, setCurrentUser] = useState({})
+  const [authState, setAuthState] = useState(initialContext)
+  
   const error = useContext(ErrorContext)
-
+  const { loadDispatch } = useContext(LoadContext)
   // 他コンポーネントからauth.loginやauth.logoutの形で呼び出せる。
   // 呼び出すと、Contextで管理されているログイン情報が更新される
   const login = (session) => {
     axios.post(`/login`, { session: session })
       .then(res => {
-        setCurrentUser(res.data.data)
-        setIsLoggedIn(true)
+        setAuthState({...authState, currentUser: res.data.data, isLoggedIn: true, isFetchingAuth: true})
         history.push('/')
       })
   }
@@ -34,8 +34,7 @@ const AuthProvider = (props) => {
   const logout = () => {
     axios.delete(`/logout`)
       .then(res => {
-        setCurrentUser(null)
-        setIsLoggedIn(false)
+        setAuthState({...authState, currentUser: null, isLoggedIn: false})
         history.push('/login')
       })
   }
@@ -43,11 +42,9 @@ const AuthProvider = (props) => {
   const signup = (user) => {
     axios.post(`/users`, { user: user })
       .then(res => {
-        setCurrentUser(res.data.data)
-        setIsLoggedIn(true)
+        setAuthState({...authState, currentUser: res.data.data, isLoggedIn: true})
         history.push('/')
       })
-
       .catch(err => {
         console.log(err.message)
         error.dispatch({msg: err.response.statusText, status: err.response.status})
@@ -55,22 +52,22 @@ const AuthProvider = (props) => {
   }
 
   // currentユーザーを取得
-  const fetchCurrentUser = () => {
-    axios.get(`/current_user`)
+  const fetchCurrentUser = async () => {
+    await axios.get(`/current_user`)
       .then(res => {
-        setCurrentUser(res.data.data)
-        res.data.data === null ? setIsLoggedIn(false) : setIsLoggedIn(true)
-        
+        setAuthState({...authState, currentUser: res.data.data, isLoggedIn: res.data.data !== null, isFetchingAuth: false})
+        loadDispatch({isLoading: false})
       })
   }
 
   // レンダリング後にユーザーの取得を行う
   useEffect(() => {
     fetchCurrentUser()
-  }, [isLoggedIn]);
+  }, [authState.isLoggedIn]);
 
   // 各コンポーネントに最終的に送る内容
-  const value = {currentUser, isLoggedIn, login, logout, signup}
+  const value = {...authState, login, logout, signup}
+  console.log(value)
 
   return (
     // .Providerで値を送り、各コンポーネントでuseContext(AuthContext)で情報を受け取る

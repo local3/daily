@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { LoadContext } from "../store/LoadProvider";
 
-const Footer = () => {
-  return(
-    <div>
-      Loading...
-    </div>
-  )
+const Load = () => {
+  const { isLoading } = useContext(LoadContext)
+  if(isLoading){
+    return(
+      <div>
+        Loading...
+      </div>
+    )
+  }
+  return null
 }
 
-export default Footer;
+export default Load;
