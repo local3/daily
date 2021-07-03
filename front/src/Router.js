@@ -4,12 +4,14 @@ import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { AuthProvider } from "./store/Auth";
 import ErrorProvider from './store/ErrorProvider';
+import LoadProvider from './store/LoadProvider'
 import CheckAuth from "./hocs/CheckAuth"
 
 // components
 import Header from './components/Header'
 import Footer from './components/Footer'
 import ErrorMsg from './components/ErrorMsg'
+import Load from './components/Load';
 
 // ページファイルインポート
 import Home from './pages/Home'
@@ -33,27 +35,30 @@ const Router = () => {
     <>
       <BrowserRouter>
         <ErrorProvider>
-          <AuthProvider>
-            <Header/>
-            <ErrorMsg/>
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/help" component={Help} />
-              <Route exact path="/about" component={About} />
-              <Route exact path="/signup" component={Signup} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path={'/password_reset'} component={ForgotPassword} />
-              {/* CheckAuthでログインしていなければアクセスできないページを囲ってある */}
-              <CheckAuth>
-                <Route exact path="/calendar" component={Calendar} />
-                <Route exact path={'/diary/:date'} component={Diary} />
-                <Route exact path={'/edit'} component={UserEdit} />
-                <Route exact path={'/memos'} component={MemoTop} />
-                <Route exact path={'/memos/:memoId'} component={MemoEdit} />
-              </CheckAuth>
-            </Switch>
-            <Footer/>
-          </AuthProvider>
+          <LoadProvider>
+            <AuthProvider>
+              <Load/>
+              <Header/>
+              <ErrorMsg/>
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/help" component={Help} />
+                <Route exact path="/about" component={About} />
+                <Route exact path="/signup" component={Signup} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path={'/password_reset'} component={ForgotPassword} />
+                {/* CheckAuthでログインしていなければアクセスできないページを囲ってある */}
+                <CheckAuth>
+                  <Route exact path="/calendar" component={Calendar} />
+                  <Route exact path={'/diary/:date'} component={Diary} />
+                  <Route exact path={'/edit'} component={UserEdit} />
+                  <Route exact path={'/memos'} component={MemoTop} />
+                  <Route exact path={'/memos/:memoId'} component={MemoEdit} />
+                </CheckAuth>
+              </Switch>
+              <Footer/>
+            </AuthProvider>
+          </LoadProvider>
         </ErrorProvider>
       </BrowserRouter>
     </>
