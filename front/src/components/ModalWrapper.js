@@ -1,10 +1,15 @@
 import React, { useState, useContext } from 'react'
 // import { AuthContext } from "../store/Auth"
+import { Add } from '@material-ui/icons';
+import { Button } from '@material-ui/core/';
+import { useLayoutStyles } from '../styles/js/layout';
+// Modal設定
 import Modal from "react-modal"
+// Modalをid="root"の一番上要素に指定することで全体を覆うことができる
 Modal.setAppElement("#root")
 
 const ModalWrapper = (props) => {
-
+  const layoutClasses = useLayoutStyles()
   // ログイン中でないと押せない仕様にするとき使うかも
   // const auth = useContext(AuthContext);
 
@@ -26,7 +31,9 @@ const ModalWrapper = (props) => {
 
   return(
     <>
-      <button onClick={toggleModal}>{props.text}</button>
+      <Button onClick={toggleModal} className={layoutClasses.plusButton}>
+        <Add />
+      </Button>
       <Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)}>
         <button onClick={toggleModal}>閉じる</button>
         {childrenWithProps}

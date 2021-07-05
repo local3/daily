@@ -46,7 +46,6 @@ const AuthProvider = (props) => {
         history.push('/')
       })
       .catch(err => {
-        console.log(err.message)
         error.dispatch({msg: err.response.statusText, status: err.response.status})
       })
   }
@@ -67,7 +66,6 @@ const AuthProvider = (props) => {
 
   // 各コンポーネントに最終的に送る内容
   const value = {...authState, login, logout, signup}
-  console.log(value)
 
   return (
     // .Providerで値を送り、各コンポーネントでuseContext(AuthContext)で情報を受け取る

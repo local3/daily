@@ -24,7 +24,7 @@ function Diary() {
   const [formContent, setFormContent] = useState(initformContent)
   // const [selectedLanguage, setSelectedLanguage] = useState({id: 1, name: '英語', code: 'en'})
   const initLanguagesEffect = () => {
-    console.log("init effect")
+    
     axios.get(`/languages`)
       .then(res => {
         const result = res.data
@@ -33,7 +33,7 @@ function Diary() {
   }
   
   const initExistDiaryEffect = () => {
-    console.log("existdiary effect")
+    
     if(languages && auth.currentUser.language_id){
       // console.log(auth)
       // console.log(languages)

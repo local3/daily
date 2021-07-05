@@ -18,7 +18,7 @@ const ErrorProvider = (props) => {
 	const resetErrorMsg = () => {
 		dispatch({status: 0})
 	}
-	useEffect(resetErrorMsg, history)
+	useEffect(resetErrorMsg, [history])
 	return(
 		<ErrorContext.Provider
 			value={value}
