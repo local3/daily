@@ -25,7 +25,6 @@ import UserEdit from './pages/UserEdit'
 import ForgotPassword from './pages/ForgotPassword'
 import MemoTop from './pages/MemoTop'
 import MemoEdit from './pages/MemoEdit'
-// pages.forEach(page => import page from `./pages/${page}`)
 
 // ルーティング設定
 // ↓参考記事
@@ -33,34 +32,22 @@ import MemoEdit from './pages/MemoEdit'
 const Router = () => {
   return (
     <>
-      {/* <BrowserRouter>
-        <ErrorProvider>
-          <LoadProvider>
-            <AuthProvider>
-              <Load/>
-              <Header/>
-              <ErrorMsg/> */}
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/help" component={Help} />
-                <Route exact path="/about" component={About} />
-                <Route exact path="/signup" component={Signup} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path={'/password_reset'} component={ForgotPassword} />
-                {/* CheckAuthでログインしていなければアクセスできないページを囲ってある */}
-                <CheckAuth>
-                  <Route exact path="/calendar" component={Calendar} />
-                  <Route exact path={'/diary/:date'} component={Diary} />
-                  <Route exact path={'/edit'} component={UserEdit} />
-                  <Route exact path={'/memos'} component={MemoTop} />
-                  <Route exact path={'/memos/:memoId'} component={MemoEdit} />
-                </CheckAuth>
-              </Switch>
-              {/* <Footer/>
-            </AuthProvider>
-          </LoadProvider>
-        </ErrorProvider>
-      </BrowserRouter> */}
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/help" component={Help} />
+        <Route exact path="/about" component={About} />
+        <Route exact path="/signup" component={Signup} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path={'/password_reset'} component={ForgotPassword} />
+        {/* CheckAuthでログインしていなければアクセスできないページを囲ってある */}
+        <CheckAuth>
+          <Route exact path="/calendar" component={Calendar} />
+          <Route exact path={'/diary/:date'} component={Diary} />
+          <Route exact path={'/edit'} component={UserEdit} />
+          <Route exact path={'/memos'} component={MemoTop} />
+          <Route exact path={'/memos/:memoId'} component={MemoEdit} />
+        </CheckAuth>
+      </Switch>
     </>
   )
 }
