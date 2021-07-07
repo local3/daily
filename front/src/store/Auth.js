@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { ErrorContext } from '../store/ErrorProvider'
 import axios from 'axios'
+import { client } from '../store/Axios'
 import { useHistory } from 'react-router';
 
 // 初期状態登録
@@ -26,13 +27,15 @@ const AuthProvider = (props) => {
     // setCurrentUser(null)
     // console.log(isLoggedIn)
     // console.log(currentUser)
-    axios.post(`/login`, { session: session })
+    client.post(`/login`, { session: session })
       .then(res => {
-        setCurrentUser(res.data.data)
-        setIsLoggedIn(true)
-        // console.log(isLoggedIn)
-        // console.log(currentUser)
-        history.push('/')
+        if(res){
+          setCurrentUser(res.data.data)
+          setIsLoggedIn(true)
+          // console.log(isLoggedIn)
+          // console.log(currentUser)
+          history.push('/')
+        }
       })
   }
 
@@ -46,17 +49,24 @@ const AuthProvider = (props) => {
   }
 
   const signup = (user) => {
-    axios.post(`/users`, { user: user })
+    client.post(`/users`, { user: user })
+    
       .then(res => {
-        setCurrentUser(res.data.data)
-        setIsLoggedIn(true)
-        history.push('/')
+        console.log(res)
+        if(res){
+          console.log(res)
+          setCurrentUser(res.data.data)
+          setIsLoggedIn(true)
+          history.push('/')
+        }
       })
 
-      .catch(err => {
-        console.log(err.message)
-        error.dispatch({msg: err.response.statusText, status: err.response.status})
-      })
+      // .catch(err => {
+      //   console.log(err)
+      //   console.log(err.response)
+      //   return err
+      //   error.dispatch({msg: err.response.data.msg, status: err.response.status})
+      // })
   }
 
   // currentユーザーを取得
