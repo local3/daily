@@ -5,6 +5,18 @@ class ApplicationController < ActionController::API
   
   before_action :set_current_user
 
+  rescue_from ActiveRecord::RecordInvalid, with: :render_422
+
+  def render_422(e = nil)
+    logger.debug('れんだー４２２')
+    if e
+      logger.error e
+      # logger.error e.backtrace.join("\n")
+    end
+    return render status: 422, json: { msg: e }
+    logger.debug "renderごえs"
+  end
+
   # 記憶トークンcookieに対応するユーザーを返す
   def set_current_user
     if (user_id = session[:user_id])
