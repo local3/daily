@@ -43,11 +43,12 @@ const AuthProvider = (props) => {
 
   const signup = (user) => {
     client.post(`/users`, { user: user })
-    
       .then(res => {
-        setAuthState({...authState, currentUser: res.data.data, isLoggedIn: true})
-        history.push('/')
-      })      
+        if(res){
+          setAuthState({...authState, currentUser: res.data.data, isLoggedIn: true})
+          history.push('/')
+        }
+      })
   }
 
   // currentユーザーを取得
