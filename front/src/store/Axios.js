@@ -5,12 +5,11 @@ import axios from 'axios'
 export const client = axios.create()
 const Axios = () => {
   if (client.interceptors.response.handlers.length > 0) {
-    client.interceptors.response.handlers = []
+    client.interceptors.response.handlers = [];
   }
+
   const onSuccess = (res) => {
-    if (res){
-      return res
-    }
+    return res
   }
   const { errorDispatch } = useContext(ErrorContext)
   const onError = (err) => {

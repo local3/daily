@@ -25,12 +25,18 @@ const AuthProvider = (props) => {
   // 他コンポーネントからauth.loginやauth.logoutの形で呼び出せる。
   // 呼び出すと、Contextで管理されているログイン情報が更新される
   const login = (session) => {
+    // console.log(client)
+    // console.dir(client, {depth: null})
     client.post(`/login`, { session: session })
       .then(res => {
+        console.log(res)
         setAuthState({...authState, currentUser: res.data.data, isLoggedIn: true, isFetchingAuth: true})
         history.push('/')
 
       })
+      // .catch(err => {
+      //   console.log(err)
+      // })
   }
 
   const logout = () => {
@@ -44,10 +50,8 @@ const AuthProvider = (props) => {
   const signup = (user) => {
     client.post(`/users`, { user: user })
       .then(res => {
-        if(res){
-          setAuthState({...authState, currentUser: res.data.data, isLoggedIn: true})
-          history.push('/')
-        }
+        setAuthState({...authState, currentUser: res.data.data, isLoggedIn: true})
+        history.push('/')
       })
   }
 
