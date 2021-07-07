@@ -3,7 +3,7 @@ import Router from '../Router'
 import { Box } from '@material-ui/core';
 
 // 高階層コンポーネント系
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from "../store/Auth";
 import ErrorProvider from '../store/ErrorProvider';
 import LoadProvider from '../store/LoadProvider'
@@ -29,9 +29,7 @@ const App = () => {
               <Load/>
               <Box className={layoutClasses.contentWrapper}>
                 <ErrorMsg/>
-                {/* <Switch> */}
                 <Router/>
-                {/* </Switch> */}
               </Box>
               <Footer/>
             </AuthProvider>
