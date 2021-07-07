@@ -8,10 +8,10 @@ import LoadProvider from './store/LoadProvider'
 import CheckAuth from "./hocs/CheckAuth"
 
 // components
-import Header from './components/Header'
-import Footer from './components/Footer'
-import ErrorMsg from './components/ErrorMsg'
-import Load from './components/Load';
+// import Header from './components/Header'
+// import Footer from './components/Footer'
+// import ErrorMsg from './components/ErrorMsg'
+// import Load from './components/Load';
 
 // ページファイルインポート
 import Home from './pages/Home'
@@ -33,13 +33,13 @@ import MemoEdit from './pages/MemoEdit'
 const Router = () => {
   return (
     <>
-      <BrowserRouter>
+      {/* <BrowserRouter>
         <ErrorProvider>
           <LoadProvider>
             <AuthProvider>
               <Load/>
               <Header/>
-              <ErrorMsg/>
+              <ErrorMsg/> */}
               <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/help" component={Help} />
@@ -56,11 +56,11 @@ const Router = () => {
                   <Route exact path={'/memos/:memoId'} component={MemoEdit} />
                 </CheckAuth>
               </Switch>
-              <Footer/>
+              {/* <Footer/>
             </AuthProvider>
           </LoadProvider>
         </ErrorProvider>
-      </BrowserRouter>
+      </BrowserRouter> */}
     </>
   )
 }

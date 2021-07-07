@@ -10,7 +10,6 @@ const LoadProvider = (props) => {
 	const history = useHistory()
 	const [loadState, loadDispatch] = useReducer(loadReducer, initialState)
 	const value = { ...loadState, loadDispatch }
-
 	return(
 		<LoadContext.Provider
 			value={value}

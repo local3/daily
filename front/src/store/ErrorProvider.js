@@ -19,8 +19,8 @@ const ErrorProvider = (props) => {
 	const resetErrorMsg = () => {
 		errorDispatch({status: 0})
 	}
-	useEffect(resetErrorMsg, history)
-	console.log('えらぷろ')
+	useEffect(resetErrorMsg, [history])
+
 	return(
 		<ErrorContext.Provider
 			value={value}
