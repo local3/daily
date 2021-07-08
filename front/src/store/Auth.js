@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { ErrorContext } from '../store/ErrorProvider'
+import { AlertContext } from '../store/AlertProvider'
 import axios from 'axios'
 import { client } from '../store/Axios'
 import { useHistory } from 'react-router';
@@ -20,13 +20,11 @@ const AuthProvider = (props) => {
   // state定義
   const [authState, setAuthState] = useState(initialContext)
   
-  const error = useContext(ErrorContext)
+  const error = useContext(AlertContext)
   const { loadDispatch } = useContext(LoadContext)
   // 他コンポーネントからauth.loginやauth.logoutの形で呼び出せる。
   // 呼び出すと、Contextで管理されているログイン情報が更新される
   const login = (session) => {
-    // console.log(client)
-    // console.dir(client, {depth: null})
     client.post(`/login`, { session: session })
       .then(res => {
         console.log(res)
@@ -34,9 +32,6 @@ const AuthProvider = (props) => {
         history.push('/')
 
       })
-      // .catch(err => {
-      //   console.log(err)
-      // })
   }
 
   const logout = () => {
@@ -49,14 +44,10 @@ const AuthProvider = (props) => {
 
   const signup = (user) => {
     client.post(`/users`, { user: user })
-    
       .then(res => {
         setAuthState({...authState, currentUser: res.data.data, isLoggedIn: true})
         history.push('/')
       })
-      // .catch(err => {
-      //   console.log(err)
-      // })  
   }
 
   // currentユーザーを取得
