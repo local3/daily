@@ -9,7 +9,7 @@ const CheckAuth = (props) => {
   const { alertDispatch } = useContext(AlertContext)
   const history = useHistory()
   
-  console.log(auth)
+  // console.log(auth)
   if(auth.isFetchingAuth){
     return null
   }else{

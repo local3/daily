@@ -3,10 +3,13 @@ import themes from "./themes"
 import { makeStyles } from "@material-ui/core/styles";
 
 const layoutStyles = {
+  // 全体を覆う。左右に余白をつける
   contentWrapper: {
     width: "94vw",
-    margin: "0 3vw",
+    margin: "5vh 3vw",
+    textAlign: "center"
   },
+  // header関連
   header: {
     color: themes.clearWhite,
     backgroundColor: themes.darkBeige
@@ -23,6 +26,7 @@ const layoutStyles = {
     postion: 'relative',
     left: '70%'
   },
+  // footer関連
   footer: {
     position: 'fixed',
     bottom: 0,
@@ -31,7 +35,6 @@ const layoutStyles = {
     borderTop: `1px solid ${themes.gray}`
   },
   footerButton: {
-    // color: themes.white,
     whiteSpace: 'nowrap'
   },
   footerCenterButton: {

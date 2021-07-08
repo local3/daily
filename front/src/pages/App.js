@@ -30,12 +30,11 @@ const App = () => {
                 <Header/>
                 <Load/>
                 <Box className={layoutClasses.contentWrapper}>
-                  <ErrorMsg/>
+                  <AlertMsg/>
                   <Router/>
                 </Box>
                 <Footer/>
               </DateProvider>
-
             </AuthProvider>
           </LoadProvider>
         </AlertProvider>
