@@ -5,14 +5,14 @@ import { Box } from '@material-ui/core';
 // 高階層コンポーネント系
 import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from "../store/Auth";
-import ErrorProvider from '../store/ErrorProvider';
+import AlertProvider from '../store/AlertProvider';
 import LoadProvider from '../store/LoadProvider'
 import DateProvider from '../store/DateProvider';
 
 // components
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import ErrorMsg from '../components/ErrorMsg'
+import AlertMsg from '../components/AlertMsg'
 import Load from '../components/Load';
 import '../styles/css/App.scss';
 import { useLayoutStyles } from '../styles/js/layout';
@@ -23,7 +23,7 @@ const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
-        <ErrorProvider>
+        <AlertProvider>
           <LoadProvider>
             <AuthProvider>
               <DateProvider>
@@ -35,9 +35,10 @@ const App = () => {
                 </Box>
                 <Footer/>
               </DateProvider>
+
             </AuthProvider>
           </LoadProvider>
-        </ErrorProvider>
+        </AlertProvider>
       </BrowserRouter>
     </div>
   )
