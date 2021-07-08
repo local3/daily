@@ -1,4 +1,4 @@
-import React,{ useLayoutEffect, useState }  from 'react'
+import React,{ useState, useContext }  from 'react'
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
 import { 
   CalendarToday, FileCopy, Create, LocalOffer, MoreHoriz,
@@ -6,20 +6,21 @@ import {
 } from '@material-ui/icons';
 import layoutStyles, { useLayoutStyles } from '../styles/js/layout';
 import { useHistory } from 'react-router-dom'
+import { DateContext } from '../store/DateProvider';
 
 const Footer = () => {
   const history = useHistory();
   const layoutClasses = useLayoutStyles()
+  const { date } = useContext(DateContext)
   const [value, setValue] = useState(0);
   const redirectAction = (url) => {
-    console.log(url)
     history.push(url)
   }
   
   const navActions = [
     {label: "カレンダー", icon: <CalendarToday />, iconSelected: <CalendarTodayOutlined />, className: "footerButton", selectedClassName: "selectedFooterButton", action: ()=>redirectAction('/calendar')},
     {label: "メモ", icon: <FileCopy />, iconSelected: <FileCopyOutlined />, className: "footerButton", selectedClassName: "selectedFooterButton", action: ()=>redirectAction('/memos')},
-    {label: "書く", icon: <Create />, iconSelected: <CreateOutlined />, className: "footerCenterButton", selectedClassName: "selectedFooterCenterButton", action: ()=>redirectAction('/')},
+    {label: "書く", icon: <Create />, iconSelected: <CreateOutlined />, className: "footerCenterButton", selectedClassName: "selectedFooterCenterButton", action: ()=>redirectAction(`/diary/${date}`)},
     {label: "My辞書", icon: <LocalOffer />, iconSelected: <LocalOfferOutlined />, className: "footerButton", selectedClassName: "selectedFooterButton", action: ()=>redirectAction('/')},
     {label: "その他", icon: <MoreHoriz />, iconSelected: <MoreHorizOutlined />, className: "footerButton", selectedClassName: "selectedFooterButton", action: ()=>redirectAction('/')}
   ]
