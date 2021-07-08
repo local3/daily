@@ -6,9 +6,10 @@ import { Redirect } from 'react-router-dom';
 
 const CheckAuth = (props) => {
   const auth = useContext(AuthContext)
-  const { error, dispatch } = useContext(ErrorContext)
+  const { errorDispatch } = useContext(ErrorContext)
   const history = useHistory()
   
+  console.log(auth)
   if(auth.isFetchingAuth){
     return null
   }else{
@@ -17,7 +18,7 @@ const CheckAuth = (props) => {
       return props.children
     // ログインフラグとログインユーザーどちらかが取得できていない場合、アクセスを弾く
     }else if(!auth.isLoggedIn || !auth.currentUser){
-      dispatch({status: 422, msg: "ログインが必要です"}, [error])
+      errorDispatch({status: 422, msg: "ログインが必要です"})
       return <Redirect to={'/login'} />
     }
   }
