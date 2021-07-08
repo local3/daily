@@ -9,6 +9,7 @@ const CheckAuth = (props) => {
   const { errorDispatch } = useContext(ErrorContext)
   const history = useHistory()
   
+  console.log(auth)
   if(auth.isFetchingAuth){
     return null
   }else{
