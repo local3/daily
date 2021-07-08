@@ -3,7 +3,7 @@ import React from 'react'
 // 高階層コンポーネント系
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { AuthProvider } from "./store/Auth";
-import ErrorProvider from './store/ErrorProvider';
+import AlertProvider from './store/AlertProvider';
 import LoadProvider from './store/LoadProvider'
 import CheckAuth from "./hocs/CheckAuth"
 
