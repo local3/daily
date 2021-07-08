@@ -3,7 +3,7 @@ import Translate from '../components/Translate'
 import axios from 'axios';
 import { AuthContext } from "../store/Auth";
 import { useParams } from "react-router-dom";
-
+import { Box } from '@material-ui/core'
 
 function Diary() {
   const auth = useContext(AuthContext);
@@ -136,6 +136,9 @@ function Diary() {
 
   return(
     <>
+      <Box>
+        {date}
+      </Box>
       <form onSubmit={handleSubmit}>
         <label>日本語日記</label>
         <textarea onChange={handleChangeJapaneseDiary} value={formContent.diary.jaContent}></textarea>

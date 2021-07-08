@@ -1,3 +1,49 @@
+@import "global";
+
+.SingleDatePicker {
+  position: unset;
+}
+
+.SingleDatePicker {
+  position: unset;
+}
+
+.SingleDatePicker_picker {
+  left: 0;
+  top: 0;
+  position: unset;
+}
+
+.SingleDatePicker_picker {
+  border: none;
+}
+
+.SingleDatePickerInput__withBorder {
+  border: none;
+}
+
+.DateInput {
+  padding-bottom: 20px;
+}
+
+.DateInput_input {
+  border-radius: 2px;
+  border: 1px solid #dbdbdb;
+}
+
+.DateInput_input__focused {
+  border: 0;
+  border-right: 0;
+  border-bottom: 2px solid #008489;
+  border-left: 0;
+  border-top: 0;
+}
+
+.DayPickerNavigation {
+  right: 44px;
+  width: 362px;
+}
+
 /* 月を移動するボタンの調整 */
 .DayPickerNavigation {
   display: flex;
@@ -37,6 +83,26 @@
     0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
+/**
+  * 日記が存在する日にちに色をつける
+  * 日記の単語数によって色の濃淡を変える
+*/
 .exist_date {
+  background-color: $light_beige;
+}
+
+.min_length {
+  background-color: $dark_beige;
+}
+
+.middle_length {
+  background-color: $light_brown;
+}
+
+.more_length {
+  background-color: $dark_brown;
+}
+
+.max_length {
   background-color: aqua;
 }

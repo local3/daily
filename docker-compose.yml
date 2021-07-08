@@ -23,7 +23,6 @@ services:
       - '3306:3306'
   front: 
     build: ./front
-    cpu_quota: 20000
     volumes:
       - ./front:/app
       - node_module_volumes:/app/node_modules

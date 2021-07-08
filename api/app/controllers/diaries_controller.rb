@@ -11,11 +11,17 @@ class DiariesController < ApplicationController
 
   def exist_dates
     diaries = @current_user.diaries
-    exist_dates = diaries.pluck(:date).map do |exist_date|
-      parsed_date = Date.parse(exist_date.to_s)
-      parsed_date.strftime("#{getJaDay(parsed_date)}曜日, %Y年#{removeHeadZero(parsed_date.mon)}月#{removeHeadZero(parsed_date.mday)}日")
+    
+    exist_diarys_info = diaries.inject([]) do |results, current_diary|
+      parsed_date = Date.parse(current_diary.date.to_s)
+      arranged_date = parsed_date.strftime("#{getJaDay(parsed_date)}曜日, %Y年#{removeHeadZero(parsed_date.mon)}月#{removeHeadZero(parsed_date.mday)}日")
+      total_content = current_diary.diary_contents.pluck(:content)
+      total_content_length = total_content.join(',').length
+      arranged_diary = {date: arranged_date, class_names: get_class_name(total_content_length)}
+      results << arranged_diary
     end
-    return render json: {exist_dates: exist_dates, state:"success", msg:"Success"}
+
+    return render json: {exist_diarys_info: exist_diarys_info, state: "success", msg: "Success"}
   end
 
   def create
@@ -49,15 +55,32 @@ class DiariesController < ApplicationController
     return render json: {diary: diary, diary_content: diary_content, state:"success",msg:"Success"}
   end
 
-  def translate_text
-    translate = Google::Cloud::Translate::V2.new
-    language = Language.find_by(id: params[:language_id])
-    translation = translate.translate(params[:ja_content], from: 'ja', to: language.code)
-    # CGIをつかってアンエスケープ
-    return render json: CGI.unescapeHTML(translation.text) 
-  end
-
+  
   private
+    def translate_text
+      translate = Google::Cloud::Translate::V2.new
+      language = Language.find_by(id: params[:language_id])
+      translation = translate.translate(params[:ja_content], from: 'ja', to: language.code)
+      # CGIをつかってアンエスケープ
+      return render json: CGI.unescapeHTML(translation.text) 
+    end
+
+    def get_class_name(total_content_length)
+      logger.debug total_content_length
+      case
+      when total_content_length > 600
+        return ['exist_date', 'max_length']
+      when total_content_length > 400
+        return ['exist_date', 'more_length']
+      when total_content_length > 200
+        return ['exist_date', 'middle_length']
+      when total_content_length > 50
+        return ['exist_date', 'min_length']
+      when total_content_length >= 0
+        return ['exist_date']
+      end
+    end
+
     def diary_params
       params.require(:diary).permit(:ja_content, :date)
     end
