@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from "../store/Auth";
 import AlertProvider from '../store/AlertProvider';
 import LoadProvider from '../store/LoadProvider'
+import DateProvider from '../store/DateProvider';
 
 // components
 import Header from '../components/Header'
@@ -25,13 +26,16 @@ const App = () => {
         <AlertProvider>
           <LoadProvider>
             <AuthProvider>
-              <Header/>
-              <Load/>
-              <Box className={layoutClasses.contentWrapper}>
-                <AlertMsg/>
-                <Router/>
-              </Box>
-              <Footer/>
+              <DateProvider>
+                <Header/>
+                <Load/>
+                <Box className={layoutClasses.contentWrapper}>
+                  <ErrorMsg/>
+                  <Router/>
+                </Box>
+                <Footer/>
+              </DateProvider>
+
             </AuthProvider>
           </LoadProvider>
         </AlertProvider>

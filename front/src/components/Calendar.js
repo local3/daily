@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
 import axios from 'axios'
 import { SingleDatePicker } from "react-dates";
 import moment from "moment";
 import IconButton from "@material-ui/core/IconButton";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import { DateContext } from "../store/DateProvider";
 
 import "moment/locale/ja";
 import "react-dates/initialize";
@@ -15,6 +15,8 @@ import "../styles/css/react-dates-custom.scss";
 
 function Calendar() {
   const dateFormat = "YYYY-MM-DD";
+  const { updateDate } = useContext(DateContext)
+
   const [date, setDate] = useState();
   const [focused, setFocused] = useState(true);
   const [existDates, setExistDates] = useState([]);
@@ -31,6 +33,11 @@ function Calendar() {
         element && element.classList.add('exist_date')
       });
     }
+  }
+
+  const handleChangeDate = (date) => {
+    setDate(date)
+    updateDate(date)
   }
   useEffect(initExistDatesEffect, []);
   useEffect(addClassName, [existDates])
@@ -50,17 +57,17 @@ function Calendar() {
             <NavigateNextIcon />
           </IconButton>
         }
-        withFullScreenPortal={true}
+        withFullScreenPortal={false}
         hideKeyboardShortcutsPanel={true} // 右下の?ボタンをなくす
         date={date}
-        onDateChange={(date) => setDate(date)}
+        onDateChange={(date) => handleChangeDate(date)}
         focused={focused}
         onFocusChange={(focused) => setFocused(focused)}
         // id="date"
         onClose={(focused) => setFocused(false)}
         isOutsideRange={ () => false}
+        variant="inline"
       />
-      <Link to={"/diary/" + moment(date).format(dateFormat)}>日記を書く</Link>
     </>
   );
 }
