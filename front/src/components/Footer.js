@@ -7,11 +7,13 @@ import {
 import layoutStyles, { useLayoutStyles } from '../styles/js/layout';
 import { useHistory } from 'react-router-dom'
 import { DateContext } from '../store/DateProvider';
+import { today } from '../utils/Date'
 
 const Footer = () => {
   const history = useHistory();
   const layoutClasses = useLayoutStyles()
   const { date } = useContext(DateContext)
+  const redirectDate = history.location.pathname === '/calendar' ? date : today
   const [value, setValue] = useState(0);
   const redirectAction = (url) => {
     history.push(url)
@@ -20,11 +22,10 @@ const Footer = () => {
   const navActions = [
     {label: "カレンダー", icon: <CalendarToday />, iconSelected: <CalendarTodayOutlined />, className: "footerButton", selectedClassName: "selectedFooterButton", action: ()=>redirectAction('/calendar')},
     {label: "メモ", icon: <FileCopy />, iconSelected: <FileCopyOutlined />, className: "footerButton", selectedClassName: "selectedFooterButton", action: ()=>redirectAction('/memos')},
-    {label: "書く", icon: <Create />, iconSelected: <CreateOutlined />, className: "footerCenterButton", selectedClassName: "selectedFooterCenterButton", action: ()=>redirectAction(`/diary/${date}`)},
+    {label: "書く", icon: <Create />, iconSelected: <CreateOutlined />, className: "footerCenterButton", selectedClassName: "selectedFooterCenterButton", action: ()=>redirectAction(`/diary/${redirectDate}`)},
     {label: "My辞書", icon: <LocalOffer />, iconSelected: <LocalOfferOutlined />, className: "footerButton", selectedClassName: "selectedFooterButton", action: ()=>redirectAction('/')},
     {label: "その他", icon: <MoreHoriz />, iconSelected: <MoreHorizOutlined />, className: "footerButton", selectedClassName: "selectedFooterButton", action: ()=>redirectAction('/')}
   ]
-  console.log(navActions)
   return(
     <>
       <BottomNavigation

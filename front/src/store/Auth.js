@@ -27,7 +27,7 @@ const AuthProvider = (props) => {
   const login = (session) => {
     client.post(`/login`, { session: session })
       .then(res => {
-        console.log(res)
+        // console.log(res)
         setAuthState({...authState, currentUser: res.data.data, isLoggedIn: true, isFetchingAuth: true})
         history.push('/')
 
