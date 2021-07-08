@@ -28,7 +28,7 @@ const layoutStyles = {
     bottom: 0,
     width: '100%',
     backgroundColor: themes.clearWhite,
-    borderTop: `1px solid ${themes.darkBeige}`
+    borderTop: `1px solid ${themes.gray}`
   },
   footerButton: {
     // color: themes.white,
@@ -39,7 +39,7 @@ const layoutStyles = {
     border: '1px solid',
     borderRadius: '50%',
     padding: '0px',
-    backgroundColor: themes.black,
+    backgroundColor: themes.darkBrown,
     color: themes.clearWhite,
     whiteSpace: 'nowrap',
     minWidth: '40px',
