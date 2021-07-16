@@ -1,5 +1,5 @@
 import React,{ useEffect, useReducer } from 'react'
-import { useLocation } from 'react-router'
+import { useLocation, useHistory } from 'react-router'
 import Axios from './Axios'
 import STATUS_CODES from '../utils/StatusCodes'
 import Check from '@material-ui/icons/Check'
@@ -10,6 +10,7 @@ const initialState = { msg: null, status: 0, severity: '', color: ''}
 export const AlertContext = React.createContext(initialState)
 // alertDispatchでコールバックされる関数 ステータスコードによってアラートを変更する
 const alertReducer = (state, action) => {
+	console.log(action)
 	switch(action.status){
 		case(STATUS_CODES.RESET_CODE): // 0
 			return { initialState }
@@ -26,15 +27,19 @@ const alertReducer = (state, action) => {
 		}
 }
 const AlertProvider = (props) => {
+	const history = useHistory()
 	const location = useLocation()
 	// アラートの変更をuseReducerで行う
 	const [alertState, alertDispatch] = useReducer(alertReducer, initialState)
 	const value = {...alertState, alertDispatch}
 	// ページが変わるごとにアラートをリセット
 	const resetAlertMsg = () => {
-		alertDispatch({status: 0})
+		return history.listen(() => {
+			console.log('useeffect')
+			alertDispatch({status: 0})
+		})
 	}
-	useEffect(resetAlertMsg, [location])
+	useEffect(resetAlertMsg, [history])
 
 	return(
 		<AlertContext.Provider
