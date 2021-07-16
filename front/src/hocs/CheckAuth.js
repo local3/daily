@@ -18,8 +18,10 @@ const CheckAuth = (props) => {
       return props.children
     // ログインフラグとログインユーザーどちらかが取得できていない場合、アクセスを弾く
     }else if(!auth.isLoggedIn || !auth.currentUser){
+      history.push('/login')
       alertDispatch({status: 422, msg: "ログインが必要です"})
-      return <Redirect to={'/login'} />
+      // return <Redirect to={'/login'} />
+      return null
     }
   }
   return null
