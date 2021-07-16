@@ -62,18 +62,19 @@ class DiariesController < ApplicationController
     return render json: {diary: diary, diary_content: diary_content, state:"success",msg:"Success"}
   end
 
+  # 翻訳用のAPIを叩く。
+  # フロント側でAPIキーを使う処理をしてしまうと、キーの漏洩の危険が高まるので、バックでAPIキーを使う処理は行うようにする
+  def translate_text
+    logger.debug "translate_text"
+    translate = Google::Cloud::Translate::V2.new
+    language = Language.find_by(id: params[:language_id])
+    translation = translate.translate(params[:ja_content], from: 'ja', to: language.code)
+    # CGIをつかってアンエスケープ。Transition APIの戻り値はHTMLエスケープ文字列となっているので、それを解除
+    return render json: CGI.unescapeHTML(translation.text) 
+  end
   
   private
-    # 翻訳用のAPIを叩く。
-    # フロント側でAPIキーを使う処理をしてしまうと、キーの漏洩の危険が高まるので、バックでAPIキーを使う処理は行うようにする
-    def translate_text
-      translate = Google::Cloud::Translate::V2.new
-      language = Language.find_by(id: params[:language_id])
-      translation = translate.translate(params[:ja_content], from: 'ja', to: language.code)
-      # CGIをつかってアンエスケープ。Transition APIの戻り値はHTMLエスケープ文字列となっているので、それを解除
-      return render json: CGI.unescapeHTML(translation.text) 
-    end
-
+    
     def get_class_name(total_content_length)
       case
       when total_content_length > 600
