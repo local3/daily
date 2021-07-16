@@ -3,15 +3,18 @@ import { AlertContext } from './AlertProvider'
 import axios from 'axios'
 
 // インスタンス生成
-export const client = axios.create()
+export const axiosWithAlert = axios.create()
 const Axios = () => {
   const { alertDispatch } = useContext(AlertContext)
   // handlerにデータが溜まっていくため、初期化する
-  if (client.interceptors.response.handlers.length > 0) {
-    client.interceptors.response.handlers = [];
+  if (axiosWithAlert.interceptors.response.handlers.length > 0) {
+    axiosWithAlert.interceptors.response.handlers = [];
   }
   // 成功
   const onSuccess = (res) => {
+    console.log(res)
+    const { data, status } =  res
+    alertDispatch({msg: data.msg, status: status})
     return res
   }
   // 失敗
@@ -21,8 +24,8 @@ const Axios = () => {
     // PromiseStatusをresolveにして.thenを実行しないようにする
     return Promise.reject(err)
   }
-  // client処理に割り込んで、成功の場合onSuccess、失敗の場合onErrorを実行する
-  client.interceptors.response.use(onSuccess, onError)
+  // axiosWithAlert処理に割り込んで、成功の場合onSuccess、失敗の場合onErrorを実行する
+  axiosWithAlert.interceptors.response.use(onSuccess, onError)
   return null
 }
 export default Axios
