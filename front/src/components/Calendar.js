@@ -47,6 +47,7 @@ function Calendar() {
     updateDate(date)
     // addClassName()
   }
+  
 
   useEffect(initExistDatesEffect, []);
   // 日記が存在している日付には色をつける。
