@@ -10,8 +10,6 @@ const initialState = { msg: null, status: 0, severity: '', color: ''}
 export const AlertContext = React.createContext(initialState)
 // alertDispatchでコールバックされる関数 ステータスコードによってアラートを変更する
 const alertReducer = (state, action) => {
-	console.log('前', action)
-	console.log('state', state)
 	switch(action.status){
 		case(STATUS_CODES.RESET_CODE): // 0
 			return { initialState }
@@ -34,7 +32,6 @@ const AlertProvider = (props) => {
 	const value = {...alertState, alertDispatch}
 	// ページが変わるごとにアラートをリセット
 	const resetAlertMsg = () => {
-		console.log('useEffectだよ')
 		alertDispatch({status: 0})
 	}
 	useEffect(resetAlertMsg, [location])

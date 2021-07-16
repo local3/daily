@@ -5,7 +5,6 @@ import AlertTitle from '@material-ui/lab/AlertTitle'
 
 const AlertMsg = () => {
 	const alertState = useContext(AlertContext)
-	console.log('あらーとすてと',alertState)
 	return(
 		<>
 			{ alertState.msg && 
