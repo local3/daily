@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { AlertContext } from '../store/AlertProvider'
 import axios from 'axios'
-import { client } from '../store/Axios'
+import { axiosWithAlert } from '../store/Axios'
 import { useHistory } from 'react-router';
 import { LoadContext } from './LoadProvider';
 
@@ -25,7 +25,7 @@ const AuthProvider = (props) => {
   // 他コンポーネントからauth.loginやauth.logoutの形で呼び出せる。
   // 呼び出すと、Contextで管理されているログイン情報が更新される
   const login = (session) => {
-    client.post(`/login`, { session: session })
+    axiosWithAlert.post(`/login`, { session: session })
       .then(res => {
         // console.log(res)
         setAuthState({...authState, currentUser: res.data.data, isLoggedIn: true, isFetchingAuth: true})
@@ -43,7 +43,7 @@ const AuthProvider = (props) => {
   }
 
   const signup = (user) => {
-    client.post(`/users`, { user: user })
+    axiosWithAlert.post(`/users`, { user: user })
       .then(res => {
         setAuthState({...authState, currentUser: res.data.data, isLoggedIn: true})
         history.push('/')
