@@ -5,10 +5,8 @@ type AleartContext = {
 	status: number
 	className: string
 }
-interface Props {
-	
-}
-const AlertMsg: React.FC<Props> = () => {
+
+const AlertMsg: React.FC = () => {
 	const alertState: AleartContext = useContext(AlertContext)
 	return(
 		<div className={alertState.className}>
