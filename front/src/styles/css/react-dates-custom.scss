@@ -61,7 +61,10 @@
 .CalendarDay__selected:active,
 .CalendarDay__selected:hover {
   background: #3f51b5; /* 最も濃い青 */
+<<<<<<< HEAD
   background: #ddd; /* 最も濃い青 */
+=======
+>>>>>>> 5c177d771c57f4e9763c2eb678b0d3c3023d8236
 }
 
 /* 指定した日付範囲の開始日+1 ~ 終了日-1 */
@@ -89,6 +92,7 @@
   * 日記の単語数によって色の濃淡を変える
 */
 .exist_date {
+<<<<<<< HEAD
   // background-color: $light_beige;
   color: #fff;
   background-color: #c0eb90;
@@ -112,4 +116,23 @@
 .max_length {
   // background-color: aqua;
   background-color: #549b08;
+=======
+  background-color: $light_beige;
+}
+
+.min_length {
+  background-color: $dark_beige;
+}
+
+.middle_length {
+  background-color: $light_brown;
+}
+
+.more_length {
+  background-color: $dark_brown;
+}
+
+.max_length {
+  background-color: aqua;
+>>>>>>> 5c177d771c57f4e9763c2eb678b0d3c3023d8236
 }

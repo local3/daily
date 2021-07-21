@@ -8,10 +8,17 @@ class SessionsController < ApplicationController
       logger.debug ('ろぐいん')
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       # @current_user ||= User.find_by(id: session[:user_id])
+<<<<<<< HEAD
       return render json: {data: @current_user, state:"success",msg:"Success"} , status: 200
     else
       logger.debug('のっとろぐいん')
       return render json: {data: nil, state:"success",msg:"メールアドレスまたは、パスワードが一致しません。"} , status: 422
+=======
+      return render json: {data: @current_user, state:"success",msg:"ログインに成功しました"} , status: 200
+    else
+      logger.debug('のっとろぐいん')
+      return render json: {data: nil, state:"success",msg:"メールアドレスまたは、パスワードが一致しません"} , status: 422
+>>>>>>> 5c177d771c57f4e9763c2eb678b0d3c3023d8236
     end
   end
 

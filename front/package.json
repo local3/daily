@@ -5,6 +5,10 @@
   "dependencies": {
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
+<<<<<<< HEAD
+=======
+    "@material-ui/lab": "^4.0.0-alpha.60",
+>>>>>>> 5c177d771c57f4e9763c2eb678b0d3c3023d8236
     "@material-ui/pickers": "^3.3.10",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
