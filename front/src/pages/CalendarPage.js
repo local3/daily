@@ -1,6 +1,6 @@
 import React from "react";
 import Calendar from "../components/Calendar";
-
+import DiaryTip from "../components/DiaryTip";
 import "moment/locale/ja";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
@@ -11,6 +11,7 @@ function CalendarPage() {
   return (
     <>
       <Calendar/>
+      <DiaryTip/>
     </>
   );
 }
