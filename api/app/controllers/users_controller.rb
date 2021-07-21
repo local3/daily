@@ -2,11 +2,7 @@ class UsersController < ApplicationController
   def create
     user = User.new(user_params)
     login(user) if user.save!
-<<<<<<< HEAD
     return render json: {data: user, state:"success",msg:"Success"} , status: 200
-=======
-    return render json: {data: user, state:"success", msg:"会員登録が成功しました"} , status: 200
->>>>>>> 5c177d771c57f4e9763c2eb678b0d3c3023d8236
   end
 
   def update

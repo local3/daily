@@ -12,7 +12,6 @@ class DiariesController < ApplicationController
   def exist_dates
     diaries = @current_user.diaries
     
-<<<<<<< HEAD
     # {date: '○曜日, YYYY年MM月DD日', class_names: ['class1', 'class2']}
     # ↑の形式の要素からなる日記情報を格納した配列を生成
     exist_diarys_info = diaries.inject([]) do |results, current_diary|
@@ -26,14 +25,6 @@ class DiariesController < ApplicationController
       # get_class_nameメソッドで、文字列の長さからどのクラスを付与するか決定する
       arranged_diary = {date: arranged_date, class_names: get_class_name(total_content_length)}
       # 生成した要素を結果に格納
-=======
-    exist_diarys_info = diaries.inject([]) do |results, current_diary|
-      parsed_date = Date.parse(current_diary.date.to_s)
-      arranged_date = parsed_date.strftime("#{getJaDay(parsed_date)}曜日, %Y年#{removeHeadZero(parsed_date.mon)}月#{removeHeadZero(parsed_date.mday)}日")
-      total_content = current_diary.diary_contents.pluck(:content)
-      total_content_length = total_content.join(',').length
-      arranged_diary = {date: arranged_date, class_names: get_class_name(total_content_length)}
->>>>>>> 5c177d771c57f4e9763c2eb678b0d3c3023d8236
       results << arranged_diary
     end
 
@@ -70,33 +61,21 @@ class DiariesController < ApplicationController
     diary_content.update(diary_content_params)
     return render json: {diary: diary, diary_content: diary_content, state:"success",msg:"Success"}
   end
-<<<<<<< HEAD
 
+  # 翻訳用のAPIを叩く。
+  # フロント側でAPIキーを使う処理をしてしまうと、キーの漏洩の危険が高まるので、バックでAPIキーを使う処理は行うようにする
+  def translate_text
+    logger.debug "translate_text"
+    translate = Google::Cloud::Translate::V2.new
+    language = Language.find_by(id: params[:language_id])
+    translation = translate.translate(params[:ja_content], from: 'ja', to: language.code)
+    # CGIをつかってアンエスケープ。Transition APIの戻り値はHTMLエスケープ文字列となっているので、それを解除
+    return render json: CGI.unescapeHTML(translation.text) 
+  end
   
   private
-    # 翻訳用のAPIを叩く。
-    # フロント側でAPIキーを使う処理をしてしまうと、キーの漏洩の危険が高まるので、バックでAPIキーを使う処理は行うようにする
-=======
-  
-  private
->>>>>>> 5c177d771c57f4e9763c2eb678b0d3c3023d8236
-    def translate_text
-      translate = Google::Cloud::Translate::V2.new
-      language = Language.find_by(id: params[:language_id])
-      translation = translate.translate(params[:ja_content], from: 'ja', to: language.code)
-<<<<<<< HEAD
-      # CGIをつかってアンエスケープ。Transition APIの戻り値はHTMLエスケープ文字列となっているので、それを解除
-=======
-      # CGIをつかってアンエスケープ
->>>>>>> 5c177d771c57f4e9763c2eb678b0d3c3023d8236
-      return render json: CGI.unescapeHTML(translation.text) 
-    end
-
     def get_class_name(total_content_length)
-<<<<<<< HEAD
-=======
       logger.debug total_content_length
->>>>>>> 5c177d771c57f4e9763c2eb678b0d3c3023d8236
       case
       when total_content_length > 600
         return ['exist_date', 'max_length']
@@ -118,8 +97,4 @@ class DiariesController < ApplicationController
     def diary_content_params
       params.require(:diary_content).permit(:language_id, :content)
     end
-<<<<<<< HEAD
 end
-=======
-end
->>>>>>> 5c177d771c57f4e9763c2eb678b0d3c3023d8236

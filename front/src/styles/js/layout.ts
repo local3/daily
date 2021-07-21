@@ -41,7 +41,6 @@ const layoutStyles = {
     padding: 0,
     border: '1px solid',
     borderRadius: '50%',
-    padding: '0px',
     backgroundColor: themes.darkBrown,
     color: themes.clearWhite,
     whiteSpace: 'nowrap',
@@ -54,6 +53,19 @@ const layoutStyles = {
   },
   selectedFooterCenterButton: {
     color: `${themes.clearWhite}!important`
+  },
+  // Load関連
+  loadWrapper: {
+    zIndex: 9999999,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100vw',
+    height: '100vh',
+    backgroundColor: '#fff',
+    opacity: 0.6,
+    textAlign: 'center',
+    paddingTop: '40vh'
   }
 }
 
