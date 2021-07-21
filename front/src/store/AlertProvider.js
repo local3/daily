@@ -26,6 +26,7 @@ const alertReducer = (state, action) => {
 			return {}
 		}
 }
+
 const AlertProvider = (props) => {
 	const history = useHistory()
 	const location = useLocation()

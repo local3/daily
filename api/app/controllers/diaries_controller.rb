@@ -54,7 +54,6 @@ class DiariesController < ApplicationController
     diary_content.update(diary_content_params)
     return render json: {diary: diary, diary_content: diary_content, state:"success",msg:"Success"}
   end
-
   
   private
     def translate_text
