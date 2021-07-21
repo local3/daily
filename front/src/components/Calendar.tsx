@@ -75,8 +75,8 @@ function Calendar() {
         hideKeyboardShortcutsPanel={true} // 右下の?ボタンをなくす
         date={date}
         onDateChange={(date) => handleChangeDate(date)}
-        focused={true} // デフォルトではfocus=inputを洗濯中の時。強制的に常に表示にする
-        onFocusChange={() => setFocused(true)}
+        focused={focused} // デフォルトではfocus=inputを洗濯中の時。強制的に常に表示にする
+        onFocusChange={() => setFocused(focused)}
         isOutsideRange={ () => false}
         numberOfMonths={1} // 表示するのを１つの月だけにする
         verticalSpacing={0} // カレンダーとinputの間にでる三角吹き出しを消す

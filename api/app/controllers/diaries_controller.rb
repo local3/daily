@@ -12,12 +12,19 @@ class DiariesController < ApplicationController
   def exist_dates
     diaries = @current_user.diaries
     
+    # {date: '○曜日, YYYY年MM月DD日', class_names: ['class1', 'class2']}
+    # ↑の形式の要素からなる日記情報を格納した配列を生成
     exist_diarys_info = diaries.inject([]) do |results, current_diary|
+      # 日にちを整形
       parsed_date = Date.parse(current_diary.date.to_s)
       arranged_date = parsed_date.strftime("#{getJaDay(parsed_date)}曜日, %Y年#{removeHeadZero(parsed_date.mon)}月#{removeHeadZero(parsed_date.mday)}日")
+      # 各外国語日記から、内容を取り出し一旦配列にする(可読性のため)
       total_content = current_diary.diary_contents.pluck(:content)
+      # 配列を一つの文章としてつなげ、その長さを取得
       total_content_length = total_content.join(',').length
+      # get_class_nameメソッドで、文字列の長さからどのクラスを付与するか決定する
       arranged_diary = {date: arranged_date, class_names: get_class_name(total_content_length)}
+      # 生成した要素を結果に格納
       results << arranged_diary
     end
 
@@ -54,16 +61,19 @@ class DiariesController < ApplicationController
     diary_content.update(diary_content_params)
     return render json: {diary: diary, diary_content: diary_content, state:"success",msg:"Success"}
   end
+
+  # 翻訳用のAPIを叩く。
+  # フロント側でAPIキーを使う処理をしてしまうと、キーの漏洩の危険が高まるので、バックでAPIキーを使う処理は行うようにする
+  def translate_text
+    logger.debug "translate_text"
+    translate = Google::Cloud::Translate::V2.new
+    language = Language.find_by(id: params[:language_id])
+    translation = translate.translate(params[:ja_content], from: 'ja', to: language.code)
+    # CGIをつかってアンエスケープ。Transition APIの戻り値はHTMLエスケープ文字列となっているので、それを解除
+    return render json: CGI.unescapeHTML(translation.text) 
+  end
   
   private
-    def translate_text
-      translate = Google::Cloud::Translate::V2.new
-      language = Language.find_by(id: params[:language_id])
-      translation = translate.translate(params[:ja_content], from: 'ja', to: language.code)
-      # CGIをつかってアンエスケープ
-      return render json: CGI.unescapeHTML(translation.text) 
-    end
-
     def get_class_name(total_content_length)
       logger.debug total_content_length
       case
