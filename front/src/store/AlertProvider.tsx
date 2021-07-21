@@ -17,7 +17,10 @@ const alertReducer = (state, action) => {
 			return { initialState }
 	}
 }
-const AlertProvider = (props) => {
+
+type Props = {}
+
+const AlertProvider: React.FC<Props> = (props) => {
 	const history = useHistory()
 	// アラートの変更をuseReducerで行う
 	const [alertState, alertDispatch] = useReducer(alertReducer, initialState)
