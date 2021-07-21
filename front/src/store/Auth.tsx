@@ -4,27 +4,31 @@ import axios from 'axios'
 import { axiosWithAlert } from '../store/Axios'
 import { useHistory } from 'react-router';
 import { LoadContext } from './LoadProvider';
+import { Auth, Load } from '../types/index'
 
 // 初期状態登録
-const initialContext = {
+const initialContext: Auth = {
   currentUser: null,
   isLoggedIn: false,
   isFetchingAuth: true
 }
+
+type Props = {}
+
 // Context作成。このAuthContextに他のコンポーネントからアクセスすることで、ログイン情報を持ってこれる
 const AuthContext = React.createContext(initialContext);
 // Router.jsで使う。propsにRouter.jsでラップしたコンポーネントたちが入る。
-const AuthProvider = (props) => {
+const AuthProvider: React.FC<Props> = (props) => {
   // URL遷移用
   const history = useHistory();
   // state定義
   const [authState, setAuthState] = useState(initialContext)
   
   const error = useContext(AlertContext)
-  const { loadDispatch } = useContext(LoadContext)
+  const { loadDispatch } = useContext<Load>(LoadContext)
   // 他コンポーネントからauth.loginやauth.logoutの形で呼び出せる。
   // 呼び出すと、Contextで管理されているログイン情報が更新される
-  const login = (session) => {
+  const login = (session): void => {
     axiosWithAlert.post(`/login`, { session: session })
       .then(res => {
         // console.log(res)
@@ -34,7 +38,7 @@ const AuthProvider = (props) => {
       })
   }
 
-  const logout = () => {
+  const logout = (): void => {
     axios.delete(`/logout`)
       .then(res => {
         setAuthState({...authState, currentUser: null, isLoggedIn: false})
@@ -42,7 +46,7 @@ const AuthProvider = (props) => {
       })
   }
 
-  const signup = (user) => {
+  const signup = (user): void => {
     axiosWithAlert.post(`/users`, { user: user })
       .then(res => {
         setAuthState({...authState, currentUser: res.data.data, isLoggedIn: true})
@@ -65,7 +69,7 @@ const AuthProvider = (props) => {
   }, [authState.isLoggedIn]);
 
   // 各コンポーネントに最終的に送る内容
-  const value = {...authState, login, logout, signup}
+  const value: Auth = {...authState, login, logout, signup}
 
   return (
     // .Providerで値を送り、各コンポーネントでuseContext(AuthContext)で情報を受け取る

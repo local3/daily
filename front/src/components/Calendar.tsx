@@ -11,14 +11,15 @@ import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 import { useCalendarStyles } from "../styles/js/Calendar";
 import "../styles/css/react-dates-custom.scss";
+import { DateContextType, ExistDate } from '../types/index'
 
 function Calendar() {
   const calendarClasses = useCalendarStyles()
   const { updateDate } = useContext(DateContext)
 
-  const [date, setDate] = useState(moment());
+  const [date, setDate] = useState<string>(moment());
   const [focused, setFocused] = useState(true);
-  const [existDates, setExistDates] = useState([]);
+  const [existDates, setExistDates] = useState<ExistDate[]>([]);
   // 日記が書いてある日の取得
   const initExistDatesEffect = () => {
     axios.get('/diaries/exist_dates')
