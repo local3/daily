@@ -4,18 +4,26 @@ import React from 'react'
 export type User = {
   id: number
   name: string
+  languageId: number
+}
+
+export type SignupForm = {
+  email: string
+  password: string
+  passwordConfirmation: string
+  languageId: number
 }
 
 export type Auth = {
   currentUser: User | null
   isLoggedIn: boolean
   isFetchingAuth: boolean
-  login?: void
-  logout?: void
-  signup?: void
+  login: (session: Session) => void
+  logout: () => void
+  signup: (user: SignupForm) => void
 }
 
-export type Login = {
+export type Session = {
   email: string
   password: string
   rememberMe: boolean
@@ -44,11 +52,15 @@ export type ExistDate = {
 
 // Calendar関連
 export type DateContextType = {
-  date?: string
-  updateDate?: React.Dispatch<React.SetStateAction<any>>
+  date: string
+  updateDate: (date: string) => void
 } | null
 
 // Memo関連
+export type Memo = {
+  id: number
+  content: string
+}
 
 // Language関連
 export type Language = {
@@ -57,9 +69,16 @@ export type Language = {
 }
 
 // Alert関連
+export type AlertState = {
+  msg: string
+  status: number
+  severity: string
+  color: string
+  alertDispatch: React.Dispatch<any>
+}
 
 // Load関連
 export type Load = {
   isLoading: boolean
-  loadDispatch?: boolean
+  loadDispatch: React.Dispatch<any>
 }

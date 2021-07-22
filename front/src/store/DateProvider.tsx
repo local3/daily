@@ -2,12 +2,15 @@ import React, { useState } from 'react'
 import moment from "moment";
 import { dateFormat } from '../utils/Date';
 import { DateContextType } from '../types'
-const initialState: string = moment().format(dateFormat)
+const initialState: DateContextType = {
+	date: moment().format(dateFormat),
+	updateDate: () => {}
+}	
 
-export const DateContext = React.createContext({} as DateContextType)
+export const DateContext = React.createContext(initialState)
 
 const DateProvider = (props) => {
-	const [date, setDate] = useState<string>(initialState)
+	const [date, setDate] = useState<string>(initialState.date)
 	
 	const updateDate = (selectedDate: string) => {
 		setDate(moment(selectedDate).format(dateFormat))

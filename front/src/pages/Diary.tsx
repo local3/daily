@@ -34,7 +34,7 @@ const Diary = () => {
   
   const initExistDiaryEffect = () => {
     
-    if(languages && auth.currentUser.language_id){
+    if(languages && auth.currentUser?.languageId){
       axios.get(`/diaries/${formContent.diary.date}`)
         .then(res => {
           const existDiary = res.data.diary;
@@ -56,9 +56,10 @@ const Diary = () => {
   }
 
   const getDiaryContent = (diary) => {
-    const language: (Language | undefined) = auth.currentUser && getLanguage(auth.currentUser.language_id) ? getLanguage(auth.currentUser.language_id) : getLanguage(1)
+    const language: (Language | undefined) = auth.currentUser && getLanguage(auth.currentUser.languageId) ? getLanguage(auth.currentUser.languageId) : getLanguage(1)
     return diary.diary_contents.find(dc => {
-      return Number(dc.language_id) === Number(language.id)
+      // return Number(dc.languageId) === Number(language.id)
+      Number(dc.languageId) === Number(language?.id)
     })
   }
 
@@ -72,7 +73,7 @@ const Diary = () => {
         },
         diaryContent: {
           ...formContent.diaryContent,
-          languageId: existDiaryContent ? existDiaryContent.language_id : auth.currentUser.language_id,
+          languageId: existDiaryContent ? existDiaryContent.languageId : auth.currentUser?.languageId,
           content: existDiaryContent ? existDiaryContent.content : ''
         }
       }

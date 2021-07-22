@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 
-function Translate (props) {
+type Props = {
+  jaContent: string
+  languageId: number
+}
+
+const Translate: React.FC<Props> = (props: Props) => {
   const [translatedText, setTranslatedText] = useState('')
 
   const handleTranslateClick = () => {

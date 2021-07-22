@@ -4,13 +4,16 @@ import axios from 'axios'
 import { axiosWithAlert } from '../store/Axios'
 import { useHistory } from 'react-router';
 import { LoadContext } from './LoadProvider';
-import { Auth, Load , Session } from '../types/index'
+import { Auth, Load, Session, SignupForm } from '../types/index'
 
 // 初期状態登録
 const initialContext: Auth = {
   currentUser: null,
   isLoggedIn: false,
-  isFetchingAuth: true
+  isFetchingAuth: true,
+  login: () => {},
+  signup: () => {},
+  logout: () => {}
 }
 
 type Props = {}
@@ -28,7 +31,7 @@ const AuthProvider = (props) => {
   const { loadDispatch } = useContext<Load>(LoadContext)
   // 他コンポーネントからauth.loginやauth.logoutの形で呼び出せる。
   // 呼び出すと、Contextで管理されているログイン情報が更新される
-  const login = (session: Session ): void　=> {
+  const login = (session: Session): void => {
     axiosWithAlert.post(`/login`, { session: session })
       .then(res => {
         // console.log(res)
@@ -38,7 +41,7 @@ const AuthProvider = (props) => {
       })
   }
 
-  const logout = () => {
+  const logout = (): void => {
     axios.delete(`/logout`)
       .then(res => {
         setAuthState({...authState, currentUser: null, isLoggedIn: false})
@@ -46,7 +49,7 @@ const AuthProvider = (props) => {
       })
   }
 
-  const signup = (user) => {
+  const signup = (user: SignupForm): void => {
     axiosWithAlert.post(`/users`, { user: user })
       .then(res => {
         setAuthState({...authState, currentUser: res.data.data, isLoggedIn: true})

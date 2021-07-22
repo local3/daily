@@ -11,7 +11,7 @@ import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 import { useCalendarStyles } from "../styles/js/Calendar";
 import "../styles/css/react-dates-custom.scss";
-import { DateContextType, ExistDate } from '../types/index'
+import { ExistDate } from '../types/index'
 import { axiosWithAlert } from '../store/Axios'
 
 function Calendar() {
@@ -43,7 +43,7 @@ function Calendar() {
     }
   }
 
-  const handleChangeDate = (date) => {
+  const handleChangeDate = (date: string) => {
     // このコンポーネント内で、dateという変数を扱う用。useContextでstore/Date.jsの値を使えばいらないかも？
     setDate(date)
     // Footerとの連携用。選択した日にちの日記に「書く」ボタンでリダイレクトできるようにする
@@ -77,7 +77,7 @@ function Calendar() {
         withFullScreenPortal={false}
         hideKeyboardShortcutsPanel={true} // 右下の?ボタンをなくす
         date={date}
-        onDateChange={(date) => handleChangeDate(date)}
+        onDateChange={(date: string) => handleChangeDate(date)}
         focused={focused} // デフォルトではfocus=inputを洗濯中の時。強制的に常に表示にする
         onFocusChange={() => setFocused(focused)}
         isOutsideRange={ () => false}

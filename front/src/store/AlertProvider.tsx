@@ -3,9 +3,10 @@ import { useLocation, useHistory } from 'react-router'
 import Axios from './Axios'
 import STATUS_CODES from '../utils/StatusCodes'
 import Check from '@material-ui/icons/Check'
+import { AlertState } from '../types'
 
 // 初期状態登録
-const initialState = { msg: null, status: 0, severity: '', color: ''}
+const initialState: AlertState = { msg: '', status: 0, severity: '', color: '', alertDispatch: () => {}}
 // Context作成　このAlertContextをインポートするとアラートが取得できる
 export const AlertContext = React.createContext(initialState)
 // alertDispatchでコールバックされる関数 ステータスコードによってアラートを変更する
@@ -23,7 +24,7 @@ const alertReducer = (state, action) => {
 		case(STATUS_CODES.NOT_FOUND_CODE): // 404
 			return { ...state, msg: action.msg, severity: 'error' }
 		case(STATUS_CODES.INVALID_CODE): // 422
-			return { msg: action.msg, severity: 'error'}
+			return { ...state, msg: action.msg, severity: 'error'}
 		case(STATUS_CODES.SERVER_ERROR_CODE): // 500
 			return {}
 		}
@@ -34,7 +35,7 @@ const AlertProvider = (props) => {
 	const location = useLocation()
 	// アラートの変更をuseReducerで行う
 	const [alertState, alertDispatch] = useReducer(alertReducer, initialState)
-	const value = {...alertState, alertDispatch}
+	const value: AlertState = {...alertState, alertDispatch}
 	// ページが変わるごとにアラートをリセット
 	const resetAlertMsg = () => {
 		return history.listen(() => {

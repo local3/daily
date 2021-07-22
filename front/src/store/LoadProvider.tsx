@@ -2,10 +2,10 @@ import React,{ useReducer } from 'react'
 import { useHistory } from 'react-router';
 import { Load } from '../types/index'
 
-const initialState: Load = { isLoading: true }
+const initialState: Load = { isLoading: true, loadDispatch: () => {} }
 export const LoadContext = React.createContext(initialState)
 const loadReducer = (state, action) => {
-		return { isLoading: action.isLoading }
+		return { ...state, isLoading: action.isLoading }
 }
 const LoadProvider = (props) => {
 	const history = useHistory()
