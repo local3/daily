@@ -15,6 +15,11 @@ export type Auth = {
   signup?: void
 }
 
+export type Login = {
+  email: string
+  password: string
+  rememberMe: boolean
+}
 
 // Diary関連
 export type DiaryFormContent = {
@@ -35,12 +40,12 @@ export type DiaryContentForm = {
 export type ExistDate = {
   date: string
   classNames: string[]
-} | []
+}
 
 // Calendar関連
 export type DateContextType = {
-  date: string
-  updateDate: React.Dispatch<React.SetStateAction<any>>
+  date?: string
+  updateDate?: React.Dispatch<React.SetStateAction<any>>
 } | null
 
 // Memo関連

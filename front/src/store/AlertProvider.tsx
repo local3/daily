@@ -10,10 +10,12 @@ const initialState = { msg: null, status: 0, severity: '', color: ''}
 export const AlertContext = React.createContext(initialState)
 // alertDispatchでコールバックされる関数 ステータスコードによってアラートを変更する
 const alertReducer = (state, action) => {
-	console.log(action)
+	// console.log(action)
 	switch(action.status){
 		case(STATUS_CODES.RESET_CODE): // 0
 			return { initialState }
+		case(STATUS_CODES.FLAT_CODE): // 1
+			return state
 		case(STATUS_CODES.SUCCESS_CODE): // 200
 			return { ...state, msg: action.msg, severity: 'success' }
 		case(STATUS_CODES.INFO_CODE): // 210

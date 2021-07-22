@@ -12,6 +12,7 @@ import "react-dates/lib/css/_datepicker.css";
 import { useCalendarStyles } from "../styles/js/Calendar";
 import "../styles/css/react-dates-custom.scss";
 import { DateContextType, ExistDate } from '../types/index'
+import { axiosWithAlert } from '../store/Axios'
 
 function Calendar() {
   const calendarClasses = useCalendarStyles()
@@ -22,9 +23,10 @@ function Calendar() {
   const [existDates, setExistDates] = useState<ExistDate[]>([]);
   // 日記が書いてある日の取得
   const initExistDatesEffect = () => {
-    axios.get('/diaries/exist_dates')
+    axiosWithAlert.get('/diaries/exist_dates')
       .then(res => {
-        setExistDates(res.data.exist_diarys_info)
+        console.log(res)
+        setExistDates(res.data.existDiarysInfo)
       })
   };
 
@@ -36,7 +38,7 @@ function Calendar() {
         // rails側でaria-labelの形式に合わせた形でフォーマットしてある。
         const element = document.querySelector(`td[aria-label='${date.date}']`)
         // rails側でclass名をセットしてあるので、それを展開して複数クラスを付加していく
-        element && element.classList.add(...date.class_names)
+        element && element.classList.add(...date.classNames)
       });
     }
   }

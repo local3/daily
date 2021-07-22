@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { AlertContext } from './AlertProvider'
 import axios from 'axios'
+import { parseSnakeToCamel } from '../utils/StringCases'
 
 // インスタンス生成
 export const axiosWithAlert = axios.create()
@@ -12,10 +13,12 @@ const Axios = () => {
   }
   // 成功
   const onSuccess = (res) => {
-    console.log(res)
+    // console.log(res)
+    // console.log(parseSnakeToCamel(res))
     const { data, status } =  res
     alertDispatch({msg: data.msg, status: status})
-    return res
+    // スネークケースからキャメルケースに変換
+    return parseSnakeToCamel(res)
   }
   // 失敗
   const onError = (err) => {
