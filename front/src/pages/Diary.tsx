@@ -59,7 +59,7 @@ const Diary = () => {
     const language: (Language | undefined) = auth.currentUser && getLanguage(auth.currentUser.languageId) ? getLanguage(auth.currentUser.languageId) : getLanguage(1)
     return diary.diary_contents.find(dc => {
       // return Number(dc.languageId) === Number(language.id)
-      Number(dc.languageId) === Number(language?.id)
+      return Number(dc.languageId) === Number(language?.id)
     })
   }
 

@@ -23,7 +23,7 @@ function Calendar() {
   const [existDates, setExistDates] = useState<ExistDate[]>([]);
   // 日記が書いてある日の取得
   const initExistDatesEffect = () => {
-    axiosWithAlert.get('/diaries/exist_dates')
+    axios.get('/diaries/exist_dates')
       .then(res => {
         console.log(res)
         setExistDates(res.data.existDiarysInfo)
@@ -32,7 +32,7 @@ function Calendar() {
 
   // すでに日記を書いてある日にちに対してクラスを付加して色をつける処理
   const addClassName = () => {
-    if(existDates.length > 0){
+    if(existDates?.length > 0){
       existDates.forEach(date => {
         // react-datesの性質上、td[aria-label='○曜日. YYYY年MM月DD日']というaria-labelが各日にちについている。
         // rails側でaria-labelの形式に合わせた形でフォーマットしてある。
