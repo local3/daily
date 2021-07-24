@@ -1,7 +1,7 @@
 import moment from "moment";
 
 export const dateFormat = "YYYY-MM-DD";
-export const today = moment().format(dateFormat)
+export const today: string = moment().format(dateFormat)
 
 export const isSameDay = (a, b) => {
   if (!moment.isMoment(a) || !moment.isMoment(b)) return false;

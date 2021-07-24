@@ -27,7 +27,7 @@ const Header = () => {
            </button> */}
         { auth.isLoggedIn &&
           <ModalWrapper text="メモる">
-            <MemoForm memoId={null}/>
+            <MemoForm memoId={0} toggleModal={()=>{}}/>
           </ModalWrapper>
         }
         { !auth.isLoggedIn &&

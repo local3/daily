@@ -1,6 +1,8 @@
 const STATUS_CODES = {
   // リセット
   RESET_CODE: 0,
+  // 何も処理しない
+  FLAT_CODE: 1,
   // 成功
   SUCCESS_CODE: 200,
   // 自作ステータスコード　infoアラート

@@ -11,36 +11,39 @@ import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 import { useCalendarStyles } from "../styles/js/Calendar";
 import "../styles/css/react-dates-custom.scss";
+import { ExistDate } from '../types/index'
+import { axiosWithAlert } from '../store/Axios'
 
 function Calendar() {
   const calendarClasses = useCalendarStyles()
   const { updateDate } = useContext(DateContext)
 
-  const [date, setDate] = useState(moment());
+  const [date, setDate] = useState<string>(moment());
   const [focused, setFocused] = useState(true);
-  const [existDates, setExistDates] = useState([]);
+  const [existDates, setExistDates] = useState<ExistDate[]>([]);
   // 日記が書いてある日の取得
   const initExistDatesEffect = () => {
     axios.get('/diaries/exist_dates')
       .then(res => {
-        setExistDates(res.data.exist_diarys_info)
+        console.log(res)
+        setExistDates(res.data.existDiarysInfo)
       })
   };
 
   // すでに日記を書いてある日にちに対してクラスを付加して色をつける処理
   const addClassName = () => {
-    if(existDates.length > 0){
+    if(existDates?.length > 0){
       existDates.forEach(date => {
         // react-datesの性質上、td[aria-label='○曜日. YYYY年MM月DD日']というaria-labelが各日にちについている。
         // rails側でaria-labelの形式に合わせた形でフォーマットしてある。
         const element = document.querySelector(`td[aria-label='${date.date}']`)
         // rails側でclass名をセットしてあるので、それを展開して複数クラスを付加していく
-        element && element.classList.add(...date.class_names)
+        element && element.classList.add(...date.classNames)
       });
     }
   }
 
-  const handleChangeDate = (date) => {
+  const handleChangeDate = (date: string) => {
     // このコンポーネント内で、dateという変数を扱う用。useContextでstore/Date.jsの値を使えばいらないかも？
     setDate(date)
     // Footerとの連携用。選択した日にちの日記に「書く」ボタンでリダイレクトできるようにする
@@ -74,7 +77,7 @@ function Calendar() {
         withFullScreenPortal={false}
         hideKeyboardShortcutsPanel={true} // 右下の?ボタンをなくす
         date={date}
-        onDateChange={(date) => handleChangeDate(date)}
+        onDateChange={(date: string) => handleChangeDate(date)}
         focused={focused} // デフォルトではfocus=inputを洗濯中の時。強制的に常に表示にする
         onFocusChange={() => setFocused(focused)}
         isOutsideRange={ () => false}

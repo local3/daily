@@ -4,11 +4,12 @@ import axios from 'axios';
 import { AuthContext } from "../store/Auth";
 import { useParams } from "react-router-dom";
 import { Box } from '@material-ui/core'
+import { DiaryFormContent, Language } from '../types/index'
 
-function Diary() {
+const Diary = () => {
   const auth = useContext(AuthContext);
   const {date} = useParams();
-  const initformContent = {
+  const initformContent: DiaryFormContent = {
     diary: {
       jaContent: "",
       date: date
@@ -19,8 +20,8 @@ function Diary() {
     }
   }
   
-  const [languages, setLanguages] = useState([])
-  const [isEdit, setIsEdit] = useState(false)
+  const [languages, setLanguages] = useState<Language[]>([])
+  const [isEdit, setIsEdit] = useState<boolean>(false)
   const [formContent, setFormContent] = useState(initformContent)
   const initLanguagesEffect = () => {
     
@@ -33,7 +34,7 @@ function Diary() {
   
   const initExistDiaryEffect = () => {
     
-    if(languages && auth.currentUser.language_id){
+    if(languages && auth.currentUser?.languageId){
       axios.get(`/diaries/${formContent.diary.date}`)
         .then(res => {
           const existDiary = res.data.diary;
@@ -55,9 +56,10 @@ function Diary() {
   }
 
   const getDiaryContent = (diary) => {
-    const language = auth.currentUser && getLanguage(auth.currentUser.language_id) ? getLanguage(auth.currentUser.language_id) : getLanguage(1)
+    const language: (Language | undefined) = auth.currentUser && getLanguage(auth.currentUser.languageId) ? getLanguage(auth.currentUser.languageId) : getLanguage(1)
     return diary.diary_contents.find(dc => {
-      return Number(dc.language_id) === Number(language.id)
+      // return Number(dc.languageId) === Number(language.id)
+      return Number(dc.languageId) === Number(language?.id)
     })
   }
 
@@ -71,7 +73,7 @@ function Diary() {
         },
         diaryContent: {
           ...formContent.diaryContent,
-          languageId: existDiaryContent ? existDiaryContent.language_id : auth.currentUser.language_id,
+          languageId: existDiaryContent ? existDiaryContent.languageId : auth.currentUser?.languageId,
           content: existDiaryContent ? existDiaryContent.content : ''
         }
       }

@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios';
 import { AuthContext } from "../store/Auth";
+import { SignupForm, Language } from '../types'
 
 function Signup() {
   const auth = useContext(AuthContext);  
-  const initUser =
+  const initUser: SignupForm =
       {
         email: '',
         password: '',
@@ -13,14 +14,12 @@ function Signup() {
       }
   
   const [user, setUser] = useState(initUser);
-  const [languages, setLanguages] = useState([])  
+  const [languages, setLanguages] = useState<Language[]>([])  
 
   const componentDidMount = () => {
     axios.get(`/languages`)
       .then(res => {
-        const languages = res.data;
-        setLanguages(languages);
-        // console.log(languages)
+        setLanguages(res.data)
       })
   }
 

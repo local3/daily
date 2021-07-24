@@ -1,15 +1,16 @@
 import React, { useState, useContext } from 'react'
 import { AuthContext } from "../store/Auth";
+import { Session, Auth } from '../types/index'
 
 const Login = () => {
   const auth = useContext(AuthContext);
 
-  const initSession = {
+  const initSession: Session = {
     email: '',
     password: '',
     rememberMe: false
   }
-  const [session, setSession] = useState(initSession)
+  const [session, setSession] = useState<Session>(initSession)
 
   const handleChangeEmail = (e) => {
     setSession({

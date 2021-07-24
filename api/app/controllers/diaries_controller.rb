@@ -28,16 +28,13 @@ class DiariesController < ApplicationController
       results << arranged_diary
     end
 
-    return render json: {exist_diarys_info: exist_diarys_info, state: "success", msg: "Success"}
+    return render json: {exist_diarys_info: exist_diarys_info, state: "success", msg: "Success",  status: 0}
   end
 
   def create
     # date_param = params[:diary][:date].split('-').map(&: to_i)
     # date = Date.new(date_param[0], date_param[1], date_param[2])
     # logger.debug date
-    logger.debug diary_params
-    logger.debug diary_content_params
-    logger.debug Diary.column_names
     diary = @current_user.diaries.build(diary_params)
     diary.save
     diary_content = diary.diary_contents.build(diary_content_params)

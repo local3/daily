@@ -7,7 +7,10 @@ import { useLayoutStyles } from '../styles/js/layout';
 import Modal from "react-modal"
 // Modalをid="root"の一番上要素に指定することで全体を覆うことができる
 Modal.setAppElement("#root")
-
+type Props = {
+  memoId: number
+  toggleModal: () => void
+}
 const ModalWrapper = (props) => {
   const layoutClasses = useLayoutStyles()
   // ログイン中でないと押せない仕様にするとき使うかも
@@ -21,8 +24,9 @@ const ModalWrapper = (props) => {
   // Modalの中身で、toggleModal()を使ってModalを閉じれるようにする
   // 汎用性を上げるためにchildrenにしており、個別でpropsを渡せないのでcomponentをcloneして入れ直している
   const childrenWithProps = React.Children.map(props.children, child => {
+
     if (React.isValidElement(child)) {
-      return React.cloneElement(child, { toggleModal });
+      return React.cloneElement(child as React.ReactElement<Props>, { toggleModal });
     }
     return child;
   });

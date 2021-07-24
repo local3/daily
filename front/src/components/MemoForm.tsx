@@ -3,7 +3,11 @@ import axios from 'axios'
 import { AuthContext } from "../store/Auth"
 import { useHistory } from 'react-router';
 
-const MemoForm = (props) => {
+type Props = {
+  memoId: number
+  toggleModal: () => void
+}
+const MemoForm: React.FC<Props> = (props: Props) => {
   const auth = useContext(AuthContext);
   const history = useHistory()
 
@@ -54,7 +58,7 @@ const MemoForm = (props) => {
       <h1>メモーダル</h1>
       <form onSubmit={handleSubmit}>
         <label>内容：</label>
-        <textarea type="text"
+        <textarea
           name="content"  
           onChange={handleChangeContent}
           value={memo.content}

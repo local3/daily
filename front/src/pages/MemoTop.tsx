@@ -2,11 +2,12 @@ import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { AuthContext } from "../store/Auth";
+import { Memo } from '../types';
 
 const MemoTop = () => {
   const auth = useContext(AuthContext);
 
-  const initMemos = []
+  const initMemos: Memo[] = []
   const [memos, setMemos] = useState(initMemos)
 
   const initEffect = () => {
