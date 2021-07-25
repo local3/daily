@@ -6,6 +6,13 @@ const calendarStyles = {
   datePickerNavButton: {
     position: 'absolute',
     top: '125px'
+  },
+  CardStyles: {
+    width: 375,
+    height: 120,
+    margin:'auto',
+    marginTop: 40,
+    textAlign: 'left'
   }
 }
 
