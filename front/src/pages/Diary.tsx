@@ -15,6 +15,8 @@ const Diary = () => {
   console.log("diary")
   const history = useHistory()
   const auth = useContext(AuthContext)
+  // 保存ボタンを押した時に保存フラグを立てる関数
+  // const { changeSubmitFlag } = useContext(DiaryFormContentContext)
   const { submitFlag } = useContext(DiaryFormContentContext)
   console.log(submitFlag)
   const diaryClasses = useDiaryStyles()

@@ -34,6 +34,7 @@ const Router = () => {
         {/* CheckAuthでログインしていなければアクセスできないページを囲ってある */}
         <CheckAuth>
           <Route exact path="/calendar" component={CalendarPage} />
+          {/* なぜかContextの変更を検知してりれんだりんぐしない*/}
           <DiaryFormContentProvider>
             <Route exact path={'/diary/:date'} component={Diary} />
           </DiaryFormContentProvider>

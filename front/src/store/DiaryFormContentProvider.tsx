@@ -21,6 +21,7 @@ const DiaryFormContentProvider = (props) => {
 	}
 	const afterRerender = () => {
 		if(rerender === true){
+			console.log("afterRerennder")
 			setSubmitFlagState({...submitFlagState, submitFlag: true})
 		}
 	}
