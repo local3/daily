@@ -3,7 +3,6 @@ import React from 'react'
 // 高階層コンポーネント系
 import { Route, Switch } from 'react-router-dom'
 import CheckAuth from "./hocs/CheckAuth"
-import DateProvider from './store/DateProvider';
 
 // ページファイルインポート
 import Home from './pages/Home'

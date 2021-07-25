@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Translate from '../components/Translate'
-import axios from 'axios';
-import { AuthContext } from "../store/Auth";
-import { useParams } from "react-router-dom";
-import { Box } from '@material-ui/core'
+import DiaryFormButton from '../components/DiaryFormButton'
+import axios from 'axios'
+import { AuthContext } from "../store/Auth"
+import { useParams } from "react-router-dom"
+import { Box, Button } from '@material-ui/core'
 import { DiaryFormContent, Language } from '../types/index'
+import { useDiaryStyles } from '../styles/js/diary'
+import { Cached as CachedIcon, ExpandMore as ExpandMoreIcon } from '@material-ui/icons'
 
 const Diary = () => {
   const auth = useContext(AuthContext);
+  const diaryClasses = useDiaryStyles()
   const {date} = useParams();
   const initformContent: DiaryFormContent = {
     diary: {
@@ -23,6 +27,8 @@ const Diary = () => {
   const [languages, setLanguages] = useState<Language[]>([])
   const [isEdit, setIsEdit] = useState<boolean>(false)
   const [formContent, setFormContent] = useState(initformContent)
+  const [isOpenJaContent, setIsOpenJaContent] = useState<boolean>(true)
+
   const initLanguagesEffect = () => {
     
     axios.get(`/languages`)
@@ -80,19 +86,9 @@ const Diary = () => {
       );
   };
 
-  const handleChangeLanguage = (e) => {
-    setFormContent(
-      {
-        diary: {
-          ...formContent.diary,
-        },
-        diaryContent: {
-          ...formContent.diaryContent,
-          languageId: e.target.value
-        }
-      }
-    );
-  };
+  const toggleIsOpenJaContent = () => {
+    setIsOpenJaContent(!isOpenJaContent)
+  }
 
   const handleChangeJapaneseDiary = (e) => {
     setFormContent(
@@ -142,29 +138,50 @@ const Diary = () => {
         {date}
       </Box>
       <form onSubmit={handleSubmit}>
-        <label>日本語日記</label>
-        <textarea onChange={handleChangeJapaneseDiary} value={formContent.diary.jaContent}></textarea>
-        <br/>
-        <label>外国語日記</label>
-        <textarea onChange={handleChangeDiaryContent} value={formContent.diaryContent.content}></textarea>
-        <br/>
-        <label>言語選択：</label>
-        <select onChange={handleChangeLanguage} value={formContent.diaryContent.languageId}>
-          {languages.map(language => 
-            <option key={language.id} value={language.id}>
-              {language.name}
-            </option>)
-          }
-        </select>
-        <br/>
+        { isOpenJaContent ?
+          <Box className={diaryClasses.diaryFormWrapper}>
+            <DiaryFormButton
+              color={"primary"}
+              className={diaryClasses.diaryFormButton}
+              endIcon={<CachedIcon/>}
+              onClickAction={toggleIsOpenJaContent}
+              text={"日本語"}
+            />
+            <Box className={diaryClasses.diaryFormTextareaWrapper}>
+              <textarea onChange={handleChangeJapaneseDiary} value={formContent.diary.jaContent} className={diaryClasses.diaryFormTextarea}></textarea>
+            </Box>
+          </Box>
+          :
+          <Box className={diaryClasses.diaryFormWrapper}>
+            <DiaryFormButton
+              color={"primary"}
+              className={diaryClasses.diaryFormButton}
+              endIcon={<CachedIcon/>}
+              onClickAction={toggleIsOpenJaContent}
+              text={"翻訳版"}
+            />
+            <Box className={diaryClasses.diaryFormTextareaWrapper}>
+              <Translate
+                languageId={formContent.diaryContent.languageId}
+                jaContent={formContent.diary.jaContent}
+              />
+            </Box>
+          </Box>
+        }
+        <Box className={diaryClasses.diaryFormWrapper}>
+          <DiaryFormButton
+            color={"secondary"}
+            className={diaryClasses.diaryFormButton}
+            endIcon={null}
+            onClickAction={()=>{}}
+            text={getLanguage(formContent.diaryContent.languageId)?.name}
+          />
+          <Box className={diaryClasses.diaryFormTextareaWrapper}>
+            <textarea onChange={handleChangeDiaryContent} value={formContent.diaryContent.content} className={diaryClasses.diaryFormTextarea}></textarea>
+          </Box>
+        </Box>
         <button type="submit">でけた！</button>
       </form>
-      <div>
-          <Translate
-            languageId={formContent.diaryContent.languageId}
-            jaContent={formContent.diary.jaContent}
-          />
-      </div>
     </>
   )
 }

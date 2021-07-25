@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios';
+import { useDiaryStyles } from '../styles/js/diary'
 
 type Props = {
   jaContent: string
@@ -7,29 +8,25 @@ type Props = {
 }
 
 const Translate: React.FC<Props> = (props: Props) => {
+  const diaryClasses = useDiaryStyles()
   const [translatedText, setTranslatedText] = useState('')
-
-  const handleTranslateClick = () => {
+  // console.log(translatedText)
+  const handleTranslate = () => {
+    // console.log(translatedText)
     const textParam = `?ja_content=${props.jaContent}`
     const languageParam = `&language_id=${props.languageId}`
     const queryParams = `${textParam}${languageParam}`
     axios.get(`/diaries/translate_text${queryParams}`)
     .then(res => {
       setTranslatedText(res.data)
+      // console.log(res.data)
     })
   }
-  
+  useEffect(handleTranslate, [props.jaContent])
+
   return(
     <>
-      <button onClick={handleTranslateClick}>翻訳する</button>
-      <div>
-        <p>日本語</p>
-        { props.jaContent }
-      </div>
-      <div>
-        <p>翻訳語</p>
-        { translatedText }
-      </div>
+      <textarea value={translatedText} disabled className={diaryClasses.diaryFormTextarea}></textarea>
     </>
   )
 }
