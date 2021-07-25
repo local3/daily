@@ -9,6 +9,7 @@ const initialState: SubmitFlagState = {
 export const DiaryFormContentContext = React.createContext(initialState)
 
 const DiaryFormContentProvider = (props) => {
+	console.log("diaryFormtConte")
 	const [submitFlagState, setSubmitFlagState] = useState(initialState)
 	const [rerender, setRerender] = useState(false)
 

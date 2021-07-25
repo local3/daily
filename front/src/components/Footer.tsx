@@ -14,15 +14,21 @@ import { DiaryFormContentContext } from '../store/DiaryFormContentProvider'
 const Footer = () => {
   const history = useHistory();
   const layoutClasses = useLayoutStyles()
+  // 保存ボタンを押した時に保存フラグを立てる関数
   const { changeSubmitFlag } = useContext(DiaryFormContentContext)
+  // 各ボタンを押した時にカレンダーで選択した日にちの日記作成画面に遷移できるようにするため
   const { date } = useContext(DateContext)
+  // /calendarにいるときは、選択した日時にの日記作成画面に遷移するが、そうでないときは、今日の日にちの日記作成画面に遷移する
   const redirectDate = history.location.pathname === '/calendar' ? date : today
   const [value, setValue] = useState(0);
+  // フッターのボタンを押したときのページ遷移のアクション
   const redirectAction = (url) => {
     history.push(url)
   }
+  // 保存ボタンを押したときのアクション
   const saveAction = () => {
     console.log("saveAction")
+    // 
     changeSubmitFlag()
   }
   const navActions = [
@@ -43,6 +49,7 @@ const Footer = () => {
         showLabels
         className={layoutClasses.footer}
       >
+        {/* 日記作成画面にいるとき以外は、保存ボタンを除外する */}
         {navActions.map((navAction, i) => {
           if (!history.location.pathname.includes('/diary')) {
             if( navAction.label === '保存'){
@@ -59,6 +66,7 @@ const Footer = () => {
               />
             )  
           }else{
+            {/* 日記作成画面にいるとき以外は、書くボタンを除外する */}
             if( navAction.label === '書く'){
               return null
             }

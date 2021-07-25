@@ -9,8 +9,11 @@ import { Box, Button } from '@material-ui/core'
 import { DiaryFormContent, Language } from '../types/index'
 import { useDiaryStyles } from '../styles/js/diary'
 import { Cached as CachedIcon, ExpandMore as ExpandMoreIcon } from '@material-ui/icons'
+import { useHistory } from 'react-router-dom'
 
 const Diary = () => {
+  console.log("diary")
+  const history = useHistory()
   const auth = useContext(AuthContext)
   const { submitFlag } = useContext(DiaryFormContentContext)
   console.log(submitFlag)
@@ -130,13 +133,13 @@ const Diary = () => {
         axios.patch(`/diaries/${formContent.diary.date}`, formContent)
           .then(res =>{
             console.log(res.data);
-            
+            history.push('/calendar')
           })
       }else{
         axios.post(`/diaries`, formContent)
           .then(res => {
             console.log(res.data);
-            
+            history.push('/calendar')
           })
       }
 
