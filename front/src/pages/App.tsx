@@ -8,6 +8,7 @@ import { AuthProvider } from "../store/Auth";
 import AlertProvider from '../store/AlertProvider';
 import LoadProvider from '../store/LoadProvider'
 import DateProvider from '../store/DateProvider';
+import DiaryFormContentProvider from '../store/DiaryFormContentProvider';
 
 // components
 import Header from '../components/Header'
@@ -33,7 +34,9 @@ const App = () => {
                   <AlertMsg/>
                   <Router/>
                 </Box>
-                <Footer/>
+                <DiaryFormContentProvider>
+                  <Footer/>
+                </DiaryFormContentProvider>
               </DateProvider>
             </AuthProvider>
           </LoadProvider>

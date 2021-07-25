@@ -3,6 +3,7 @@ import Translate from '../components/Translate'
 import DiaryFormButton from '../components/DiaryFormButton'
 import axios from 'axios'
 import { AuthContext } from "../store/Auth"
+import { DiaryFormContentContext } from '../store/DiaryFormContentProvider'
 import { useParams } from "react-router-dom"
 import { Box, Button } from '@material-ui/core'
 import { DiaryFormContent, Language } from '../types/index'
@@ -10,7 +11,9 @@ import { useDiaryStyles } from '../styles/js/diary'
 import { Cached as CachedIcon, ExpandMore as ExpandMoreIcon } from '@material-ui/icons'
 
 const Diary = () => {
-  const auth = useContext(AuthContext);
+  const auth = useContext(AuthContext)
+  const { submitFlag } = useContext(DiaryFormContentContext)
+  console.log(submitFlag)
   const diaryClasses = useDiaryStyles()
   const {date} = useParams();
   const initformContent: DiaryFormContent = {
@@ -118,19 +121,29 @@ const Diary = () => {
     )
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    if(isEdit){
-      axios.patch(`/diaries/${formContent.diary.date}`, formContent)
-        .then(res =>{
-        })
-    }else{
-      axios.post(`/diaries`, formContent)
-        .then(res => {
-        })
-    }
+  const handleSubmit = () => {
+    console.log(submitFlag)
+    console.log("submitFlag")
+    if(submitFlag){
+      console.log("submit通過");
+      if(isEdit){
+        axios.patch(`/diaries/${formContent.diary.date}`, formContent)
+          .then(res =>{
+            console.log(res.data);
+            
+          })
+      }else{
+        axios.post(`/diaries`, formContent)
+          .then(res => {
+            console.log(res.data);
+            
+          })
+      }
+
+    }    
   }
+  console.log(submitFlag)
+  useEffect(handleSubmit, [submitFlag])
 
   return(
     <>

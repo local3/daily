@@ -28,7 +28,7 @@ class DiariesController < ApplicationController
       results << arranged_diary
     end
 
-    return render json: {exist_diarys_info: exist_diarys_info, state: "success", msg: "Success",  status: 0}
+    return render json: {exist_diarys_info: exist_diarys_info, state: "success", msg: "Success"}, status: 220
   end
 
   def create

@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { AlertContext } from './AlertProvider'
 import axios from 'axios'
 import { parseSnakeToCamel } from '../utils/StringCases'
-
+import STATUS_CODES from '../utils/StatusCodes'
 // インスタンス生成
 export const axiosWithAlert = axios.create()
 const Axios = () => {
@@ -16,14 +16,18 @@ const Axios = () => {
     // console.log(res)
     // console.log(parseSnakeToCamel(res))
     const { data, status } =  res
-    alertDispatch({msg: data.msg, status: status})
+    if(status !== 1){
+      alertDispatch({msg: data.msg, status: status})
+    }
     // スネークケースからキャメルケースに変換
     return parseSnakeToCamel(res)
   }
   // 失敗
   const onError = (err) => {
     const { data, status } =  err.response
-    alertDispatch({msg: data.msg, status: status})
+    if(status !== STATUS_CODES.FLAT_CODE){
+      alertDispatch({msg: data.msg, status: status})
+    }
     // PromiseStatusをresolveにして.thenを実行しないようにする
     return Promise.reject(err)
   }
