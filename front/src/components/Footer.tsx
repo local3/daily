@@ -1,28 +1,41 @@
 import React,{ useState, useContext }  from 'react'
-import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
+import { BottomNavigation, BottomNavigationAction } from '@material-ui/core'
 import { 
   CalendarToday, FileCopy, Create, LocalOffer, MoreHoriz,
-  CalendarTodayOutlined, FileCopyOutlined, CreateOutlined, LocalOfferOutlined, MoreHorizOutlined
-} from '@material-ui/icons';
-import layoutStyles, { useLayoutStyles } from '../styles/js/layout';
+  CalendarTodayOutlined, FileCopyOutlined, CreateOutlined, LocalOfferOutlined, MoreHorizOutlined,
+  Check
+} from '@material-ui/icons'
+import layoutStyles, { useLayoutStyles } from '../styles/js/layout'
 import { useHistory } from 'react-router-dom'
-import { DateContext } from '../store/DateProvider';
+import { DateContext } from '../store/DateProvider'
 import { today } from '../utils/Date'
+import { DiaryFormContentContext } from '../store/DiaryFormContentProvider'
 
 const Footer = () => {
   const history = useHistory();
   const layoutClasses = useLayoutStyles()
+  // 保存ボタンを押した時に保存フラグを立てる関数
+  const { changeSubmitFlag } = useContext(DiaryFormContentContext)
+  // 各ボタンを押した時にカレンダーで選択した日にちの日記作成画面に遷移できるようにするため
   const { date } = useContext(DateContext)
+  // /calendarにいるときは、選択した日時にの日記作成画面に遷移するが、そうでないときは、今日の日にちの日記作成画面に遷移する
   const redirectDate = history.location.pathname === '/calendar' ? date : today
   const [value, setValue] = useState(0);
+  // フッターのボタンを押したときのページ遷移のアクション
   const redirectAction = (url) => {
     history.push(url)
   }
-  
+  // 保存ボタンを押したときのアクション
+  const saveAction = () => {
+    console.log("saveAction")
+    // 
+    changeSubmitFlag()
+  }
   const navActions = [
     {label: "カレンダー", icon: <CalendarToday />, iconSelected: <CalendarTodayOutlined />, className: "footerButton", selectedClassName: "selectedFooterButton", action: ()=>redirectAction('/calendar')},
     {label: "メモ", icon: <FileCopy />, iconSelected: <FileCopyOutlined />, className: "footerButton", selectedClassName: "selectedFooterButton", action: ()=>redirectAction('/memos')},
     {label: "書く", icon: <Create />, iconSelected: <CreateOutlined />, className: "footerCenterButton", selectedClassName: "selectedFooterCenterButton", action: ()=>redirectAction(`/diary/${redirectDate}`)},
+    {label: "保存", icon: <Check />, iconSelected: <Check />, className: "footerCenterButton", selectedClassName: "selectedFooterCenterButton", action: saveAction},
     {label: "My辞書", icon: <LocalOffer />, iconSelected: <LocalOfferOutlined />, className: "footerButton", selectedClassName: "selectedFooterButton", action: ()=>redirectAction('/')},
     {label: "その他", icon: <MoreHoriz />, iconSelected: <MoreHorizOutlined />, className: "footerButton", selectedClassName: "selectedFooterButton", action: ()=>redirectAction('/')}
   ]
@@ -36,19 +49,39 @@ const Footer = () => {
         showLabels
         className={layoutClasses.footer}
       >
+        {/* 日記作成画面にいるとき以外は、保存ボタンを除外する */}
         {navActions.map((navAction, i) => {
-          return (
-            <BottomNavigationAction
-              key={navAction.label}
-              label={navAction.label}
-              icon={value === i ? navAction.icon : navAction.iconSelected}
-              className={layoutClasses[navAction.className]}
-              classes={{ selected: layoutClasses[navAction.selectedClassName]}} 
-              onClick={navAction.action}
-            />
-          )
-          }) 
-        }
+          if (!history.location.pathname.includes('/diary')) {
+            if( navAction.label === '保存'){
+              return null
+            }
+            return (
+              <BottomNavigationAction
+                key={navAction.label}
+                label={navAction.label}
+                icon={value === i ? navAction.icon : navAction.iconSelected}
+                className={layoutClasses[navAction.className]}
+                classes={{ selected: layoutClasses[navAction.selectedClassName]}} 
+                onClick={navAction.action}
+              />
+            )  
+          }else{
+            {/* 日記作成画面にいるとき以外は、書くボタンを除外する */}
+            if( navAction.label === '書く'){
+              return null
+            }
+            return (
+              <BottomNavigationAction
+                key={navAction.label}
+                label={navAction.label}
+                icon={value === i ? navAction.icon : navAction.iconSelected}
+                className={layoutClasses[navAction.className]}
+                classes={{ selected: layoutClasses[navAction.selectedClassName]}} 
+                onClick={navAction.action}
+              />
+            )
+          }
+        })}
       </BottomNavigation>
     </>
   )

@@ -45,6 +45,11 @@ export type DiaryContentForm = {
   content: string
 }
 
+export type SubmitFlagState = {
+  submitFlag: boolean
+  changeSubmitFlag: () => void
+}
+
 export type ExistDate = {
   date: string
   classNames: string[]

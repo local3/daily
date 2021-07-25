@@ -3,6 +3,7 @@ import React from 'react'
 // 高階層コンポーネント系
 import { Route, Switch } from 'react-router-dom'
 import CheckAuth from "./hocs/CheckAuth"
+import DiaryFormContentProvider from './store/DiaryFormContentProvider';
 
 // ページファイルインポート
 import Home from './pages/Home'
@@ -33,7 +34,9 @@ const Router = () => {
         {/* CheckAuthでログインしていなければアクセスできないページを囲ってある */}
         <CheckAuth>
           <Route exact path="/calendar" component={CalendarPage} />
-          <Route exact path={'/diary/:date'} component={Diary} />
+          <DiaryFormContentProvider>
+            <Route exact path={'/diary/:date'} component={Diary} />
+          </DiaryFormContentProvider>
           <Route exact path={'/edit'} component={UserEdit} />
           <Route exact path={'/memos'} component={MemoTop} />
           <Route exact path={'/memos/:memoId'} component={MemoEdit} />
