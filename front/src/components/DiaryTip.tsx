@@ -17,7 +17,7 @@ const DiaryTip = () => {
     .then(res => {
       console.log(res)
       if(res.data.diary){
-        setDiaryContetnt(res.data.diary.ja_content)
+        setDiaryContetnt(res.data.diary.ja_contentstr.substring( 0, 20 ) + '...')
         console.log(diaryContent)
       }else{
         setDiaryContetnt('未記入')
