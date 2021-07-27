@@ -7,7 +7,8 @@ import { useCalendarStyles } from "../styles/js/Calendar"
 const DiaryTip = () => {
   // DateProviderからカレンダーで選択中の日付を取得
   const dateContext = useContext(DateContext)
-  const date = dateContext.date.replace(/(\d+)-(\d+)-(\d+)/, "$1年$2月$3日")
+  const date = dateContext.date
+  const displayDate = date.replace(/(\d+)-(\d+)-(\d+)/, "$1年$2月$3日")
   const [diaryContent, setDiaryContetnt] = useState('')
   const calendarClasses = useCalendarStyles()
 
@@ -17,7 +18,11 @@ const DiaryTip = () => {
     .then(res => {
       console.log(res)
       if(res.data.diary){
-        setDiaryContetnt(res.data.diary.ja_content)
+        if(res.data.diary.ja_content.length > 40){
+          setDiaryContetnt(res.data.diary.ja_content.substring( 0, 40 ) + '...')
+        }else{
+          setDiaryContetnt(res.data.diary.ja_content)
+        }
         console.log(diaryContent)
       }else{
         setDiaryContetnt('未記入')
@@ -32,7 +37,7 @@ const DiaryTip = () => {
       <Card className={calendarClasses.CardStyles}>
         <CardContent>
             <div>
-              <Typography variant="h5" gutterBottom>{date}</Typography>
+              <Typography variant="h5" gutterBottom>{displayDate}</Typography>
               <Typography>{diaryContent}</Typography>
             </div>
         </CardContent>
