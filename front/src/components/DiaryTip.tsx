@@ -7,7 +7,7 @@ import { useCalendarStyles } from "../styles/js/Calendar"
 const DiaryTip = () => {
   // DateProviderからカレンダーで選択中の日付を取得
   const dateContext = useContext(DateContext)
-  const date = dateContext.date
+  const date = dateContext.globalDate
   const displayDate = date.replace(/(\d+)-(\d+)-(\d+)/, "$1年$2月$3日")
   const [diaryContent, setDiaryContetnt] = useState('')
   const calendarClasses = useCalendarStyles()

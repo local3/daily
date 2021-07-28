@@ -16,6 +16,7 @@ class DiariesController < ApplicationController
     # ↑の形式の要素からなる日記情報を格納した配列を生成
     exist_diarys_info = diaries.inject([]) do |results, current_diary|
       # 日にちを整形
+      logger.debug current_diary.inspect
       parsed_date = Date.parse(current_diary.date.to_s)
       arranged_date = parsed_date.strftime("#{getJaDay(parsed_date)}曜日, %Y年#{removeHeadZero(parsed_date.mon)}月#{removeHeadZero(parsed_date.mday)}日")
       # 各外国語日記から、内容を取り出し一旦配列にする(可読性のため)

@@ -12,13 +12,13 @@ import { Cached as CachedIcon, ExpandMore as ExpandMoreIcon } from '@material-ui
 import { useHistory } from 'react-router-dom'
 
 const Diary = () => {
-  console.log("diary")
+  // console.log("diary")
   const history = useHistory()
   const auth = useContext(AuthContext)
   // 保存ボタンを押した時に保存フラグを立てる関数
   // const { changeSubmitFlag } = useContext(DiaryFormContentContext)
   const submitFlagContext = useContext(DiaryFormContentContext)
-  console.log(submitFlagContext)
+  // console.log(submitFlagContext)
   const diaryClasses = useDiaryStyles()
   const {date} = useParams();
   const initformContent: DiaryFormContent = {
@@ -127,10 +127,10 @@ const Diary = () => {
   }
 
   const handleSubmit = () => {
-    console.log(submitFlagContext)
-    console.log("submitFlag")
+    // console.log(submitFlagContext)
+    // console.log("submitFlag")
     if(submitFlagContext.submitFlag){
-      console.log("submit通過");
+      // console.log("submit通過");
       if(isEdit){
         axios.patch(`/diaries/${formContent.diary.date}`, formContent)
           .then(res =>{
@@ -139,6 +139,7 @@ const Diary = () => {
             history.push('/calendar')
           })
       }else{
+        console.log(formContent)
         axios.post(`/diaries`, formContent)
           .then(res => {
             console.log(res.data);
@@ -148,7 +149,7 @@ const Diary = () => {
       }
     }    
   }
-  console.log(submitFlagContext)
+  // console.log(submitFlagContext)
   useEffect(handleSubmit, [submitFlagContext.submitFlag])
 
   return(

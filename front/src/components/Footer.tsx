@@ -12,15 +12,15 @@ import { today } from '../utils/Date'
 import { DiaryFormContentContext } from '../store/DiaryFormContentProvider'
 
 const Footer = () => {
-  console.log("fppter")
+  // console.log("fppter")
   const history = useHistory();
   const layoutClasses = useLayoutStyles()
   // 保存ボタンを押した時に保存フラグを立てる関数
   const { submitFlag, changeSubmitFlag } = useContext(DiaryFormContentContext)
   // 各ボタンを押した時にカレンダーで選択した日にちの日記作成画面に遷移できるようにするため
-  const { date } = useContext(DateContext)
+  const { globalDate } = useContext(DateContext)
   // /calendarにいるときは、選択した日時にの日記作成画面に遷移するが、そうでないときは、今日の日にちの日記作成画面に遷移する
-  const redirectDate = history.location.pathname === '/calendar' ? date : today
+  const redirectDate = history.location.pathname === '/calendar' ? globalDate : today
   const [value, setValue] = useState(0);
   // フッターのボタンを押したときのページ遷移のアクション
   const redirectAction = (url) => {
