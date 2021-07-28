@@ -34,9 +34,10 @@ const Router = () => {
         {/* CheckAuthでログインしていなければアクセスできないページを囲ってある */}
         <CheckAuth>
           <Route exact path="/calendar" component={CalendarPage} />
-          <DiaryFormContentProvider>
+          {/* なぜかContextの変更を検知してりれんだりんぐしない*/}
+          {/* <DiaryFormContentProvider> */}
             <Route exact path={'/diary/:date'} component={Diary} />
-          </DiaryFormContentProvider>
+          {/* </DiaryFormContentProvider> */}
           <Route exact path={'/edit'} component={UserEdit} />
           <Route exact path={'/memos'} component={MemoTop} />
           <Route exact path={'/memos/:memoId'} component={MemoEdit} />

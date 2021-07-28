@@ -14,18 +14,24 @@ const DiaryFormContentProvider = (props) => {
 	const [rerender, setRerender] = useState(false)
 
 	console.log(submitFlagState)
-	const changeSubmitFlag = () => {
+	const changeSubmitFlag = (flag: boolean) => {
 		console.log("changeSumitFlag")
 		// setSubmitFlagState({...submitFlagState, submitFlag: true})
-		setRerender(true)
+		setRerender(flag)
 	}
 	const afterRerender = () => {
 		if(rerender === true){
+			console.log("afterRerennder")
 			setSubmitFlagState({...submitFlagState, submitFlag: true})
+		}else{
+			setSubmitFlagState({...submitFlagState, submitFlag: false})
 		}
 	}
 	useEffect(afterRerender, [rerender])
 	const value: SubmitFlagState = { ...submitFlagState, changeSubmitFlag }
+	
+	console.log('value')
+	console.log(value)
 	return(
 		<DiaryFormContentContext.Provider
 			value={value}

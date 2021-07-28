@@ -28,14 +28,16 @@ const App = () => {
           <LoadProvider>
             <AuthProvider>
               <DateProvider>
-                <Header/>
-                <Load/>
-                <Box className={layoutClasses.contentWrapper}>
-                  <AlertMsg/>
-                  <Router/>
-                </Box>
                 <DiaryFormContentProvider>
+                  <Header/>
+                  <Load/>
+                  <Box className={layoutClasses.contentWrapper}>
+                    <AlertMsg/>
+                    <Router/>
+                  </Box>
+                {/* <DiaryFormContentProvider> */}
                   <Footer/>
+                {/* </DiaryFormContentProvider> */}
                 </DiaryFormContentProvider>
               </DateProvider>
             </AuthProvider>

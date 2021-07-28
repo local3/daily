@@ -1,4 +1,4 @@
-import React,{ useState, useContext }  from 'react'
+import React,{ useState, useContext, useEffect }  from 'react'
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core'
 import { 
   CalendarToday, FileCopy, Create, LocalOffer, MoreHoriz,
@@ -12,10 +12,11 @@ import { today } from '../utils/Date'
 import { DiaryFormContentContext } from '../store/DiaryFormContentProvider'
 
 const Footer = () => {
+  console.log("fppter")
   const history = useHistory();
   const layoutClasses = useLayoutStyles()
   // 保存ボタンを押した時に保存フラグを立てる関数
-  const { changeSubmitFlag } = useContext(DiaryFormContentContext)
+  const { submitFlag, changeSubmitFlag } = useContext(DiaryFormContentContext)
   // 各ボタンを押した時にカレンダーで選択した日にちの日記作成画面に遷移できるようにするため
   const { date } = useContext(DateContext)
   // /calendarにいるときは、選択した日時にの日記作成画面に遷移するが、そうでないときは、今日の日にちの日記作成画面に遷移する
@@ -29,8 +30,9 @@ const Footer = () => {
   const saveAction = () => {
     console.log("saveAction")
     // 
-    changeSubmitFlag()
+    changeSubmitFlag(true)
   }
+  // useEffect(()=>{console.log("aaa")}, [submitFlag])
   const navActions = [
     {label: "カレンダー", icon: <CalendarToday />, iconSelected: <CalendarTodayOutlined />, className: "footerButton", selectedClassName: "selectedFooterButton", action: ()=>redirectAction('/calendar')},
     {label: "メモ", icon: <FileCopy />, iconSelected: <FileCopyOutlined />, className: "footerButton", selectedClassName: "selectedFooterButton", action: ()=>redirectAction('/memos')},
