@@ -57,7 +57,7 @@ export type ExistDate = {
 
 // Calendar関連
 export type DateContextType = {
-  date: string
+  globalDate: string
   updateDate: (date: string) => void
 } | null
 

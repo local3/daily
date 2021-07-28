@@ -16,7 +16,7 @@ import { axiosWithAlert } from '../store/Axios'
 
 function Calendar() {
   const calendarClasses = useCalendarStyles()
-  const { updateDate } = useContext(DateContext)
+  const { globalDate, updateDate } = useContext(DateContext)
 
   const [date, setDate] = useState<string>(moment());
   const [focused, setFocused] = useState(true);
@@ -55,15 +55,14 @@ function Calendar() {
     updateDate(date)
     // addClassName()
   }
-
   useEffect(initExistDatesEffect, []);
   // 日記が存在している日付には色をつける。
   useEffect(addClassName, [existDates])
   // ピンポイントでクラス付加する方がいいかも？
   // 日付選択時、focusedのクラスで、exit_dateなどのクラスが上書きされてしまう現象が発生
   // ー＞日付選択をするたびにクラスを付け直せばok
+  useEffect(()=>{setDate(moment(globalDate))}, [globalDate])
   useEffect(addClassName, [date])
-
   return (
     <>
       <SingleDatePicker

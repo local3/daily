@@ -3,19 +3,19 @@ import moment from "moment";
 import { dateFormat } from '../utils/Date';
 import { DateContextType } from '../types'
 const initialState: DateContextType = {
-	date: moment().format(dateFormat),
+	globalDate: moment().format(dateFormat),
 	updateDate: () => {}
 }	
 
 export const DateContext = React.createContext(initialState)
 
 const DateProvider = (props) => {
-	const [date, setDate] = useState<string>(initialState.date)
+	const [globalDate, setGlobalDate] = useState<string>(initialState.globalDate)
 	
 	const updateDate = (selectedDate: string) => {
-		setDate(moment(selectedDate).format(dateFormat))
+		setGlobalDate(moment(selectedDate).format(dateFormat))
 	}
-	const value: DateContextType = { date, updateDate }
+	const value: DateContextType = { globalDate, updateDate }
 	return(
 		<DateContext.Provider
 			value={value}
