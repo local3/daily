@@ -17,8 +17,8 @@ const Diary = () => {
   const auth = useContext(AuthContext)
   // 保存ボタンを押した時に保存フラグを立てる関数
   // const { changeSubmitFlag } = useContext(DiaryFormContentContext)
-  const { submitFlag } = useContext(DiaryFormContentContext)
-  console.log(submitFlag)
+  const submitFlagContext = useContext(DiaryFormContentContext)
+  console.log(submitFlagContext)
   const diaryClasses = useDiaryStyles()
   const {date} = useParams();
   const initformContent: DiaryFormContent = {
@@ -127,28 +127,29 @@ const Diary = () => {
   }
 
   const handleSubmit = () => {
-    console.log(submitFlag)
+    console.log(submitFlagContext)
     console.log("submitFlag")
-    if(submitFlag){
+    if(submitFlagContext.submitFlag){
       console.log("submit通過");
       if(isEdit){
         axios.patch(`/diaries/${formContent.diary.date}`, formContent)
           .then(res =>{
             console.log(res.data);
+            submitFlagContext.changeSubmitFlag(false)
             history.push('/calendar')
           })
       }else{
         axios.post(`/diaries`, formContent)
           .then(res => {
             console.log(res.data);
+            submitFlagContext.changeSubmitFlag(false)
             history.push('/calendar')
           })
       }
-
     }    
   }
-  console.log(submitFlag)
-  useEffect(handleSubmit, [submitFlag])
+  console.log(submitFlagContext)
+  useEffect(handleSubmit, [submitFlagContext.submitFlag])
 
   return(
     <>

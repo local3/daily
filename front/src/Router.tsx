@@ -35,9 +35,9 @@ const Router = () => {
         <CheckAuth>
           <Route exact path="/calendar" component={CalendarPage} />
           {/* なぜかContextの変更を検知してりれんだりんぐしない*/}
-          <DiaryFormContentProvider>
+          {/* <DiaryFormContentProvider> */}
             <Route exact path={'/diary/:date'} component={Diary} />
-          </DiaryFormContentProvider>
+          {/* </DiaryFormContentProvider> */}
           <Route exact path={'/edit'} component={UserEdit} />
           <Route exact path={'/memos'} component={MemoTop} />
           <Route exact path={'/memos/:memoId'} component={MemoEdit} />

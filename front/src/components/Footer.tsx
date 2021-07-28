@@ -30,7 +30,7 @@ const Footer = () => {
   const saveAction = () => {
     console.log("saveAction")
     // 
-    changeSubmitFlag()
+    changeSubmitFlag(true)
   }
   // useEffect(()=>{console.log("aaa")}, [submitFlag])
   const navActions = [
