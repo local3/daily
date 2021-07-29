@@ -59,7 +59,7 @@ const AuthProvider = (props) => {
 
   // currentユーザーを取得
   const fetchCurrentUser = async () => {
-    await axios.get(`/current_user`)
+    await axiosWithAlert.get(`/current_user`)
       .then(res => {
         setAuthState({...authState, currentUser: res.data.data, isLoggedIn: res.data.data !== null, isFetchingAuth: false})
         loadDispatch({isLoading: false})

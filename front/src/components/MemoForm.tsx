@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import axios from 'axios'
 import { AuthContext } from "../store/Auth"
 import { useHistory } from 'react-router';
+import { useMemoStyles } from '../styles/js/memo'
 
 type Props = {
   memoId: number
@@ -10,6 +11,7 @@ type Props = {
 const MemoForm: React.FC<Props> = (props: Props) => {
   const auth = useContext(AuthContext);
   const history = useHistory()
+  const memoClasses = useMemoStyles()
 
   const initMemo = {
     content: ''
@@ -55,13 +57,12 @@ const MemoForm: React.FC<Props> = (props: Props) => {
 
   return(
     <>
-      <h1>メモーダル</h1>
       <form onSubmit={handleSubmit}>
-        <label>内容：</label>
         <textarea
           name="content"  
           onChange={handleChangeContent}
           value={memo.content}
+          className={memoClasses.memoFormTextarea}
         />
 
         <br/>

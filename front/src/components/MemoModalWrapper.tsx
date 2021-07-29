@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react'
 // import { AuthContext } from "../store/Auth"
 import { Add } from '@material-ui/icons';
-import { Button, ListItem,  ListItemText, ListItemSecondaryAction, IconButton } from '@material-ui/core/'
-import { Delete as DeleteIcon } from '@material-ui/icons'
+import { Button, ListItem,  ListItemText, ListItemSecondaryAction, IconButton, Box } from '@material-ui/core/'
+import { Delete as DeleteIcon, ArrowBackIos as ArrowBackIosIcon  } from '@material-ui/icons'
 import { useLayoutStyles } from '../styles/js/layout'
 // Modal設定
 import Modal from "react-modal"
@@ -54,9 +54,10 @@ const MemoModalWrapper = (props: Props) => {
             <Add />
           </Button>
       }
-      {/* モーダル */}
+      {/* モーダル内容 */}
       <Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)}>
-        <button onClick={toggleModal}>閉じる</button>
+        {/* <button >閉じる</button> */}
+        <ArrowBackIosIcon onClick={toggleModal}/>
         <MemoForm 
           memoId={props.existMemo !== null ? props.existMemo?.id : Number(0)}
           toggleModal={toggleModal}
