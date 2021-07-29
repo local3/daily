@@ -28,6 +28,8 @@ const layoutStyles = {
   },
   // footer関連
   footer: {
+    // .MuiDrawer-paperを上回るz-indexを指定
+    zIndex: 1210,
     position: 'fixed',
     bottom: 0,
     width: '100%',

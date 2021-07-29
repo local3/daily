@@ -7,12 +7,17 @@ const calendarStyles = {
     position: 'absolute',
     top: '125px'
   },
-  CardStyles: {
-    width: 375,
-    height: 120,
-    margin:'auto',
-    marginTop: 40,
-    textAlign: 'left'
+  DrawerStyle: {
+    zIndex: `${0}!important`,
+    backgroundColor: `${themes.clear}!important`,
+    position: 'static!important',
+  },
+  TipPaperStyle: {
+    height: 150,
+    padding: 25
+  },
+  TipDateStyle: {
+    fontWeight: 600
   }
 }
 
