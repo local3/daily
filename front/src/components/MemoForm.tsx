@@ -17,7 +17,7 @@ const MemoForm: React.FC<Props> = (props: Props) => {
   const [memo, setMemo] = useState(initMemo)
   const [isEdit, setIsEdit] = useState(false)
 
-  const initExitMemoEffect = () => {
+  const initExistMemoEffect = () => {
     axios.get(`/memos/${props.memoId}`)
       .then(res => {
         const existMemo = res.data
@@ -31,7 +31,7 @@ const MemoForm: React.FC<Props> = (props: Props) => {
       })
   }
 
-  useEffect(initExitMemoEffect, [])
+  useEffect(initExistMemoEffect, [])
   
   const handleChangeContent = (e) => {
     setMemo({
