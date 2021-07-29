@@ -17,11 +17,13 @@ import { axiosWithAlert } from '../store/Axios'
 function Calendar() {
   const calendarClasses = useCalendarStyles()
   const { globalDate, updateDate } = useContext(DateContext)
-
   const [date, setDate] = useState<string>(moment());
   const [focused, setFocused] = useState(true);
   const [existDates, setExistDates] = useState<ExistDate[]>([]);
   console.log(existDates);
+  // カレンダー画面のinput欄を削除
+  const element = document.getElementsByClassName('DateInput')[0]
+  element?.remove()
   
   // 日記が書いてある日の取得
   const initExistDatesEffect = () => {
@@ -79,6 +81,7 @@ function Calendar() {
           </IconButton>
         }
         withFullScreenPortal={false}
+        disabled={false}
         hideKeyboardShortcutsPanel={true} // 右下の?ボタンをなくす
         date={date}
         onDateChange={(date: string) => handleChangeDate(date)}

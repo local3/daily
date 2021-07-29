@@ -7,15 +7,11 @@ import { useCalendarStyles } from "../styles/js/Calendar"
 const DiaryTip = () => {
   // DateProviderからカレンダーで選択中の日付を取得
   const dateContext = useContext(DateContext)
+  console.log(dateContext.globalDate)
   const date = dateContext.globalDate
   const displayDate = date.replace(/(\d+)-(\d+)-(\d+)/, "$1年$2月$3日")
   const [diaryContent, setDiaryContetnt] = useState('')
   const calendarClasses = useCalendarStyles()
-  const [isTipOpen, setIsTipOpen] = useState(true)
-  
-  const toggleDrawer = (event: React.MouseEvent,) => {
-    setIsTipOpen(false)
-  };
 
   // 日付に変更があった場合、日本語の日記内容を取得
   const updateDiaryTipEffect = () => {
@@ -28,8 +24,6 @@ const DiaryTip = () => {
         }else{
           setDiaryContetnt(res.data.diary.ja_content)
         }
-        setIsTipOpen(true)
-        console.log(isTipOpen)
         // クラスを追加して、CSSを上書きする
         const element = document.querySelector('div[class=MuiBackdrop-root]')
         element && element.classList.add(calendarClasses.DrawerStyle)
@@ -41,11 +35,11 @@ const DiaryTip = () => {
 
   useEffect(updateDiaryTipEffect, [date])
 
-  // 日記未記入の場合は表示しない
+  // 日記記入済みの場合のみ表示
   if (diaryContent) {
     return(
       <>
-        <Drawer anchor={'bottom'} open={isTipOpen} onClose={toggleDrawer} className={calendarClasses.DrawerStyle}
+        <Drawer anchor={'bottom'} open={true} className={calendarClasses.DrawerStyle}
           classes={{ paperAnchorBottom: calendarClasses.TipPaperStyle }}>
             <Typography variant="h6" classes={{ h6: calendarClasses.TipDateStyle}} gutterBottom>{displayDate}</Typography>
             <Typography>{diaryContent}</Typography>

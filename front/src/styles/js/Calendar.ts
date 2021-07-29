@@ -3,10 +3,12 @@ import themes from "./themes"
 import { makeStyles } from "@material-ui/core/styles";
 
 const calendarStyles = {
+  // Calendar.tsx
   datePickerNavButton: {
     position: 'absolute',
     top: '125px'
   },
+  // DiaryTip.tsx
   DrawerStyle: {
     zIndex: `${0}!important`,
     backgroundColor: `${themes.clear}!important`,
