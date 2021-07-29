@@ -1,38 +1,34 @@
-import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../store/Auth";
-import MemoForm from './MemoForm';
-import ModalWrapper from './ModalWrapper';
-import { AppBar, Toolbar, Typography } from '@material-ui/core'
-import { useLayoutStyles } from '../styles/js/layout';
-import '../styles/css/layout.scss'
+import MemoModalWrapper from "./MemoModalWrapper";
+import { AppBar, Toolbar, Typography } from "@material-ui/core";
+import { useLayoutStyles } from "../styles/js/layout";
+import "../styles/css/layout.scss";
+
 const Header = () => {
   // console.log("header")
   // const globalClasses = useStyles()
-  const layoutClasses = useLayoutStyles()
+  const layoutClasses = useLayoutStyles();
   const auth = useContext(AuthContext);
 
   const handleClickLogout = () => {
-    auth.logout()
-  }
+    auth.logout();
+  };
 
-  return(
+  return (
     <AppBar position="static" className={layoutClasses.header}>
       <Toolbar variant="dense">
         <Typography variant="h6" color="inherit">
-          <Link to='/' className={layoutClasses.headerLink}>Diary</Link>
+          <Link to="/" className={layoutClasses.headerLink}>
+            Diary
+          </Link>
         </Typography>
         {/* <button onClick={handleClickLogout}>
              ログアウト
            </button> */}
-        { auth.isLoggedIn &&
-          <ModalWrapper text="メモる">
-            <MemoForm memoId={0} toggleModal={()=>{}}/>
-          </ModalWrapper>
-        }
-        { !auth.isLoggedIn &&
-          <Link to='/login'>ログイン画面へ</Link>
-        }
+        {auth.isLoggedIn && <MemoModalWrapper existMemo={null} />}
+        {!auth.isLoggedIn && <Link to="/login">ログイン画面へ</Link>}
       </Toolbar>
     </AppBar>
     // <header id='header_wrapper'>
@@ -73,7 +69,7 @@ const Header = () => {
     //     </>
     //   }
     // </header>
-  )
-}
+  );
+};
 
 export default Header;

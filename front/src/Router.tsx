@@ -16,7 +16,7 @@ import Diary from './pages/Diary'
 import UserEdit from './pages/UserEdit'
 import ForgotPassword from './pages/ForgotPassword'
 import MemoTop from './pages/MemoTop'
-import MemoEdit from './pages/MemoEdit'
+// import MemoEdit from './pages/MemoEdit'
 
 // ルーティング設定
 // ↓参考記事
@@ -40,7 +40,7 @@ const Router = () => {
           {/* </DiaryFormContentProvider> */}
           <Route exact path={'/edit'} component={UserEdit} />
           <Route exact path={'/memos'} component={MemoTop} />
-          <Route exact path={'/memos/:memoId'} component={MemoEdit} />
+          {/* <Route exact path={'/memos/:memoId'} component={MemoEdit} /> */}
         </CheckAuth>
       </Switch>
     </>
