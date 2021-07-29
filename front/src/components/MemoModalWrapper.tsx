@@ -1,9 +1,10 @@
 import React, { useState, useContext } from 'react'
 // import { AuthContext } from "../store/Auth"
 import { Add } from '@material-ui/icons';
-import { Button, ListItem,  ListItemText, ListItemSecondaryAction, IconButton, Box } from '@material-ui/core/'
+import { Button, ListItem,  ListItemText, ListItemSecondaryAction, IconButton, Box, Typography } from '@material-ui/core/'
 import { Delete as DeleteIcon, ArrowBackIos as ArrowBackIosIcon  } from '@material-ui/icons'
 import { useLayoutStyles } from '../styles/js/layout'
+import { useMemoStyles } from '../styles/js/memo';
 // Modal設定
 import Modal from "react-modal"
 import MemoForm from './MemoForm';
@@ -17,6 +18,7 @@ type Props = {
 }
 const MemoModalWrapper = (props: Props) => {
   const layoutClasses = useLayoutStyles()
+  const memoClasses = useMemoStyles()
 
   const [isOpen, setIsOpen] = useState(false)
   const toggleModal = () => {
@@ -56,8 +58,10 @@ const MemoModalWrapper = (props: Props) => {
       }
       {/* モーダル内容 */}
       <Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)}>
-        {/* <button >閉じる</button> */}
-        <ArrowBackIosIcon onClick={toggleModal}/>
+        <Box className={memoClasses.memoHeaderWrapper}> 
+          <ArrowBackIosIcon className={memoClasses.memoHeaderArrowIcon} onClick={toggleModal}/>
+          <Typography variant="h5" display="inline">Memo</Typography>
+        </Box>
         <MemoForm 
           memoId={props.existMemo !== null ? props.existMemo?.id : Number(0)}
           toggleModal={toggleModal}

@@ -6,6 +6,17 @@ const memoStyles = {
     width: '100%',
     height: '70vh',
     border: 'none'
+  },
+  memoHeaderWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    position: 'relative'
+  },
+  memoHeaderArrowIcon: {
+    position: 'absolute',
+    left: 0
   }
 }
 
