@@ -9,17 +9,22 @@ const calendarStyles = {
     top: '125px'
   },
   // DiaryTip.tsx
-  DrawerStyle: {
+  drawerStyle: {
     zIndex: `${0}!important`,
     backgroundColor: `${themes.clear}!important`,
     position: 'static!important',
   },
-  TipPaperStyle: {
-    height: 150,
-    padding: 25
+  tipPaperStyle: {
+    height: 155,
+    marginBottom: 40
   },
-  TipDateStyle: {
-    fontWeight: 600
+  tipDateStyle: {
+    fontWeight: 600,
+    backgroundColor: themes.gray,
+    padding: '8px 20px 5px'
+  },
+  tipContentStyle: {
+    padding: 20
   }
 }
 

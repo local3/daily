@@ -21,9 +21,6 @@ function Calendar() {
   const [focused, setFocused] = useState(true);
   const [existDates, setExistDates] = useState<ExistDate[]>([]);
   console.log(existDates);
-  // カレンダー画面のinput欄を削除
-  const element = document.getElementsByClassName('DateInput')[0]
-  element?.remove()
   
   // 日記が書いてある日の取得
   const initExistDatesEffect = () => {

@@ -1,13 +1,12 @@
-import { useState, useEffect, useContext } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import axios from "axios"
 import { DateContext } from "../store/DateProvider"
-import { Drawer, Typography }  from '@material-ui/core'
+import { Drawer, Typography, Divider }  from '@material-ui/core'
 import { useCalendarStyles } from "../styles/js/Calendar"
 
 const DiaryTip = () => {
   // DateProviderからカレンダーで選択中の日付を取得
   const dateContext = useContext(DateContext)
-  console.log(dateContext.globalDate)
   const date = dateContext.globalDate
   const displayDate = date.replace(/(\d+)-(\d+)-(\d+)/, "$1年$2月$3日")
   const [diaryContent, setDiaryContetnt] = useState('')
@@ -26,7 +25,7 @@ const DiaryTip = () => {
         }
         // クラスを追加して、CSSを上書きする
         const element = document.querySelector('div[class=MuiBackdrop-root]')
-        element && element.classList.add(calendarClasses.DrawerStyle)
+        element && element.classList.add(calendarClasses.drawerStyle)
       }else{
         setDiaryContetnt('')
       }
@@ -39,10 +38,11 @@ const DiaryTip = () => {
   if (diaryContent) {
     return(
       <>
-        <Drawer anchor={'bottom'} open={true} className={calendarClasses.DrawerStyle}
-          classes={{ paperAnchorBottom: calendarClasses.TipPaperStyle }}>
-            <Typography variant="h6" classes={{ h6: calendarClasses.TipDateStyle}} gutterBottom>{displayDate}</Typography>
-            <Typography>{diaryContent}</Typography>
+        <Drawer anchor={'bottom'} open={true} className={calendarClasses.drawerStyle}
+          classes={{ paperAnchorBottom: calendarClasses.tipPaperStyle }}>
+            <Typography variant="h6" classes={{ h6: calendarClasses.tipDateStyle}} >{displayDate}</Typography>
+            <Divider />
+            <Typography className={calendarClasses.tipContentStyle}>{diaryContent}</Typography>
         </Drawer>
       </>
     )
