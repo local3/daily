@@ -1,30 +1,24 @@
-import React, { useState, useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { AuthContext } from "../store/Auth";
 import { Memo } from "../types";
 import MemoModalWrapper from "../components/MemoModalWrapper";
-import { List, ListItem, ListItemText, Divider } from '@material-ui/core'
+import { List } from '@material-ui/core'
 
 const MemoTop = () => {
-  const auth = useContext(AuthContext);
 
   const initMemos: Memo[] = [];
   const [memos, setMemos] = useState(initMemos);
 
   const initEffect = () => {
-    axios.get("/memos/user_memos").then((res) => {
-      setMemos(res.data.memos);
+    fetch("/memos/user_memos")
+      .then(res => res.json())
+      .then((res) => {
+        console.log(res)
+      setMemos(res.memos);
     });
   };
 
-  useEffect(initEffect, []);
-
-  const destroyMemo = (e, memoId) => {
-    axios.delete(`/memos/${memoId}`).then((res) => {
-      e.target.parentNode.remove();
-    });
-  };
+  useEffect(initEffect, [])
 
   return (
     <div>

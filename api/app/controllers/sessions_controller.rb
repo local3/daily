@@ -22,9 +22,9 @@ class SessionsController < ApplicationController
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
     if @current_user
-      return render json: {data: @current_user, session: session.inspect, state:"success",msg:"Success"} , status: 200
+      return render json: {data: @current_user, session: session.inspect, state:"success",msg:"Success"} , status: 220
     else
-      return render json: {data: nil, session: session.inspect, state:"danger", msg:"not exist current_user"} , status: 200
+      return render json: {data: nil, session: session.inspect, state:"danger", msg:"not exist current_user"} , status: 220
     end
   end
 

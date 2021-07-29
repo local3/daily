@@ -38,21 +38,22 @@ const Diary = () => {
   const [isOpenJaContent, setIsOpenJaContent] = useState<boolean>(true)
 
   const initLanguagesEffect = () => {
-    
+    console.log("inilan")
     axios.get(`/languages`)
       .then(res => {
         const result = res.data
+        console.log(result)
         setLanguages(result);
       })
   }
   
   const initExistDiaryEffect = () => {
-    
     if(languages && auth.currentUser?.languageId){
       axios.get(`/diaries/${formContent.diary.date}`)
         .then(res => {
           const existDiary = res.data.diary;
           if(existDiary){
+            console.log(existDiary)
             setIsEdit(true)
             if(formContent.diaryContent.languageId && languages.length){
               convertExistDiary(existDiary);
@@ -78,6 +79,7 @@ const Diary = () => {
   }
 
   const convertExistDiary = (existDiary) => {
+    console.log(existDiary)
     const existDiaryContent = getDiaryContent(existDiary)
     setFormContent(
       {
