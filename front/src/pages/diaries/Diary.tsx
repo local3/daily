@@ -10,6 +10,11 @@ import { DiaryFormContent, Language } from '../../types/index'
 import { useDiaryStyles } from '../../styles/js/diary'
 import { Cached as CachedIcon, ExpandMore as ExpandMoreIcon } from '@material-ui/icons'
 import { useHistory } from 'react-router-dom'
+import { blankFunction } from '../../utils/functions'
+
+type dateParams = {
+  date: string
+}
 
 const Diary = () => {
   // console.log("diary")
@@ -20,7 +25,7 @@ const Diary = () => {
   const submitFlagContext = useContext(DiaryFormContentContext)
   // console.log(submitFlagContext)
   const diaryClasses = useDiaryStyles()
-  const {date} = useParams();
+  const { date } = useParams<dateParams>();
   const initformContent: DiaryFormContent = {
     diary: {
       jaContent: "",
@@ -156,7 +161,7 @@ const Diary = () => {
         { isOpenJaContent ?
           <Box className={diaryClasses.diaryFormWrapper}>
             <DiaryFormButton
-              color={"primary"}
+              color="primary"
               className={diaryClasses.diaryFormButton}
               endIcon={<CachedIcon/>}
               onClickAction={toggleIsOpenJaContent}
@@ -169,7 +174,7 @@ const Diary = () => {
           :
           <Box className={diaryClasses.diaryFormWrapper}>
             <DiaryFormButton
-              color={"primary"}
+              color="primary"
               className={diaryClasses.diaryFormButton}
               endIcon={<CachedIcon/>}
               onClickAction={toggleIsOpenJaContent}
@@ -186,10 +191,10 @@ const Diary = () => {
         }
         <Box className={diaryClasses.diaryFormWrapper}>
           <DiaryFormButton
-            color={"secondary"}
+            color="secondary"
             className={diaryClasses.diaryFormButton}
             endIcon={null}
-            onClickAction={()=>{}}
+            onClickAction={blankFunction}
             text={getLanguage(auth.currentUser?.languageId)?.name}
           />
           <Box className={diaryClasses.diaryFormTextareaWrapper}>

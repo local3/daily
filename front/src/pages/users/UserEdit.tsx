@@ -1,28 +1,30 @@
 import React, {useState, useEffect, useContext} from 'react'
-import axios from 'axios';
-import { AuthContext } from "../../store/Auth";
+import axios from 'axios'
+import { AuthContext } from "../../store/Auth"
 import { axiosWithAlert } from '../../store/Axios'
-import { useLayoutStyles } from '../../styles/js/layout';
+import { useLayoutStyles } from '../../styles/js/layout'
 import { FormControl, InputLabel, OutlinedInput, InputAdornment, TextField } from '@material-ui/core'
+import { UserEditSession, UserEditInfo, Language } from '../../types/index'
+
 function UserEdit() {
   const auth = useContext(AuthContext)
   const layoutClasses = useLayoutStyles()
 
-  const initSession =
+  const initSession: UserEditSession =
     {
       email: '',
       password: ''
     }
-  const initUser =
+  const initUser: UserEditInfo =
     {
       email: '',
       password: '',
       passwordConfirmation: '',
-      languageId: auth.currentUser.languageId ? auth.currentUser.languageId : 0
+      languageId: auth.currentUser?.languageId ? auth.currentUser.languageId : 0
     }
   const [user, setUser] = useState(initUser);
   const [session, setSession] = useState(initSession);
-  const [languages, setLanguages] = useState([]);
+  const [languages, setLanguages] = useState<Language[]>([]);
   
   const componentDidMount = () => {
     axios.get(`/languages`)
@@ -35,7 +37,7 @@ function UserEdit() {
   const initUserData = () => {
     setUser({
       ...user,
-      languageId: auth.currentUser.languageId
+      languageId: auth.currentUser?.languageId
     })
   }
 

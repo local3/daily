@@ -13,13 +13,15 @@ import { useCalendarStyles } from "../../styles/js/Calendar"
 import "../../styles/css/react-dates-custom.scss"
 import { ExistDate } from '../../types/index'
 import { axiosWithAlert } from '../../store/Axios'
+import { Moment } from 'moment'
+import { dateFormat } from '../../utils/Date'
 
 function Calendar() {
   const calendarClasses = useCalendarStyles()
   const { globalDate, updateDate } = useContext(DateContext)
-  const [date, setDate] = useState<string>(moment());
-  const [focused, setFocused] = useState(true);
-  const [existDates, setExistDates] = useState<ExistDate[]>([]);
+  const [date, setDate] = useState<Moment | null>(moment())
+  const [focused, setFocused] = useState(true)
+  const [existDates, setExistDates] = useState<ExistDate[]>([])
   console.log(existDates);
   
   // 日記が書いてある日の取得
@@ -43,18 +45,19 @@ function Calendar() {
         const element = document.querySelector(`td[aria-label='${date.date}']`)
         // rails側でclass名をセットしてあるので、それを展開して複数クラスを付加していく
         element && element.classList.add(...date.classNames)
-      });
+      })
     }
   }
 
-  const handleChangeDate = (date: string) => {
+  const handleChangeDate = (date: Moment | null) => {
+    const filterNullDate: Moment = date ? date : moment()
     // このコンポーネント内で、dateという変数を扱う用。useContextでstore/Date.jsの値を使えばいらないかも？
-    setDate(date)
+    setDate(filterNullDate)
     // Footerとの連携用。選択した日にちの日記に「書く」ボタンでリダイレクトできるようにする
-    updateDate(date)
+    updateDate(filterNullDate.format(dateFormat))
     // addClassName()
   }
-  useEffect(initExistDatesEffect, []);
+  useEffect(initExistDatesEffect, [])
   // 日記が存在している日付には色をつける。
   useEffect(addClassName, [existDates])
   // ピンポイントでクラス付加する方がいいかも？
@@ -65,6 +68,7 @@ function Calendar() {
   return (
     <>
       <SingleDatePicker
+        id={String(1)}
         navPrev={
           // 前の月に戻るボタン ★
           <IconButton onClick={addClassName} className={calendarClasses.datePickerNavButton}>
@@ -81,7 +85,7 @@ function Calendar() {
         disabled={false}
         hideKeyboardShortcutsPanel={true} // 右下の?ボタンをなくす
         date={date}
-        onDateChange={(date: string) => handleChangeDate(date)}
+        onDateChange={(date: Moment | null) => handleChangeDate(date)}
         focused={focused} // デフォルトではfocus=inputを洗濯中の時。強制的に常に表示にする
         onFocusChange={() => setFocused(focused)}
         isOutsideRange={ () => false}

@@ -1,15 +1,19 @@
 import { useContext } from 'react'
 import { AlertContext } from './AlertProvider'
-import axios from 'axios'
+import axios, { AxiosStatic, AxiosInstance, AxiosInterceptorManager, AxiosResponse, } from 'axios'
 import { parseSnakeToCamel } from '../utils/StringCases'
 import STATUS_CODES from '../utils/StatusCodes'
 // インスタンス生成
+// export const axiosWithAlert: AxiosInstance<AxiosInterceptorManager<AxiosResponse>> = axios.create()
 export const axiosWithAlert = axios.create()
+
 const Axios = () => {
   const { alertDispatch } = useContext(AlertContext)
   // handlerにデータが溜まっていくため、初期化する
-  if (axiosWithAlert.interceptors.response.handlers.length > 0) {
-    axiosWithAlert.interceptors.response.handlers = [];
+  // handlersの型定義エラーが解消できず、anyに。
+  const axiosWithAlertResponse: any = axiosWithAlert.interceptors.response
+  if (axiosWithAlertResponse.handlers.length > 0) {
+    axiosWithAlertResponse.handlers = [];
   }
   // 成功
   const onSuccess = (res) => {
@@ -20,7 +24,7 @@ const Axios = () => {
       alertDispatch({msg: data.msg, status: status})
     }
     // スネークケースからキャメルケースに変換
-    return parseSnakeToCamel(res)
+    return parseSnakeToCamel(res) as AxiosResponse<any> | Promise<AxiosResponse<any>>
   }
   // 失敗
   const onError = (err) => {

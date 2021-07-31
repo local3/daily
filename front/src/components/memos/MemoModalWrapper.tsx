@@ -14,7 +14,7 @@ import axios from 'axios'
 // Modalをid="root"の一番上要素に指定することで全体を覆うことができる
 Modal.setAppElement("#root")
 type Props = {
-  existMemo: Memo | undefined
+  existMemo: Memo | null
 }
 const MemoModalWrapper = (props: Props) => {
   const layoutClasses = useLayoutStyles()

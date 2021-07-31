@@ -1,7 +1,8 @@
 import themes from "./themes"
 import { makeStyles } from "@material-ui/core/styles";
+import { ClassNameMap } from "@material-ui/styles";
 
-const diaryStyles = {
+const diaryStyles: any = {
   button: {
     color: "#ffff",
     fontSize: "1.2rem"

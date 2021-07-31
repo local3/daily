@@ -4,7 +4,7 @@ import { useDiaryStyles } from '../../styles/js/diary'
 
 type Props = {
   jaContent: string
-  languageId: number
+  languageId?: number
 }
 
 const Translate: React.FC<Props> = (props: Props) => {

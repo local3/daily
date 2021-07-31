@@ -1,9 +1,9 @@
-import moment from "moment";
+import moment, { Moment } from "moment";
 
 export const dateFormat = "YYYY-MM-DD";
-export const today: string = moment().format(dateFormat)
+export const today = moment().format(dateFormat)
 
-export const isSameDay = (a, b) => {
+export const isSameDay = (a: Moment, b: Moment) => {
   if (!moment.isMoment(a) || !moment.isMoment(b)) return false;
   // Compare least significant, most likely to change units first
   // Moment's isSame clones moment inputs and is a tad slow
