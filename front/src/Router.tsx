@@ -16,6 +16,7 @@ import Diary from './pages/Diary'
 import UserEdit from './pages/UserEdit'
 import ForgotPassword from './pages/ForgotPassword'
 import MemoTop from './pages/MemoTop'
+import Dictionary from './pages/Dictionary'
 // import MemoEdit from './pages/MemoEdit'
 
 // ルーティング設定
@@ -34,12 +35,10 @@ const Router = () => {
         {/* CheckAuthでログインしていなければアクセスできないページを囲ってある */}
         <CheckAuth>
           <Route exact path="/calendar" component={CalendarPage} />
-          {/* なぜかContextの変更を検知してりれんだりんぐしない*/}
-          {/* <DiaryFormContentProvider> */}
-            <Route exact path={'/diary/:date'} component={Diary} />
-          {/* </DiaryFormContentProvider> */}
+          <Route exact path={'/diary/:date'} component={Diary} />
           <Route exact path={'/settings/account'} component={UserEdit} />
           <Route exact path={'/memos'} component={MemoTop} />
+          <Route exact path={'/dictionary'} component={Dictionary} />
           {/* <Route exact path={'/memos/:memoId'} component={MemoEdit} /> */}
         </CheckAuth>
       </Switch>

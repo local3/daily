@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_10_045842) do
+ActiveRecord::Schema.define(version: 2021_07_30_033606) do
 
   create_table "diaries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "user_id"
@@ -29,6 +29,17 @@ ActiveRecord::Schema.define(version: 2021_06_10_045842) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["diary_id"], name: "index_diary_contents_on_diary_id"
     t.index ["language_id"], name: "index_diary_contents_on_language_id"
+  end
+
+  create_table "dictionaries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "language_id"
+    t.text "word"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["language_id"], name: "index_dictionaries_on_language_id"
+    t.index ["user_id"], name: "index_dictionaries_on_user_id"
   end
 
   create_table "languages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -65,6 +76,8 @@ ActiveRecord::Schema.define(version: 2021_06_10_045842) do
   add_foreign_key "diaries", "users"
   add_foreign_key "diary_contents", "diaries"
   add_foreign_key "diary_contents", "languages"
+  add_foreign_key "dictionaries", "languages"
+  add_foreign_key "dictionaries", "users"
   add_foreign_key "memos", "users"
   add_foreign_key "users", "languages"
 end

@@ -67,6 +67,13 @@ export type Memo = {
   content: string
 }
 
+// Dictionary関連
+export type DictionaryType = {
+  id: number
+  word: string
+  description: string
+}
+
 // Language関連
 export type Language = {
   id: number

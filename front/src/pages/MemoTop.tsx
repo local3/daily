@@ -10,11 +10,10 @@ const MemoTop = () => {
   const [memos, setMemos] = useState(initMemos);
 
   const initEffect = () => {
-    fetch("/memos/user_memos")
-      .then(res => res.json())
+    axios.get("/memos/user_memos")
       .then((res) => {
         console.log(res)
-      setMemos(res.memos);
+      setMemos(res.data.memos);
     });
   };
 
