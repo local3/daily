@@ -5,7 +5,7 @@ import {
   CalendarTodayOutlined, FileCopyOutlined, CreateOutlined, LocalOfferOutlined, MoreHorizOutlined,
   Check
 } from '@material-ui/icons'
-import { useLayoutStyles } from '../styles/js/layout'
+import { useLayoutStyles } from '../../styles/js/layout'
 import { useHistory } from 'react-router-dom'
 
 

@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react"
 import axios from 'axios'
-import { SingleDatePicker } from "react-dates";
-import moment from "moment";
-import { IconButton, Box } from "@material-ui/core";
-import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import { DateContext } from "../store/DateProvider";
-import "moment/locale/ja";
-import "react-dates/initialize";
-import "react-dates/lib/css/_datepicker.css";
-import { useCalendarStyles } from "../styles/js/Calendar";
-import "../styles/css/react-dates-custom.scss";
-import { ExistDate } from '../types/index'
-import { axiosWithAlert } from '../store/Axios'
+import { SingleDatePicker } from "react-dates"
+import moment from "moment"
+import { IconButton, Box } from "@material-ui/core"
+import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore"
+import NavigateNextIcon from "@material-ui/icons/NavigateNext"
+import { DateContext } from "../../store/DateProvider"
+import "moment/locale/ja"
+import "react-dates/initialize"
+import "react-dates/lib/css/_datepicker.css"
+import { useCalendarStyles } from "../../styles/js/Calendar"
+import "../../styles/css/react-dates-custom.scss"
+import { ExistDate } from '../../types/index'
+import { axiosWithAlert } from '../../store/Axios'
 
 function Calendar() {
   const calendarClasses = useCalendarStyles()

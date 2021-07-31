@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../store/Auth";
-import MemoModalWrapper from "./MemoModalWrapper";
+import { AuthContext } from "../../store/Auth";
+import MemoModalWrapper from "../memos/MemoModalWrapper";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
-import { useLayoutStyles } from "../styles/js/layout";
-import "../styles/css/layout.scss";
+import { useLayoutStyles } from "../../styles/js/layout";
+import "../../styles/css/layout.scss";
 
 const Header = () => {
   // console.log("header")

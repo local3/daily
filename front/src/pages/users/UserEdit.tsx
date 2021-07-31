@@ -1,8 +1,8 @@
 import React, {useState, useEffect, useContext} from 'react'
 import axios from 'axios';
-import { AuthContext } from "../store/Auth";
-import { axiosWithAlert } from '../store/Axios'
-import { useLayoutStyles } from '../styles/js/layout';
+import { AuthContext } from "../../store/Auth";
+import { axiosWithAlert } from '../../store/Axios'
+import { useLayoutStyles } from '../../styles/js/layout';
 import { FormControl, InputLabel, OutlinedInput, InputAdornment, TextField } from '@material-ui/core'
 function UserEdit() {
   const auth = useContext(AuthContext)

@@ -11,10 +11,10 @@ import DateProvider from '../store/DateProvider';
 import DiaryFormContentProvider from '../store/DiaryFormContentProvider';
 
 // components
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-import AlertMsg from '../components/AlertMsg'
-import Load from '../components/Load';
+import Header from '../components/layouts/Header'
+import Footer from '../components/layouts/Footer'
+import AlertMsg from '../components/universals/AlertMsg'
+import Load from '../components/universals/Load';
 import '../styles/css/App.scss';
 import { useLayoutStyles } from '../styles/js/layout';
 

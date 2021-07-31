@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
-import { LoadContext } from "../store/LoadProvider";
+import { LoadContext } from "../../store/LoadProvider";
 import { Box, CircularProgress, Typography } from '@material-ui/core'
-import { useLayoutStyles } from '../styles/js/layout';
+import { useLayoutStyles } from '../../styles/js/layout';
 
 const Load = () => {
   const { isLoading } = useContext(LoadContext)

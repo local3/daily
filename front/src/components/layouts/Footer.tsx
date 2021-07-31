@@ -5,11 +5,11 @@ import {
   CalendarTodayOutlined, FileCopyOutlined, CreateOutlined, LocalOfferOutlined, MoreHorizOutlined,
   Check
 } from '@material-ui/icons'
-import layoutStyles, { useLayoutStyles } from '../styles/js/layout'
+import layoutStyles, { useLayoutStyles } from '../../styles/js/layout'
 import { useHistory } from 'react-router-dom'
-import { DateContext } from '../store/DateProvider'
-import { today } from '../utils/Date'
-import { DiaryFormContentContext } from '../store/DiaryFormContentProvider'
+import { DateContext } from '../../store/DateProvider'
+import { today } from '../../utils/Date'
+import { DiaryFormContentContext } from '../../store/DiaryFormContentProvider'
 import EtcDrawer from './EtcDrawer'
 
 const Footer = () => {

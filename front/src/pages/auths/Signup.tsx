@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios';
-import { AuthContext } from "../store/Auth";
-import { SignupForm, Language } from '../types'
+import { AuthContext } from "../../store/Auth";
+import { SignupForm, Language } from '../../types'
 
 function Signup() {
   const auth = useContext(AuthContext);  

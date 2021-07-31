@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
-import { useDiaryStyles } from '../styles/js/diary'
+import { useDiaryStyles } from '../../styles/js/diary'
 
 type Props = {
   jaContent: string

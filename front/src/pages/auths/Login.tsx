@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
-import { AuthContext } from "../store/Auth";
-import { Session, Auth } from '../types/index'
+import { AuthContext } from "../../store/Auth";
+import { Session, Auth } from '../../types/index'
 
 const Login = () => {
   const auth = useContext(AuthContext);
