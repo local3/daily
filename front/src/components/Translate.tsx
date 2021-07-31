@@ -15,6 +15,7 @@ const Translate: React.FC<Props> = (props: Props) => {
     // console.log(translatedText)
     const textParam = `?ja_content=${props.jaContent}`
     const languageParam = `&language_id=${props.languageId}`
+    console.log(languageParam)
     const queryParams = `${textParam}${languageParam}`
     axios.get(`/diaries/translate_text${queryParams}`)
     .then(res => {

@@ -38,7 +38,7 @@ const Router = () => {
           {/* <DiaryFormContentProvider> */}
             <Route exact path={'/diary/:date'} component={Diary} />
           {/* </DiaryFormContentProvider> */}
-          <Route exact path={'/edit'} component={UserEdit} />
+          <Route exact path={'/settings/account'} component={UserEdit} />
           <Route exact path={'/memos'} component={MemoTop} />
           {/* <Route exact path={'/memos/:memoId'} component={MemoEdit} /> */}
         </CheckAuth>

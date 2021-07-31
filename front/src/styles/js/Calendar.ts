@@ -16,6 +16,7 @@ const calendarStyles = {
   },
   tipPaperStyle: {
     height: 155,
+    // height: '19vh',
     marginBottom: 40
   },
   tipDateStyle: {
