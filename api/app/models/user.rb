@@ -6,6 +6,7 @@ class User < ApplicationRecord
   belongs_to :language
   has_many :memos
   has_many :diaries
+  has_many :dictionaries
 
   # リレーション関係終了--------------------------------------------
   
