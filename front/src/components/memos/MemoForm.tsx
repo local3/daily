@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react'
 import axios from 'axios'
-import { AuthContext } from "../store/Auth"
+import { AuthContext } from "../../store/Auth"
 import { useHistory } from 'react-router';
-import { useMemoStyles } from '../styles/js/memo'
+import { useMemoStyles } from '../../styles/js/memo'
 
 type Props = {
   memoId: number

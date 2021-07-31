@@ -6,17 +6,17 @@ import CheckAuth from "./hocs/CheckAuth"
 import DiaryFormContentProvider from './store/DiaryFormContentProvider';
 
 // ページファイルインポート
-import Home from './pages/Home'
-import Help from './pages/Help'
-import About from './pages/About'
-import Signup from './pages/Signup'
-import Login from './pages/Login'
-import CalendarPage from './pages/CalendarPage'
-import Diary from './pages/Diary'
-import UserEdit from './pages/UserEdit'
-import ForgotPassword from './pages/ForgotPassword'
-import MemoTop from './pages/MemoTop'
-import Dictionary from './pages/Dictionary'
+import Home from './pages/statics/Home'
+import Help from './pages/statics/Help'
+import About from './pages/statics/About'
+import Signup from './pages/auths/Signup'
+import Login from './pages/auths/Login'
+import CalendarPage from './pages/calendars/CalendarPage'
+import Diary from './pages/diaries/Diary'
+import UserEdit from './pages/users/UserEdit'
+import ForgotPassword from './pages/users/ForgotPassword'
+import MemoTop from './pages/memos/MemoTop'
+import Dictionary from './pages/dictionaries/Dictionary'
 // import MemoEdit from './pages/MemoEdit'
 
 // ルーティング設定

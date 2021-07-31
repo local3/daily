@@ -1,14 +1,14 @@
 import React, { useState, useContext } from 'react'
 // import { AuthContext } from "../store/Auth"
-import { Add } from '@material-ui/icons';
+import { Add } from '@material-ui/icons'
 import { Button, ListItem,  ListItemText, ListItemSecondaryAction, IconButton, Box, Typography } from '@material-ui/core/'
 import { Delete as DeleteIcon, ArrowBackIos as ArrowBackIosIcon  } from '@material-ui/icons'
-import { useLayoutStyles } from '../styles/js/layout'
-import { useMemoStyles } from '../styles/js/memo';
+import { useLayoutStyles } from '../../styles/js/layout'
+import { useMemoStyles } from '../../styles/js/memo'
 // Modal設定
 import Modal from "react-modal"
-import MemoForm from './MemoForm';
-import { Memo } from '../types';
+import MemoForm from './MemoForm'
+import { Memo } from '../../types'
 import axios from 'axios'
 
 // Modalをid="root"の一番上要素に指定することで全体を覆うことができる

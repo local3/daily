@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Memo } from "../types";
-import MemoModalWrapper from "../components/MemoModalWrapper";
+import { Memo } from "../../types";
+import MemoModalWrapper from "../../components/memos/MemoModalWrapper";
 import { List } from '@material-ui/core'
 
 const MemoTop = () => {

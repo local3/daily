@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { AlertContext } from '../store/AlertProvider'
+import { AlertContext } from '../../store/AlertProvider'
 import Alert from '@material-ui/lab/Alert'
 import AlertTitle from '@material-ui/lab/AlertTitle'
 type AleartContext = {

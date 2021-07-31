@@ -1,9 +1,9 @@
 import React, {useState, useEffect, useContext} from 'react'
 import { Link } from 'react-router-dom'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
+import Header from '../../components/layouts/Header'
+import Footer from '../../components/layouts/Footer'
 import axios from 'axios';
-import { AuthContext } from "../Auth";
+import { AuthContext } from "../../store/Auth";
 
 function ResetPassword() {
   const initPasswordContent = {

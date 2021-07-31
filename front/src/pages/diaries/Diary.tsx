@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react'
-import Translate from '../components/Translate'
-import DiaryFormButton from '../components/DiaryFormButton'
+import Translate from '../../components/diaries/Translate'
+import DiaryFormButton from '../../components/diaries/DiaryFormButton'
 import axios from 'axios'
-import { AuthContext } from "../store/Auth"
-import { DiaryFormContentContext } from '../store/DiaryFormContentProvider'
+import { AuthContext } from "../../store/Auth"
+import { DiaryFormContentContext } from '../../store/DiaryFormContentProvider'
 import { useParams } from "react-router-dom"
 import { Box, Button } from '@material-ui/core'
-import { DiaryFormContent, Language } from '../types/index'
-import { useDiaryStyles } from '../styles/js/diary'
+import { DiaryFormContent, Language } from '../../types/index'
+import { useDiaryStyles } from '../../styles/js/diary'
 import { Cached as CachedIcon, ExpandMore as ExpandMoreIcon } from '@material-ui/icons'
 import { useHistory } from 'react-router-dom'
 

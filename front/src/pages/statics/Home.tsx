@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { AuthContext } from "../store/Auth";
+import { AuthContext } from "../../store/Auth";
 function Home() {
   const auth = useContext(AuthContext);
   const handleClickLogout = () => {

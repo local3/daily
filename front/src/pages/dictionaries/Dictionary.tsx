@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { DictionaryType } from "../types";
-import MemoModalWrapper from "../components/MemoModalWrapper";
+import { DictionaryType } from "../../types";
+import MemoModalWrapper from "../../components/memos/MemoModalWrapper";
 import { List, ListItem, ListItemText } from '@material-ui/core'
 
 const Dictionary = () => {
