@@ -1,9 +1,13 @@
-import React, {useState, useEffect, useContext, useReducer} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import axios from 'axios';
 import { AuthContext } from "../store/Auth";
-
+import { axiosWithAlert } from '../store/Axios'
+import { useLayoutStyles } from '../styles/js/layout';
+import { FormControl, InputLabel, OutlinedInput, InputAdornment, TextField } from '@material-ui/core'
 function UserEdit() {
-  const auth = useContext(AuthContext);
+  const auth = useContext(AuthContext)
+  const layoutClasses = useLayoutStyles()
+
   const initSession =
     {
       email: '',
@@ -14,10 +18,8 @@ function UserEdit() {
       email: '',
       password: '',
       passwordConfirmation: '',
-      languageId: auth.currentUser.language_id ? auth.currentUser.language_id : 0
+      languageId: auth.currentUser.languageId ? auth.currentUser.languageId : 0
     }
-  console.log(auth)
-  console.log(initUser)
   const [user, setUser] = useState(initUser);
   const [session, setSession] = useState(initSession);
   const [languages, setLanguages] = useState([]);
@@ -27,14 +29,13 @@ function UserEdit() {
       .then(res => {
         const languages = res.data;
         setLanguages(languages);
-        // console.log(languages)
       })
   }
 
   const initUserData = () => {
     setUser({
       ...user,
-      languageId: auth.currentUser.language_id
+      languageId: auth.currentUser.languageId
     })
   }
 
@@ -102,13 +103,10 @@ function UserEdit() {
     e.preventDefault();
     const reducer = (beforeResult, columnName) => {
       beforeResult[`${columnName}`] = user[columnName]
-      console.log(beforeResult)
       return beforeResult
     };
-    console.log(columnNames)
     const userParams = columnNames.reduce(reducer, {})
-    console.log(userParams)
-    axios.patch(`/users/update`, {
+    axiosWithAlert.patch(`/users/update`, {
       session: session,
       user: userParams
     })
@@ -117,67 +115,128 @@ function UserEdit() {
       })
 
       .catch(res => {
-        console.log(res)
       })
   };
 
   return(
     <>
       <form>
-        <div>本人確認</div>
-        <label>メールアドレス：</label>
-        <input type="text"
-          name="email"
+        <div className={layoutClasses.formTitle}>本人確認</div>
+        {/* <label>メールアドレス：</label> */}
+        {/* <FormControl fullWidth variant="outlined">
+          <InputLabel htmlFor="session_email">メールアドレス</InputLabel>
+          <OutlinedInput
+            id="session_email"
+            value={session.email}
+            // startAdornment={<InputAdornment position="start">$</InputAdornment>}
+            labelWidth={60}
+            onChange={handleChangeSessionEmail}
+            placeholder="メールアドレス入力"
+          />
+        </FormControl> */}
+        <TextField
+          id="session_email"
+          label="メールアドレス"
+          style={{ margin: 8 }}
+          placeholder="メールアドレス入力"
+          // helperText="Full width!"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
           onChange={handleChangeSessionEmail}
         />
-
         <br/>
 
-        <label>パスワード：</label>
+        {/* <label>パスワード：</label>
         <input type="text"
           name="password"
           type="password"
           onChange={handleChangeSessionPassword}
+        /> */}
+        <TextField
+          id="session_password"
+          label="メールアドレス"
+          style={{ margin: 8 }}
+          placeholder="パスワード入力"
+          // helperText="Full width!"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
+          onChange={handleChangeSessionPassword}
         />
 
         <br/>
-        <br/>
 
-        <div>変更用フォーム</div>
-        <label>変更後メールアドレス：</label>
+        <div className={layoutClasses.formTitle}>変更用フォーム</div>
+        {/* <label>変更後メールアドレス：</label>
         <input type="text"
           name="email"
+          onChange={handleChangeEmail}
+        /> */}
+        <TextField
+          id="user_password"
+          label="変更後メールアドレス"
+          style={{ margin: 8 }}
+          placeholder="変更後メールアドレス入力"
+          // helperText="Full width!"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
           onChange={handleChangeEmail}
         />
         <button onClick={(e) => {handleClickUpdate(["email"], e)}}>変更する</button>
 
         <br/>
-        <br/>
-
-        <label>変更後パスワード：</label>
-        <input type="text"
-          name="password"
-          type="password"
+        <TextField
+          id="user_password"
+          label="変更後パスワード"
+          style={{ margin: 8 }}
+          placeholder="変更後パスワード入力"
+          // helperText="Full width!"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
           onChange={handleChangePassword}
         />
         
         <br/>
 
-        <label>パスワード確認用：</label>
-        <input type="text"
+        {/* <label>パスワード確認用：</label> */}
+        {/* <input type="text"
           name="password_confirmation"
           type="password"
+          onChange={handleChangePasswordConfirmation}
+        /> */}
+        <TextField
+          id="user_password_confirmation"
+          label="変更後確認用パスワード"
+          style={{ margin: 8 }}
+          placeholder="変更後確認用パスワード入力"
+          // helperText="Full width!"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
           onChange={handleChangePasswordConfirmation}
         />
         <button onClick={(e) => handleClickUpdate(["password", "passwordConfirmation"], e)}>変更する</button>
 
         <br/>
         <br/>
-
-        {console.log(auth.currentUser.language_id)}
-        {console.log(typeof(auth.currentUser.language_id))}
-        {console.log(user)}
-        {console.log(languages[0])}
         <label>言語選択：</label>
         {/* <select onChange={handleChangeLanguage} defaultValue={auth.currentUser.language_id ? auth.currentUser.language_id : 3}>
           {languages.map(language => 

@@ -6,26 +6,32 @@ class UsersController < ApplicationController
   end
 
   def update
+    # logger.debug @current_user.inspect
+    # logger.debug params
     if params[:session]
+      # logger.debug 'user取得前'
       user = User.find_by(email: params[:session][:email].downcase)
-      logger.debug(user.inspect)
+      # logger.debug(user.inspect)
+      # logger.debug 'user取得後'
     else
-      return "本人確認が入力されていません"
+      return render json: {data: user, state:"success",msg:"本人確認が入力されていません"} , status: 422
     end
 
-    return "有効な値ではありません" if params[:session][:language_id]
+    return render json: {data: user, state:"success",msg:"有効な値ではありません"} , status: 422 if params[:session][:language_id]
 
-
+    # logger.debug 'authenticate前'
     if user && user.authenticate(params[:session][:password])
-      logger.debug(user.inspect)
+      # logger.debug 'authenticate後'
+      # logger.debug(user.inspect)
       user.update!(user_params)
+      # logger.debug @current_user.inspect
       if user == @current_user
-        "変更できました"
+        render json: {data: user, state:"success",msg:"変更できました"} , status: 200
       else
-        "user存在しません、またはログインユーザーと一致しませんでした"
+        render json: {data: user, state:"success",msg:"userが存在しません、またはログインユーザーと一致しませんでした"} , status: 422
       end
     else
-      "user存在しません、またはログインユーザーと一致しませんでした"
+      render json: {data: user, state:"success",msg:"userが存在しません、またはログインユーザーと一致しませんでした"} , status: 422
     end
   end
 

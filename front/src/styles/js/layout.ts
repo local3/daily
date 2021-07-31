@@ -68,6 +68,10 @@ const layoutStyles = {
     opacity: 0.6,
     textAlign: 'center',
     paddingTop: '40vh'
+  },
+  // Form関連
+  formTitle: {
+    backgroundColor: themes.lightBeige
   }
 }
 

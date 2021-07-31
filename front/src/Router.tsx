@@ -36,7 +36,7 @@ const Router = () => {
         <CheckAuth>
           <Route exact path="/calendar" component={CalendarPage} />
           <Route exact path={'/diary/:date'} component={Diary} />
-          <Route exact path={'/edit'} component={UserEdit} />
+          <Route exact path={'/settings/account'} component={UserEdit} />
           <Route exact path={'/memos'} component={MemoTop} />
           <Route exact path={'/dictionary'} component={Dictionary} />
           {/* <Route exact path={'/memos/:memoId'} component={MemoEdit} /> */}

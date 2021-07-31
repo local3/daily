@@ -10,6 +10,7 @@ import { useHistory } from 'react-router-dom'
 import { DateContext } from '../store/DateProvider'
 import { today } from '../utils/Date'
 import { DiaryFormContentContext } from '../store/DiaryFormContentProvider'
+import EtcDrawer from './EtcDrawer'
 
 const Footer = () => {
   // console.log("fppter")
@@ -22,6 +23,8 @@ const Footer = () => {
   // /calendarにいるときは、選択した日時にの日記作成画面に遷移するが、そうでないときは、今日の日にちの日記作成画面に遷移する
   const redirectDate = history.location.pathname === '/calendar' ? globalDate : today
   const [value, setValue] = useState(0);
+  const [isOpenEtcDrawer, setIsOpenEtcDrawer] = useState(false)
+
   // フッターのボタンを押したときのページ遷移のアクション
   const redirectAction = (url) => {
     history.push(url)
@@ -32,6 +35,11 @@ const Footer = () => {
     // 
     changeSubmitFlag(true)
   }
+  // その他を押した時にDrawer表示を切り替える
+  const toggleEtcDrawer = () => {
+    console.log(isOpenEtcDrawer)
+    setIsOpenEtcDrawer(!isOpenEtcDrawer)
+  }
   // useEffect(()=>{console.log("aaa")}, [submitFlag])
   const navActions = [
     {label: "カレンダー", icon: <CalendarToday />, iconSelected: <CalendarTodayOutlined />, className: "footerButton", selectedClassName: "selectedFooterButton", action: ()=>redirectAction('/calendar')},
@@ -39,7 +47,7 @@ const Footer = () => {
     {label: "書く", icon: <Create />, iconSelected: <CreateOutlined />, className: "footerCenterButton", selectedClassName: "selectedFooterCenterButton", action: ()=>redirectAction(`/diary/${redirectDate}`)},
     {label: "保存", icon: <Check />, iconSelected: <Check />, className: "footerCenterButton", selectedClassName: "selectedFooterCenterButton", action: saveAction},
     {label: "My辞書", icon: <LocalOffer />, iconSelected: <LocalOfferOutlined />, className: "footerButton", selectedClassName: "selectedFooterButton", action: ()=>redirectAction('/')},
-    {label: "その他", icon: <MoreHoriz />, iconSelected: <MoreHorizOutlined />, className: "footerButton", selectedClassName: "selectedFooterButton", action: ()=>redirectAction('/')}
+    {label: "その他", icon: <MoreHoriz />, iconSelected: <MoreHorizOutlined />, className: "footerButton", selectedClassName: "selectedFooterButton", action: toggleEtcDrawer}
   ]
   return(
     <>
@@ -85,6 +93,12 @@ const Footer = () => {
           }
         })}
       </BottomNavigation>
+
+      {/* Drawer */}
+      <EtcDrawer
+        isOpenEtcDrawer={isOpenEtcDrawer}
+        toggleEtcDrawer={toggleEtcDrawer}
+      />
     </>
   )
 }
