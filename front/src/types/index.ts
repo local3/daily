@@ -1,9 +1,11 @@
 import React from 'react'
+import { Moment } from 'moment'
+import { Color } from '@material-ui/lab'
 
 // User関連
 export type User = {
   id: number
-  name: string
+  email: string
   languageId: number
 }
 
@@ -27,6 +29,18 @@ export type Session = {
   email: string
   password: string
   rememberMe: boolean
+}
+
+export type UserEditSession = {
+  email: string
+  password: string
+}
+
+export type UserEditInfo = {
+  email: string
+  password: string
+  passwordConfirmation: string
+  languageId?: number
 }
 
 // Diary関連
@@ -59,12 +73,16 @@ export type ExistDate = {
 export type DateContextType = {
   globalDate: string
   updateDate: (date: string) => void
-} | null
+}
 
 // Memo関連
 export type Memo = {
   id: number
   content: string
+}
+
+export type MemoId = {
+  memoId: string
 }
 
 // Dictionary関連
@@ -84,8 +102,8 @@ export type Language = {
 export type AlertState = {
   msg: string
   status: number
-  severity: string
-  color: string
+  severity: Color
+  color: Color
   alertDispatch: React.Dispatch<any>
 }
 

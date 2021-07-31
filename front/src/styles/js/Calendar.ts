@@ -2,7 +2,7 @@ import { useStyles } from "./styles"
 import themes from "./themes"
 import { makeStyles } from "@material-ui/core/styles";
 
-const calendarStyles = {
+const calendarStyles: any = {
   // Calendar.tsx
   datePickerNavButton: {
     position: 'absolute',

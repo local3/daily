@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Button } from '@material-ui/core'
 
 type Props = {
-  color: string
+  color: 'inherit' | 'primary' | 'secondary' | 'default'
   className: any
   endIcon: any
   onClickAction: () => void

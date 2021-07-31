@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import moment from "moment";
+import moment, { Moment } from "moment";
 import { dateFormat } from '../utils/Date';
 import { DateContextType } from '../types'
 const initialState: DateContextType = {
@@ -14,7 +14,7 @@ const DateProvider = (props) => {
 	const [globalDate, setGlobalDate] = useState<string>(initialState.globalDate)
 	console.log(globalDate)
 	const updateDate = (selectedDate: string) => {
-		setGlobalDate(moment(selectedDate).format(dateFormat))
+		setGlobalDate(selectedDate)
 	}
 	const value: DateContextType = { globalDate, updateDate }
 	return(

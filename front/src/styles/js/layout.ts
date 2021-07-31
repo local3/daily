@@ -2,7 +2,7 @@ import { useStyles } from "./styles"
 import themes from "./themes"
 import { makeStyles } from "@material-ui/core/styles";
 
-const layoutStyles = {
+const layoutStyles: any = {
   // 全体を覆う。左右に余白をつける
   contentWrapper: {
     width: "94vw",

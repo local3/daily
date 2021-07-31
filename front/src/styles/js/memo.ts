@@ -1,7 +1,7 @@
 import themes from "./themes"
 import { makeStyles } from "@material-ui/core/styles";
 
-const memoStyles = {
+const memoStyles: any = {
   memoFormTextarea: {
     width: '100%',
     height: '70vh',
