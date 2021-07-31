@@ -38,11 +38,9 @@ const Diary = () => {
   const [isOpenJaContent, setIsOpenJaContent] = useState<boolean>(true)
 
   const initLanguagesEffect = () => {
-    console.log("inilan")
     axios.get(`/languages`)
       .then(res => {
         const result = res.data
-        console.log(result)
         setLanguages(result);
       })
   }
@@ -53,7 +51,6 @@ const Diary = () => {
         .then(res => {
           const existDiary = res.data.diary;
           if(existDiary){
-            console.log(existDiary)
             setIsEdit(true)
             if(formContent.diaryContent.languageId && languages.length){
               convertExistDiary(existDiary);
@@ -79,7 +76,6 @@ const Diary = () => {
   }
 
   const convertExistDiary = (existDiary) => {
-    console.log(existDiary)
     const existDiaryContent = getDiaryContent(existDiary)
     setFormContent(
       {
@@ -136,15 +132,12 @@ const Diary = () => {
       if(isEdit){
         axios.patch(`/diaries/${formContent.diary.date}`, formContent)
           .then(res =>{
-            console.log(res.data);
             submitFlagContext.changeSubmitFlag(false)
             history.push('/calendar')
           })
       }else{
-        console.log(formContent)
         axios.post(`/diaries`, formContent)
           .then(res => {
-            console.log(res.data);
             submitFlagContext.changeSubmitFlag(false)
             history.push('/calendar')
           })
@@ -183,8 +176,9 @@ const Diary = () => {
               text={"翻訳版"}
             />
             <Box className={diaryClasses.diaryFormTextareaWrapper}>
+              {console.log(auth.currentUser?.languageId)}
               <Translate
-                languageId={formContent.diaryContent.languageId}
+                languageId={auth.currentUser?.languageId}
                 jaContent={formContent.diary.jaContent}
               />
             </Box>
@@ -196,7 +190,7 @@ const Diary = () => {
             className={diaryClasses.diaryFormButton}
             endIcon={null}
             onClickAction={()=>{}}
-            text={getLanguage(formContent.diaryContent.languageId)?.name}
+            text={getLanguage(auth.currentUser?.languageId)?.name}
           />
           <Box className={diaryClasses.diaryFormTextareaWrapper}>
             <textarea onChange={handleChangeDiaryContent} value={formContent.diaryContent.content} className={diaryClasses.diaryFormTextarea}></textarea>
