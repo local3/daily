@@ -23,7 +23,8 @@ const diaryStyles: any = {
   },
   diaryFormTextarea: {
     width: '90vw',
-    height: '30vh'
+    height: '30vh',
+    fontSize: '150%'
   }
 }
 
