@@ -20,9 +20,9 @@ Rails.application.routes.draw do
   get '/memos/user_memos', to: 'memos#user_memos'
   resources :memos, only: [:create, :show, :update, :destroy]
 
-  # ユーザー辞書系
+  # My辞書系
   get '/dictionaries/user_dictionaries', to: 'dictionaries#user_dictionaries'
-  resources :dictionaries, only: [:create, :show]
+  resources :dictionaries, only: [:create, :show, :destroy]
   
   # 認証系
   get '/current_user', to: 'sessions#current_user'

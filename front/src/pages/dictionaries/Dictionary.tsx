@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
 import { DictionaryType } from "../../types"
-import MemoModalWrapper from "../../components/memos/MemoModalWrapper"
-import { List, ListItem, ListItemText } from '@material-ui/core'
+import { List, ListItem, ListItemText, IconButton, ListItemSecondaryAction } from '@material-ui/core'
+import { Delete } from '@material-ui/icons'
+import { axiosWithAlert } from "../../store/Axios"
 
 const Dictionary = () => {
   const initialDictionaries: DictionaryType[] = []
@@ -18,13 +19,26 @@ const Dictionary = () => {
 
   useEffect(initEffect, [])
 
+  const destroyDictionary = (e, dictionaryId) => {
+    axiosWithAlert.delete(`/dictionaries/${dictionaryId}`)
+      .then(res => {
+        e.target.parentNode.remove()
+        document.querySelector(`div[aria-label='dictionary_id_${dictionaryId}']`)?.remove()
+      })
+  }
+
   return(
     <>
-      <h1>ユーザー辞書一覧</h1>
+      <h1>My辞書一覧</h1>
       <List component="nav" aria-label="mailbox folders">
         {dictionaries.map((dictionary) => (
-          <ListItem button>
+          <ListItem key={dictionary.id} aria-label={`dictionary_id_${dictionary.id}`} button divider>
             <ListItemText primary={dictionary.word} />
+            <ListItemSecondaryAction>
+              <IconButton onClick={ (e) => destroyDictionary(e, dictionary.id) } edge="end" >
+                <Delete />
+              </IconButton>
+            </ListItemSecondaryAction>
           </ListItem>
         ))}
       </List>
