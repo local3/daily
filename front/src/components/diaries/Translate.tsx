@@ -27,7 +27,7 @@ const Translate: React.FC<Props> = (props: Props) => {
 
   return(
     <>
-      <textarea value={translatedText} disabled className={diaryClasses.diaryFormTextarea}></textarea>
+      <textarea value={translatedText} onKeyDown={() => false} className={diaryClasses.diaryFormTextarea}></textarea>
     </>
   )
 }

@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { ClassNameMap } from "@material-ui/styles";
 
 const diaryStyles: any = {
+  //　日記関連
   button: {
     color: "#ffff",
     fontSize: "1.2rem"
@@ -24,6 +25,25 @@ const diaryStyles: any = {
   diaryFormTextarea: {
     width: '90vw',
     height: '30vh'
+  },
+  // My辞書ボタン
+  optionFirstButton: {
+    borderRadius: '50%',
+    position: 'absolute',
+    backgroundColor: themes.gray,
+    bottom: 70,
+    right: 20,
+    width: 60,
+    height: 60
+  },
+  optionSecondButton: {
+    borderRadius: '50%',
+    position: 'absolute',
+    backgroundColor: themes.gray,
+    bottom: 140,
+    right: 20,
+    width: 60,
+    height: 60
   }
 }
 
