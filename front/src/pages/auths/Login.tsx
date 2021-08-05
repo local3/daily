@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { AuthContext } from "../../store/Auth";
-import { Session, Auth } from '../../types/index'
+import { Session } from '../../types/index'
 
 const Login = () => {
   const auth = useContext(AuthContext);
@@ -51,7 +51,8 @@ const Login = () => {
           <br/>
 
           <label>パスワード：</label>
-          <input type="text"
+          <input
+            type="password"
             name="password"  
             onChange={handleChangePassword}
           />

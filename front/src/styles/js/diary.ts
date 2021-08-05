@@ -24,6 +24,8 @@ const diaryStyles: any = {
   },
   diaryFormTextarea: {
     width: '90vw',
+    height: '30vh',
+    fontSize: '130%'
     height: '30vh'
   },
   // My辞書ボタン

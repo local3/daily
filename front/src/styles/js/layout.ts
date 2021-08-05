@@ -70,8 +70,27 @@ const layoutStyles: any = {
     paddingTop: '40vh'
   },
   // Form関連
+  pageTitle: {
+    fontSize: '30px',
+    textAlign: 'initial',
+    borderBottom: `1px solid ${themes.gray}`,
+    marginBottom: '30px',
+    color: themes.lightBrown
+  },
   formTitle: {
-    backgroundColor: themes.lightBeige
+    textAlign: 'initial',
+    borderBottom: `1px solid ${themes.gray}`
+  },
+  label: {
+    textAlign: 'initial',
+    margin: '5px'
+  },
+  submitButtonWrapper: {
+    textAlign: 'end'
+  },
+  submitButton: {
+    backgroundColor: themes.green,
+    color: themes.clearWhite
   }
 }
 

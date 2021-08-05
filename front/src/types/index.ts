@@ -36,6 +36,18 @@ export type UserEditSession = {
   password: string
 }
 
+export type UserAccountSetting = {
+  target: string
+  email: {
+    email: string
+  }
+  password: {
+    password: string
+    passwordConfirmation: string
+  }
+  oldPassword: string
+}
+
 export type UserEditInfo = {
   email: string
   password: string

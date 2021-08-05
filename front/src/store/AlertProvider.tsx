@@ -18,13 +18,13 @@ const alertReducer = (state, action) => {
 		case(STATUS_CODES.FLAT_CODE): // 1
 			return state
 		case(STATUS_CODES.SUCCESS_CODE): // 200
-			return { ...state, msg: action.msg, severity: 'success' }
+			return { ...state, msg: action.msg, severity: 'success', color: 'success' }
 		case(STATUS_CODES.INFO_CODE): // 210
 			return { ...state, msg: action.msg, severity: 'success', color: 'info' }
 		case(STATUS_CODES.NOT_FOUND_CODE): // 404
-			return { ...state, msg: action.msg, severity: 'error' }
+			return { ...state, msg: action.msg, severity: 'error', color: 'info' }
 		case(STATUS_CODES.INVALID_CODE): // 422
-			return { ...state, msg: action.msg, severity: 'error'}
+			return { ...state, msg: action.msg, severity: 'error', color: 'error'}
 		case(STATUS_CODES.SERVER_ERROR_CODE): // 500
 			return {}
 		}
