@@ -25,7 +25,7 @@ const EtcDrawer = (props: Props) => {
   }
   const userSettingList = [
     {name: '基本設定', action: () => redirectAction('/settings/account'), icon: null},
-    {name: '言語設定', action: () => redirectAction('/settings/language'), icon: null}
+    {name: 'その他設定', action: () => redirectAction('/settings/language'), icon: null}
   ]
   const guideList = [
     {name: '使い方', action: () => redirectAction('/settings/account'), icon: null},

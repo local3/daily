@@ -54,25 +54,36 @@ class UsersController < ApplicationController
       end
 
     when 'other'
+      logger.debug "berfore other"
+      # logger.debug target
       @current_user.update!(filter_user_update_params(target))
+      logger.debug "after other"
     end
   end
 
   private
     def user_params
-      params.require(:user).permit(
-        :target,
-        :old_password,
-        email: 
-          [
-            :email
-          ],
-        password: 
-        [
-          :password,
-          :password_confirmation
-        ]
-      )
+      # params.require(:user).permit(
+      #   :target,
+      #   :old_password,
+      #   email: 
+      #     [
+      #       :email
+      #     ],
+      #   password: 
+      #   [
+      #     :password,
+      #     :password_confirmation
+      #   ]
+      # )
+      params.require(:user)
+      # .require(
+      #   :target,
+      #   :old_password,
+      #   :email,
+      #   :password,
+      #   :other
+      # )
     end
 
     # targetの値と一致するkeyのvalueのみを返す
@@ -82,6 +93,8 @@ class UsersController < ApplicationController
       # update対象(target)についてのvalueのみを取得
       # requireは、指定したキーについてのvalueのみを絞るだけ
       # permitは、指定したキーとバリューのみの使用を許可する。
+      logger.debug "user_params"
+      logger.debug user_params
       target_filter_user_params = user_params.require(target.to_sym)
       # それぞれのtargetでupdateできるカラムをpermitしていく
       case target
@@ -92,7 +105,8 @@ class UsersController < ApplicationController
         target_filter_user_params.permit(:password, :password_confirmation)
   
       when 'other'
-        target_filter_user_params.permit(:name)
+        logger.debug "filter other"
+        target_filter_user_params.permit(:language_id)
       end
     end
 end
