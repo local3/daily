@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react"
 import axios from "axios"
 import { DateContext } from "../../store/DateProvider"
 import { Drawer, Typography, Divider }  from '@material-ui/core'
-import { useCalendarStyles } from "../../styles/js/Calendar"
+import { useCalendarStyles } from "../../styles/js/calendar"
 
 const DiaryTip = () => {
   // DateProviderからカレンダーで選択中の日付を取得

@@ -48,6 +48,13 @@ export type UserAccountSetting = {
   oldPassword: string
 }
 
+export type UserLanguageSetting = {
+  target: string
+  other: {
+    languageId: number
+  }
+}
+
 export type UserEditInfo = {
   email: string
   password: string

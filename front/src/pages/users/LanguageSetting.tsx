@@ -2,115 +2,52 @@ import React, {useState, useEffect, useContext} from 'react'
 import axios from 'axios'
 import { AuthContext } from "../../store/Auth"
 import { axiosWithAlert } from '../../store/Axios'
-import { useLayoutStyles } from '../../styles/js/layout'
-import { FormControl, InputLabel, OutlinedInput, InputAdornment, TextField } from '@material-ui/core'
-import { UserEditSession, UserEditInfo, Language } from '../../types/index'
+import { useUserStyles } from '../../styles/js/user'
+import layoutStyles, { useLayoutStyles } from '../../styles/js/layout'
+import { Typography, Box, Select, Button, FormControl } from '@material-ui/core'
+import { UserLanguageSetting, Language } from '../../types/index'
 
-function LanguageSetting() {
+const LanguageSetting = () => {
   const auth = useContext(AuthContext)
+  const userClasses = useUserStyles()
   const layoutClasses = useLayoutStyles()
+  const initFormContent: UserLanguageSetting = {
+    target: '',
+    other: {
+      languageId: auth.currentUser ? auth.currentUser.languageId : 1
+    }
+  }
 
-  const initSession: UserEditSession =
-    {
-      email: '',
-      password: ''
-    }
-  const initUser: UserEditInfo =
-    {
-      email: '',
-      password: '',
-      passwordConfirmation: '',
-      languageId: auth.currentUser?.languageId ? auth.currentUser.languageId : 0
-    }
-  const [user, setUser] = useState(initUser);
-  const [session, setSession] = useState(initSession);
-  const [languages, setLanguages] = useState<Language[]>([]);
-  
-  const componentDidMount = () => {
+  const [formContent, setFormContent] = useState(initFormContent)
+  const [languages, setLanguages] = useState<Language[]>([])
+
+  const initLanguagesEffect = () => {
     axios.get(`/languages`)
       .then(res => {
-        const languages = res.data;
-        setLanguages(languages);
+        setLanguages(res.data)
       })
   }
-
-  const initUserData = () => {
-    setUser({
-      ...user,
-      languageId: auth.currentUser?.languageId
-    })
-  }
-
-  
-
-  useEffect(componentDidMount, [])
-  useEffect(initUserData, [auth])
-
-  const handleChangeSessionEmail = (e) => {
-    setSession(
-      {
-        ...session,
-        email: e.target.value
-      }
-    );
-  };
-
-  const handleChangeSessionPassword = (e) => {
-    setSession(
-      {
-        ...session,
-        password: e.target.value
-      }
-    );
-  };
-
-  const handleChangeEmail = (e) => {
-    setUser(
-      {
-				...user,
-				email: e.target.value
-			}
-    );
-  };
-
-  const handleChangePassword = (e) => {
-    setUser(
-			{
-				...user,
-				password: e.target.value
-			}
-    );
-  };
-
-  const handleChangePasswordConfirmation = (e) => {
-    setUser(
-			{
-				...user,
-				passwordConfirmation: e.target.value
-			}
-    );
-  };
+  useEffect(initLanguagesEffect, [])
 
   const handleChangeLanguage = (e) => {
-    setUser(
+    setFormContent(
       {
-        ...user,
-        languageId: e.target.value
+        ...formContent,
+        other: {
+          languageId: e.target.value
+        }
       }
-    );
-  };
+    )
+  }
 
-  
-  const handleClickUpdate = (columnNames, e) => {
-    e.preventDefault();
-    const reducer = (beforeResult, columnName) => {
-      beforeResult[`${columnName}`] = user[columnName]
-      return beforeResult
-    };
-    const userParams = columnNames.reduce(reducer, {})
+  const handleClickUpdate = (target, e) => {
+    e.preventDefault()
+    console.log(formContent)
     axiosWithAlert.patch(`/users/update`, {
-      session: session,
-      user: userParams
+      user: {
+        ...formContent,
+        target: target
+      }
     })
       .then(res => {
         console.log(res)
@@ -118,146 +55,42 @@ function LanguageSetting() {
 
       .catch(res => {
       })
-  };
-
-  return(
+  }
+  
+  return (
     <>
-      <form>
-        <div className={layoutClasses.formTitle}>本人確認</div>
-        {/* <label>メールアドレス：</label> */}
-        {/* <FormControl fullWidth variant="outlined">
-          <InputLabel htmlFor="session_email">メールアドレス</InputLabel>
-          <OutlinedInput
-            id="session_email"
-            value={session.email}
-            // startAdornment={<InputAdornment position="start">$</InputAdornment>}
-            labelWidth={60}
-            onChange={handleChangeSessionEmail}
-            placeholder="メールアドレス入力"
-          />
-        </FormControl> */}
-        <TextField
-          id="session_email"
-          label="メールアドレス"
-          style={{ margin: 8 }}
-          placeholder="メールアドレス入力"
-          // helperText="Full width!"
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="outlined"
-          onChange={handleChangeSessionEmail}
-        />
-        <br/>
-
-        {/* <label>パスワード：</label>
-        <input type="text"
-          name="password"
-          type="password"
-          onChange={handleChangeSessionPassword}
-        /> */}
-        <TextField
-          id="session_password"
-          label="メールアドレス"
-          style={{ margin: 8 }}
-          placeholder="パスワード入力"
-          // helperText="Full width!"
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="outlined"
-          onChange={handleChangeSessionPassword}
-        />
-
-        <br/>
-
-        <div className={layoutClasses.formTitle}>変更用フォーム</div>
-        {/* <label>変更後メールアドレス：</label>
-        <input type="text"
-          name="email"
-          onChange={handleChangeEmail}
-        /> */}
-        <TextField
-          id="user_password"
-          label="変更後メールアドレス"
-          style={{ margin: 8 }}
-          placeholder="変更後メールアドレス入力"
-          // helperText="Full width!"
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="outlined"
-          onChange={handleChangeEmail}
-        />
-        <button onClick={(e) => {handleClickUpdate(["email"], e)}}>変更する</button>
-
-        <br/>
-        <TextField
-          id="user_password"
-          label="変更後パスワード"
-          style={{ margin: 8 }}
-          placeholder="変更後パスワード入力"
-          // helperText="Full width!"
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="outlined"
-          onChange={handleChangePassword}
-        />
-        
-        <br/>
-
-        {/* <label>パスワード確認用：</label> */}
-        {/* <input type="text"
-          name="password_confirmation"
-          type="password"
-          onChange={handleChangePasswordConfirmation}
-        /> */}
-        <TextField
-          id="user_password_confirmation"
-          label="変更後確認用パスワード"
-          style={{ margin: 8 }}
-          placeholder="変更後確認用パスワード入力"
-          // helperText="Full width!"
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="outlined"
-          onChange={handleChangePasswordConfirmation}
-        />
-        <button onClick={(e) => handleClickUpdate(["password", "passwordConfirmation"], e)}>変更する</button>
-
-        <br/>
-        <br/>
-        <label>言語選択：</label>
-        {/* <select onChange={handleChangeLanguage} defaultValue={auth.currentUser.language_id ? auth.currentUser.language_id : 3}>
-          {languages.map(language => 
-            <option key={Number(language.id)} value={Number(language.id)}>
-              {language.name}
-            </option>)
-          }
-        </select> */}
-        <select onChange={handleChangeLanguage} value={user.languageId}>
-          <option key={0} value={0} disabled></option>
-          {languages.map(language => 
-            <option key={Number(language.id)} value={Number(language.id)}>
-              {language.name}
-            </option>)
-          }
-        </select>
-        <button onClick={(e) => handleClickUpdate(["languageId"], e)}>変更する</button>
-
-      </form>
+      <Typography variant="h1" className={layoutClasses.pageTitle}>その他設定</Typography>
+      <Box>
+        <Typography variant="h6" className={layoutClasses.formTitle}>学習言語</Typography>
+        <form>
+          <Box>
+            <Box className={layoutClasses.label}>
+              <label>言語選択</label>
+            </Box>
+            <FormControl variant="outlined">
+              <Select
+                native
+                value={formContent.other.languageId}
+                onChange={handleChangeLanguage}
+                inputProps={{
+                  name: 'language_id',
+                  id: 'user_language_id',
+                }}
+              >
+                <option key={0} value={0} disabled></option>
+                {languages.map(language => 
+                  <option key={Number(language.id)} value={Number(language.id)}>
+                    {language.name}
+                  </option>)
+                }
+              </Select>
+            </FormControl>
+          </Box>
+          <Box className={layoutClasses.submitButtonWrapper}>
+            <Button onClick={(e) => {handleClickUpdate("other", e)}} variant="contained" className={layoutClasses.submitButton}>変更する</Button>
+          </Box>
+        </form>
+      </Box>
     </>
   )
 }

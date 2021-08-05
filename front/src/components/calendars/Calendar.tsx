@@ -9,7 +9,7 @@ import { DateContext } from "../../store/DateProvider"
 import "moment/locale/ja"
 import "react-dates/initialize"
 import "react-dates/lib/css/_datepicker.css"
-import { useCalendarStyles } from "../../styles/js/Calendar"
+import { useCalendarStyles } from "../../styles/js/calendar"
 import "../../styles/css/react-dates-custom.scss"
 import { ExistDate } from '../../types/index'
 import { axiosWithAlert } from '../../store/Axios'
