@@ -17,7 +17,7 @@ const Axios = () => {
   }
   // 成功
   const onSuccess = (res) => {
-    // console.log(res)
+    console.log(res)
     // console.log(parseSnakeToCamel(res))
     const { data, status } =  res
     if(status !== STATUS_CODES.FLAT_CODE){
@@ -28,6 +28,7 @@ const Axios = () => {
   }
   // 失敗
   const onError = (err) => {
+    console.log(err.response)
     const { data, status } =  err.response
     if(status !== STATUS_CODES.FLAT_CODE){
       alertDispatch({msg: data.msg, status: status})
