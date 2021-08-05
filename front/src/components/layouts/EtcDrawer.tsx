@@ -1,10 +1,6 @@
 import React,{ useState, useContext, useEffect }  from 'react'
-import { List, ListItem, ListItemIcon, ListItemText, SwipeableDrawer, Divider, Typography } from '@material-ui/core'
-import { 
-  CalendarToday, FileCopy, Create, LocalOffer, MoreHoriz,
-  CalendarTodayOutlined, FileCopyOutlined, CreateOutlined, LocalOfferOutlined, MoreHorizOutlined,
-  Check
-} from '@material-ui/icons'
+import { List, ListItem, ListItemIcon, ListItemText, SwipeableDrawer, Divider, Typography, Box } from '@material-ui/core'
+import { SettingsOutlined, BuildOutlined, HelpOutline, Check, MailOutline, LocalLibraryOutlined } from '@material-ui/icons'
 import { useLayoutStyles } from '../../styles/js/layout'
 import { useHistory } from 'react-router-dom'
 
@@ -24,24 +20,25 @@ const EtcDrawer = (props: Props) => {
     props.toggleEtcDrawer()
   }
   const userSettingList = [
-    {name: '基本設定', action: () => redirectAction('/settings/account'), icon: null},
-    {name: 'その他設定', action: () => redirectAction('/settings/language'), icon: null}
+    {name: '基本設定', action: () => redirectAction('/settings/account'), icon: <SettingsOutlined />},
+    {name: 'その他設定', action: () => redirectAction('/settings/language'), icon: <BuildOutlined />}
   ]
   const guideList = [
-    {name: '使い方', action: () => redirectAction('/settings/account'), icon: null},
-    {name: 'ヘルプ', action: () => redirectAction('/settings/account'), icon: null},
-    {name: 'お問い合わせ', action: () => redirectAction('/settings/account'), icon: null},
-    {name: 'プライバシーポリシー', action: () => redirectAction('/settings/account'), icon: null},
+    {name: '使い方', action: () => redirectAction('/settings/account'), icon: <LocalLibraryOutlined />},
+    {name: 'ヘルプ', action: () => redirectAction('/settings/account'), icon: <HelpOutline />},
+    {name: 'お問い合わせ', action: () => redirectAction('/settings/account'), icon: <MailOutline />},
+    {name: 'プライバシーポリシー', action: () => redirectAction('/settings/account'), icon: <Check />},
   ]
   return(
     <>
       <SwipeableDrawer
-          anchor='right'
-          open={props.isOpenEtcDrawer}
-          onClose={props.toggleEtcDrawer}
-          onOpen={props.toggleEtcDrawer}
-        >
-          <Typography variant="inherit">設定</Typography>
+        anchor='right'
+        open={props.isOpenEtcDrawer}
+        onClose={props.toggleEtcDrawer}
+        onOpen={props.toggleEtcDrawer}
+      >
+        <Box className={layoutClasses.etcDrawerWrapper}>
+          <Typography variant="inherit" className={layoutClasses.etcDrawerMainTitle}>設定</Typography>
           <Divider/>
           <List>
             {userSettingList.map((value) => (
@@ -52,7 +49,7 @@ const EtcDrawer = (props: Props) => {
             ))}
           </List>
 
-          <Typography variant="inherit">その他</Typography>
+          <Typography variant="inherit" className={layoutClasses.etcDrawerMainTitle}>その他</Typography>
           <Divider/>
           <List>
           {guideList.map((value) => (
@@ -62,6 +59,7 @@ const EtcDrawer = (props: Props) => {
               </ListItem>
             ))}
           </List>
+        </Box>
       </SwipeableDrawer>
     </>
   )

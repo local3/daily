@@ -56,6 +56,15 @@ const layoutStyles: any = {
   selectedFooterCenterButton: {
     color: `${themes.clearWhite}!important`
   },
+  // EtcDrawer関連
+  etcDrawerWrapper: {
+    paddingTop: '5px',
+    paddingLeft: '10px'
+  },
+  etcDrawerMainTitle: {
+    fontSize: '120%',
+    fontWeight: 'bold'
+  },
   // Load関連
   loadWrapper: {
     zIndex: 9999999,

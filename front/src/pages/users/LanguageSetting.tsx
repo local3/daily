@@ -4,7 +4,7 @@ import { AuthContext } from "../../store/Auth"
 import { axiosWithAlert } from '../../store/Axios'
 import { useUserStyles } from '../../styles/js/user'
 import layoutStyles, { useLayoutStyles } from '../../styles/js/layout'
-import { Typography, Box, Select, Button, FormControl, InputLabel } from '@material-ui/core'
+import { Typography, Box, Select, Button, FormControl } from '@material-ui/core'
 import { UserLanguageSetting, Language } from '../../types/index'
 
 const LanguageSetting = () => {
@@ -68,12 +68,10 @@ const LanguageSetting = () => {
               <label>言語選択</label>
             </Box>
             <FormControl variant="outlined">
-              {/* <InputLabel htmlFor="user_language_id">学習言語</InputLabel> */}
               <Select
                 native
                 value={formContent.other.languageId}
                 onChange={handleChangeLanguage}
-                // label="学習言語"
                 inputProps={{
                   name: 'language_id',
                   id: 'user_language_id',
@@ -87,14 +85,6 @@ const LanguageSetting = () => {
                 }
               </Select>
             </FormControl>
-            {/* <select onChange={handleChangeLanguage} value={formContent.other.languageId}>
-              <option key={0} value={0} disabled></option>
-              {languages.map(language => 
-                <option key={Number(language.id)} value={Number(language.id)}>
-                  {language.name}
-                </option>)
-              }
-            </select> */}
           </Box>
           <Box className={layoutClasses.submitButtonWrapper}>
             <Button onClick={(e) => {handleClickUpdate("other", e)}} variant="contained" className={layoutClasses.submitButton}>変更する</Button>
