@@ -41,7 +41,7 @@ const Router = () => {
           <Route exact path={'/settings/account'} component={AccountSetting} />
           <Route exact path={'/settings/language'} component={LanguageSetting} />
           <Route exact path={'/memos'} component={MemoTop} />
-          <Route exact path={'/dictionary'} component={Dictionary} />
+          <Route exact path={'/dictionaries'} component={Dictionary} />
         </CheckAuth>
       </Switch>
     </>
