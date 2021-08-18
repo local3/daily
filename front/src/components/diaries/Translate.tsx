@@ -137,7 +137,7 @@ const Translate: React.FC<Props> = (props: Props) => {
     <>
       <Quote type='start'/>
       <Quote type='end'/>
-      <div contentEditable={true} onKeyDown={preventKeydown} suppressContentEditableWarning={true}
+      <div contentEditable={true} onKeyDown={preventKeydown}
         className={`${diaryClasses.diaryFormTextarea}  ${diaryClasses.diaryFormContentEditable}`}>
         {translatedText}
         <script>
