@@ -3,13 +3,15 @@ import axios from 'axios'
 import { AuthContext } from "../../store/Auth"
 import { useHistory } from 'react-router';
 import { useMemoStyles } from '../../styles/js/memo'
-
+import { ConvertContext } from '../../store/ConvertProvider'
+import { CONVERT_MEMO } from '../../utils/convertActions';
 type Props = {
   memoId: number
   toggleModal: () => void
 }
 const MemoForm: React.FC<Props> = (props: Props) => {
   const auth = useContext(AuthContext);
+  const { convertDispatch } = useContext(ConvertContext)
   const history = useHistory()
   const memoClasses = useMemoStyles()
 
@@ -47,10 +49,12 @@ const MemoForm: React.FC<Props> = (props: Props) => {
     isEdit 
       ? axios.patch(`/memos/${props.memoId}`, { memo: memo })
           .then(res => {
+            convertDispatch({type: CONVERT_MEMO})
             isEdit ? history.push('/memos') : props.toggleModal()
           })
       : axios.post(`/memos`, { memo: memo })
           .then(res => {
+            convertDispatch({type: CONVERT_MEMO})
             isEdit ? history.push('/memos') : props.toggleModal()
           })
   };
