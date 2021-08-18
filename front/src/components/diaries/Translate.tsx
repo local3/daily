@@ -20,6 +20,7 @@ const Translate: React.FC<Props> = (props: Props) => {
   const toolState = props.toolState
   const toolDispatch = props.toolDispatch
   const [description, setDescription] = useState<string>('')
+  console.log(description)
 
   const addDictionaryStyles = makeStyles(
     {
@@ -65,9 +66,10 @@ const Translate: React.FC<Props> = (props: Props) => {
   const handleAddDictionary = () => {
     if(description){
       const word = translatedText.slice(toolState.startOffset, toolState.endOffset)
-      const queryParams = `?word=${word}&description=${description}&language_id=${props.languageId}`
-      if (axiosWithAlert.post(`/dictionaries/${queryParams}`)){
+      const parameter = {dictionary: {word: word, description: description, language_id: props.languageId}}
+      if (axiosWithAlert.post(`/dictionaries`, parameter)){
         toolDispatch({type: 'switchFlag'})
+        setDescription('')
       }
     }
   }
@@ -78,8 +80,6 @@ const Translate: React.FC<Props> = (props: Props) => {
   const getClickedLocation = (range) => {
     const pos = range.getBoundingClientRect()
     const caret = range.startOffset
-    console.log(pos)
-    console.log(caret)
     switch(toolState.mode){
     case('setStartLocation'):
       toolDispatch({type: 'setStartLocation', startOffset: caret ,startLocation: {x: pos.x-21, y: pos.y-152}})
@@ -91,18 +91,18 @@ const Translate: React.FC<Props> = (props: Props) => {
   }
 
   // 範囲選択した英語を翻訳し、desctiptionに登録
-  const wordTranslate = () => {
+  const translateWord = () => {
     const word = translatedText.slice(toolState.startOffset, toolState.endOffset)
     const translateParams = `?word=${word}&language_id=${props.languageId}`
     axios.get(`/dictionaries/translate_word/${translateParams}`)
       .then((res) => {
+        console.log(res)
         setDescription(res.data)
       })
   }
 
   // 指定している範囲をクォートで表す
   const Quote = (props) => {
-    console.log(toolState)
     switch(props.type){
     case('start'):
       if(toolState.startLocation.x && toolState.startLocation.x >= -7.59375){
@@ -115,7 +115,7 @@ const Translate: React.FC<Props> = (props: Props) => {
         return(
           <>
             <FormatQuote className={dicClasses.endQuote}/>
-              <IconButton onClick={wordTranslate} className={dicClasses.addButton}>
+              <IconButton onClick={translateWord} className={dicClasses.addButton}>
                 <PostAdd />
               </IconButton>
           </>

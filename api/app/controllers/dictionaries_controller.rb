@@ -19,11 +19,12 @@ class DictionariesController < ApplicationController
     translate = Google::Cloud::Translate::V2.new
     language = Language.find_by(id: params[:language_id])
     description = translate.translate(params[:word], from: language.code, to: 'ja')
+    logger.debug description.text
     return render json: CGI.unescapeHTML(description.text)
   end
 
   private
   def dictionary_params
-    params.permit(:word, :description, :language_id,)
+    params.require(:dictionary).permit(:word, :description, :language_id)
   end
 end
