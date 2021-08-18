@@ -76,131 +76,93 @@ function Signup() {
   return(
     <div>
       <h1>会員登録ページ</h1>
-      {/* <form> */}
-        <Box>
-          <form>
-            <Box>
-              <Box className={layoutClasses.label}>
-                <label>メールアドレス</label>
-              </Box>
-              <TextField
-                id="email_form"
-                // label="メールアドレス"
-                placeholder="メールアドレス入力"
-                // helperText="Full width!"
-                fullWidth
-                margin="normal"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-                onChange={handleChangeEmail}
-                value={user.email}
-              />
-
-              <Box className={layoutClasses.label}>
-                <label>パスワード</label>
-              </Box>
-              <TextField
-                id="email_form"
-                // label="メールアドレス"
-                placeholder="パスワード："
-                // helperText="Full width!"
-                fullWidth
-                margin="normal"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-                onChange={handleChangePassword}
-                value={user.password}
-                type="password"
-              />
-
-              <Box className={layoutClasses.label}>
-                <label>パスワード確認用</label>
-              </Box>
-              <TextField
-                id="email_form"
-                // label="メールアドレス"
-                placeholder="パスワード確認用"
-                // helperText="Full width!"
-                fullWidth
-                margin="normal"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-                onChange={handleChangePasswordConfirmation}
-                value={user.passwordConfirmation}
-                type="password"
-              />
+      <Box>
+        <form>
+          <Box>
+            <Box className={layoutClasses.label}>
+              <label>メールアドレス</label>
             </Box>
+            <TextField
+              id="email_form"
+              // label="メールアドレス"
+              placeholder="メールアドレス入力"
+              // helperText="Full width!"
+              fullWidth
+              margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="outlined"
+              onChange={handleChangeEmail}
+              value={user.email}
+            />
 
             <Box className={layoutClasses.label}>
-              <label>言語選択</label>
+              <label>パスワード</label>
             </Box>
-            <FormControl variant="outlined">
-              <Select
-                native
-                value={user.languageId}
-                onChange={handleChangeLanguage}
-                inputProps={{
-                  name: 'language_id',
-                  id: 'user_language_id',
-                }}
-              >
-                <option key={0} value={0} disabled></option>
-                {languages.map(language => 
-                  <option key={Number(language.id)} value={Number(language.id)}>
-                    {language.name}
-                  </option>)
-                }
-              </Select>
-            </FormControl>
+            <TextField
+              id="email_form"
+              // label="メールアドレス"
+              placeholder="パスワード："
+              // helperText="Full width!"
+              fullWidth
+              margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="outlined"
+              onChange={handleChangePassword}
+              value={user.password}
+              type="password"
+            />
 
-            <Box className={userClasses.signUpButtonWrapper}>
-              <Button onClick={handleSubmit} variant="contained" className={userClasses.signUpButton}>登録する</Button>
+            <Box className={layoutClasses.label}>
+              <label>パスワード確認用</label>
             </Box>
-          </form>
-        </Box>
-        {/* <input type="text"
-          name="email"
-          value={user.email}
-          onChange={handleChangeEmail}
-        />
+            <TextField
+              id="email_form"
+              // label="メールアドレス"
+              placeholder="パスワード確認用"
+              // helperText="Full width!"
+              fullWidth
+              margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="outlined"
+              onChange={handleChangePasswordConfirmation}
+              value={user.passwordConfirmation}
+              type="password"
+            />
+          </Box>
 
-        <br/>
+          <Box className={layoutClasses.label}>
+            <label>言語選択</label>
+          </Box>
+          <FormControl variant="outlined">
+            <Select
+              native
+              value={user.languageId}
+              onChange={handleChangeLanguage}
+              inputProps={{
+                name: 'language_id',
+                id: 'user_language_id',
+              }}
+            >
+              <option key={0} value={0} disabled></option>
+              {languages.map(language => 
+                <option key={Number(language.id)} value={Number(language.id)}>
+                  {language.name}
+                </option>)
+              }
+            </Select>
+          </FormControl>
 
-        <label>パスワード：</label>
-        <input 
-          type="password"
-          name="password"  
-          onChange={handleChangePassword}
-        />
-
-        <br/>
-
-        <label>パスワード確認用：</label>
-        <input 
-          type="password"
-          name="password_confirmation" 
-          onChange={handleChangePasswordConfirmation}
-        />
-
-        <br/> */}
-
-        {/* <label>言語選択：</label>
-        <select onChange={handleChangeLanguage}>
-          {languages.map(language => 
-            <option key={language.id} value={language.id}>
-              {language.name}
-            </option>)
-          }
-        </select>
-        <br/>
-        <button type="submit">会員登録する</button> */}
-      {/* </form> */}
+          <Box className={userClasses.signUpButtonWrapper}>
+            <Button onClick={handleSubmit} variant="contained" className={userClasses.signUpButton}>登録する</Button>
+          </Box>
+        </form>
+      </Box>
     </div>
   )
 }
