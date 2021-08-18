@@ -143,6 +143,14 @@ export type AlertState = {
   alertDispatch: React.Dispatch<any>
 }
 
+// Convert関連
+export type ConvertState = {
+  memoFlag: boolean
+  diaryFlag: boolean
+  userFlag: boolean
+  convertDispatch: React.Dispatch<any>
+}
+
 // Load関連
 export type Load = {
   isLoading: boolean
