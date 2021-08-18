@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useReducer } from 'react'
 import Translate from '../../components/diaries/Translate'
 import ToolButton from '../../components/diaries/ToolButton'
 import DiaryFormButton from '../../components/diaries/DiaryFormButton'
@@ -6,12 +6,13 @@ import axios from 'axios'
 import { AuthContext } from "../../store/Auth"
 import { DiaryFormContentContext } from '../../store/DiaryFormContentProvider'
 import { useParams } from "react-router-dom"
-import { DiaryFormContent, Language } from '../../types/index'
+import { DiaryFormContent, ToolState, Language, ToolAction } from '../../types/index'
 import { useDiaryStyles } from '../../styles/js/diary'
 import { Box, Button, IconButton } from '@material-ui/core'
 import { Cached as CachedIcon, ExpandMore as ExpandMoreIcon } from '@material-ui/icons'
 import { useHistory } from 'react-router-dom'
 import { blankFunction } from '../../utils/functions'
+import BUTTON_ACTION from '../../utils/buttonActions'
 
 type dateParams = {
   date: string
@@ -37,11 +38,49 @@ const Diary = () => {
       content: ""
     }
   }
+
+  const initToolState: ToolState = {
+    mode: "",
+    isOpenOption: false,
+    startOffset: 0,
+    endOffset: 0,
+    startLocation: {
+      x: 0,
+      y: 0
+    }, 
+    endLocation: {
+      x: 0,
+      y: 0
+    }
+  }
+
+  const toolReducer = (state: ToolState, action: ToolAction): ToolState => {
+    switch(action.type){
+      case(BUTTON_ACTION.SWITCH_FLAG):
+        return { ...state, mode: '', isOpenOption: !state.isOpenOption, startLocation: {x: 0, y: 0}, endLocation: {x: 0, y: 0} }
+      case(BUTTON_ACTION.ENTER_MODE):
+        if(state.mode !== action.mode){
+          return { ...state, mode: action.mode! }
+        }else{
+          return state
+        }
+      case(BUTTON_ACTION.SET_START_LOCATION):
+        return { ...state, mode: action.type, startOffset: action.startOffset!,
+          startLocation: {x: action.startLocation?.x!, y: action.startLocation?.y!} }
+      case(BUTTON_ACTION.SET_END_LOCATION):
+        return { ...state, mode: action.type, endOffset: action.endOffset!, 
+          endLocation: {x: action.endLocation?.x!, y: action.endLocation?.y!} }
+      default:
+        return state
+    }
+  }
   
   const [languages, setLanguages] = useState<Language[]>([])
   const [isEdit, setIsEdit] = useState<boolean>(false)
   const [formContent, setFormContent] = useState(initformContent)
   const [isOpenJaContent, setIsOpenJaContent] = useState<boolean>(true)
+  const [toolState, toolDispatch] = useReducer(toolReducer, initToolState)
+  
 
   const initLanguagesEffect = () => {
     axios.get(`/languages`)
@@ -153,8 +192,19 @@ const Diary = () => {
   // console.log(submitFlagContext)
   useEffect(handleSubmit, [submitFlagContext.submitFlag])
 
+  // 選択時などに使う灰色レイヤー
+  const BackgroundLayer = () => {
+    if(toolState.mode === 'setStartLocation' || toolState.mode === 'setEndLocation'){
+      return(
+        <div className={diaryClasses.backgroudLayer}></div>
+      )
+    }
+    return null
+  }
+
   return(
     <>
+      <BackgroundLayer/>
       <Box>
         {date}
       </Box>
@@ -181,11 +231,14 @@ const Diary = () => {
               onClickAction={toggleIsOpenJaContent}
               text={"翻訳版"}
             />
-            <Box className={diaryClasses.diaryFormTextareaWrapper}>
+            <Box className={diaryClasses.diaryFormTextareaWrapperStrong}>
               {console.log(auth.currentUser?.languageId)}
               <Translate
                 languageId={auth.currentUser?.languageId}
                 jaContent={formContent.diary.jaContent}
+                toolState={toolState}
+                toolDispatch={toolDispatch}
+
               />
             </Box>
           </Box>
@@ -203,7 +256,10 @@ const Diary = () => {
           </Box>
         </Box>
       </form>
-      <ToolButton/>
+      <ToolButton
+        toolState={toolState}
+        toolDispatch={toolDispatch}
+      />
     </>
   )
 }

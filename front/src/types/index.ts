@@ -88,6 +88,23 @@ export type ExistDate = {
   classNames: string[]
 }
 
+export type ToolState = Required< {
+  mode: string
+  isOpenOption: boolean
+  startOffset: number
+  endOffset: number
+  startLocation: {
+    x: number,
+    y: number
+  }
+  endLocation: {
+    x: number,
+    y: number
+  }
+}>
+
+export type ToolAction = Partial<ToolState> & { type: string }
+
 // Calendar関連
 export type DateContextType = {
   globalDate: string

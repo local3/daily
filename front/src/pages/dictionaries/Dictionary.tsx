@@ -36,7 +36,7 @@ const Dictionary = () => {
       <List component="nav" aria-label="mailbox folders">
         {dictionaries.map((dictionary) => (
           <ListItem key={dictionary.id} aria-label={`dictionary_id_${dictionary.id}`} button divider>
-            <ListItemText primary={dictionary.word} />
+            <ListItemText primary={dictionary.description + dictionary.word} />
             <ListItemSecondaryAction>
               <IconButton onClick={ (e) => destroyDictionary(e, dictionary.id) } edge="end" >
                 <Delete />

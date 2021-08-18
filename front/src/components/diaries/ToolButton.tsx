@@ -2,37 +2,59 @@ import React, { useState, useEffect, useContext } from 'react'
 import { Box, Button, IconButton } from '@material-ui/core'
 import { Palette, EditLocation, Close } from '@material-ui/icons'
 import { useDiaryStyles } from '../../styles/js/diary'
+import { ToolAction, ToolState } from '../../types/index'
 
+// pages/Diaryから受け取る
+type Props = {
+  toolState: ToolState
+  toolDispatch: React.Dispatch<ToolAction>
+}
 
-const ToolButton = () => {
-  const [isOpenOption, setIsOpenOption] = useState(false)
+const ToolButton = (props: Props) => {
   const diaryClasses = useDiaryStyles()
-
+  const toolState = props.toolState
+  const toolDispatch = props.toolDispatch
 
   const toggleIsOpenOption = () => {
-    setIsOpenOption(!isOpenOption)
+    toolDispatch({type: 'switchFlag'})
   }
 
-  const handleDictionaryButton = () => {
-    console.log('辞書つくるためにカーソル位置を選択するよ')
+  // My辞書追加モードに入る
+  const handleDictionaryButton = (mode: string) => {
+    toolDispatch({type: 'enterMode', mode: mode})
   }
 
-  return(
-    <>
-      { isOpenOption ?
-        <Button onClick={toggleIsOpenOption} className={diaryClasses.optionFirstButton} variant="contained">
-          <Palette />
-        </Button>
-        :
+  const OpeningToolButton = () => {
+    return(
+      <>
         <Box>
-          <Button onClick={handleDictionaryButton} className={diaryClasses.optionSecondButton} variant="contained">
+          <Button onClick={()=>handleDictionaryButton('setStartLocation')} className={diaryClasses.optionThirdButton} variant="contained">
+            <EditLocation/>
+          </Button>
+          <Button onClick={()=>handleDictionaryButton('setEndLocation')} className={diaryClasses.optionSecondButton} variant="contained">
             <EditLocation/>
           </Button>
           <Button onClick={toggleIsOpenOption} className={diaryClasses.optionFirstButton} variant="contained">
             <Close/>
           </Button>
-        </Box>
-      }
+          </Box>
+      </>
+    )
+  }
+
+  const ClosingToolButton = () => {
+    return(
+      <>
+        <Button onClick={toggleIsOpenOption} className={diaryClasses.optionFirstButton} variant="contained">
+          <Palette />
+        </Button>
+      </>
+    )
+  }
+  
+  return(
+    <>
+      { toolState.isOpenOption ? <OpeningToolButton /> : <ClosingToolButton /> }
     </>
   )
 }

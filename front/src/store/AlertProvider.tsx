@@ -6,7 +6,13 @@ import Check from '@material-ui/icons/Check'
 import { AlertState } from '../types'
 
 // 初期状態登録
-const initialState: AlertState = { msg: '', status: 0, severity: 'success', color: 'success', alertDispatch: () => {}}
+const initialState: AlertState = {
+	msg: '',
+	status: 0,
+	severity: 'success',
+	color: 'success',
+	alertDispatch: () => {}
+}
 // Context作成　このAlertContextをインポートするとアラートが取得できる
 export const AlertContext = React.createContext(initialState)
 // alertDispatchでコールバックされる関数 ステータスコードによってアラートを変更する
