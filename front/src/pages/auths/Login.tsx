@@ -4,6 +4,7 @@ import { Session } from '../../types/index'
 import { Box, TextField, Button, Checkbox } from '@material-ui/core'
 import { useLayoutStyles } from '../../styles/js/layout';
 import { useUserStyles } from '../../styles/js/user';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const layoutClasses = useLayoutStyles()
@@ -83,7 +84,7 @@ const Login = () => {
             value={session.password}
             type="password"
           />
-          
+
           <Box>
             <label>記憶する：</label>
             <Checkbox 
@@ -91,10 +92,13 @@ const Login = () => {
             />
 
             <Box className={userClasses.signUpButtonWrapper}>
-              <Button onClick={handleSubmit} variant="contained" className={userClasses.signUpButton}>登録する</Button>
+              <Button onClick={handleSubmit} variant="contained" className={userClasses.signUpButton}>ログイン</Button>
             </Box>
           </Box>
         </form>
+        <Box>
+          <Link to="/signup">ユーザー登録がまだの方はこちら</Link>
+        </Box>
     </div>
   )
 }

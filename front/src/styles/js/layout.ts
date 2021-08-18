@@ -23,8 +23,16 @@ const layoutStyles: any = {
     color: themes.clearWhite,
     backgroundColor: themes.darkBeige,
     border: 'none',
-    postion: 'relative',
+    position: 'relative',
     left: '70%'
+  },
+  loginLink: {
+    border: 'none',
+    position: 'relative',
+    left: '49vw',
+    color: themes.clearWhite,
+    textDecoration: 'none',
+    fontWeight: 'bold'
   },
   // footer関連
   footer: {
