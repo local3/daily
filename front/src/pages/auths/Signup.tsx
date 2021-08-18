@@ -75,7 +75,7 @@ function Signup() {
 
   return(
     <div>
-      <h1>会員登録ページ</h1>
+      <h1>ユーザー登録ページ</h1>
       <Box>
         <form>
           <Box>

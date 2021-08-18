@@ -1,9 +1,9 @@
 import React,{ useState, useContext, useEffect }  from 'react'
 import { List, ListItem, ListItemIcon, ListItemText, SwipeableDrawer, Divider, Typography, Box } from '@material-ui/core'
-import { SettingsOutlined, BuildOutlined, HelpOutline, Check, MailOutline, LocalLibraryOutlined } from '@material-ui/icons'
+import { SettingsOutlined, BuildOutlined, HelpOutline, Check, MailOutline, LocalLibraryOutlined, PersonAddOutlined, ExitToAppOutlined } from '@material-ui/icons'
 import { useLayoutStyles } from '../../styles/js/layout'
 import { useHistory } from 'react-router-dom'
-
+import { AuthContext } from '../../store/Auth'
 
 type Props = {
   isOpenEtcDrawer: boolean
@@ -12,6 +12,7 @@ type Props = {
 
 const EtcDrawer = (props: Props) => {
   // console.log("fppter")
+  const auth = useContext(AuthContext)
   const history = useHistory();
   const layoutClasses = useLayoutStyles()
 
@@ -29,6 +30,10 @@ const EtcDrawer = (props: Props) => {
     {name: 'お問い合わせ', action: () => redirectAction('/settings/account'), icon: <MailOutline />},
     {name: 'プライバシーポリシー', action: () => redirectAction('/settings/account'), icon: <Check />},
   ]
+  const guestList = [
+    {name: 'ログイン', action: () => redirectAction('/login'), icon: <ExitToAppOutlined />},
+    {name: 'ユーザー登録', action: () => redirectAction('/signup'), icon: <PersonAddOutlined />}
+  ]
   return(
     <>
       <SwipeableDrawer
@@ -37,18 +42,36 @@ const EtcDrawer = (props: Props) => {
         onClose={props.toggleEtcDrawer}
         onOpen={props.toggleEtcDrawer}
       >
+        
         <Box className={layoutClasses.etcDrawerWrapper}>
-          <Typography variant="inherit" className={layoutClasses.etcDrawerMainTitle}>設定</Typography>
-          <Divider/>
-          <List>
-            {userSettingList.map((value) => (
-              <ListItem button key={value.name} onClick={value.action}>
-                <ListItemIcon>{value.icon}</ListItemIcon>
-                <ListItemText primary={value.name} />
-              </ListItem>
-            ))}
-          </List>
-
+          {auth.currentUser &&
+            <>
+              <Typography variant="inherit" className={layoutClasses.etcDrawerMainTitle}>設定</Typography>
+              <Divider/>
+              <List>
+                {userSettingList.map((value) => (
+                  <ListItem button key={value.name} onClick={value.action}>
+                    <ListItemIcon>{value.icon}</ListItemIcon>
+                    <ListItemText primary={value.name} />
+                  </ListItem>
+                ))}
+              </List>
+            </>
+          }
+          {!auth.currentUser &&
+            <>
+              <Typography variant="inherit" className={layoutClasses.etcDrawerMainTitle}>ユーザー登録など</Typography>
+              <Divider/>
+              <List>
+                {guestList.map((value) => (
+                  <ListItem button key={value.name} onClick={value.action}>
+                    <ListItemIcon>{value.icon}</ListItemIcon>
+                    <ListItemText primary={value.name} />
+                  </ListItem>
+                ))}
+              </List>
+            </>
+          }
           <Typography variant="inherit" className={layoutClasses.etcDrawerMainTitle}>その他</Typography>
           <Divider/>
           <List>
