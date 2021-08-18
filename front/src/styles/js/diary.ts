@@ -38,7 +38,8 @@ const diaryStyles: any = {
     position: 'absolute',
     top: '40px',
     left: 0,
-    zIndex: 1220
+    zIndex: 1220,
+    backgroundColor: 'white'
   },
   diaryFormTextarea: {
     width: '90vw',
@@ -46,6 +47,7 @@ const diaryStyles: any = {
     fontSize: '130%'
   },
   diaryFormContentEditable: {
+    zIndex: 1220,
     width: '90vw',
     height: '30vh',
     fontSize: '130%',

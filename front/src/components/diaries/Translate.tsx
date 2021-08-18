@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useDiaryStyles } from '../../styles/js/diary'
-import { Tooltip, IconButton } from '@material-ui/core'
+import { IconButton } from '@material-ui/core'
 import { makeStyles } from "@material-ui/core/styles"
 import { FormatQuote, PostAdd } from '@material-ui/icons'
 import { ToolAction, ToolState } from '../../types/index'
@@ -137,7 +137,7 @@ const Translate: React.FC<Props> = (props: Props) => {
     <>
       <Quote type='start'/>
       <Quote type='end'/>
-      <div contentEditable={true} onKeyDown={preventKeydown} suppressContentEditableWarning={true}
+      <div contentEditable={true} onKeyDown={preventKeydown}
         className={`${diaryClasses.diaryFormTextarea}  ${diaryClasses.diaryFormContentEditable}`}>
         {translatedText}
         <script>
