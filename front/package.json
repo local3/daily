@@ -37,7 +37,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "node-dev",
-    "build-tsc": "tsc"
+    "build-tsc": "tsc",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "eslintConfig": {
     "extends": [
