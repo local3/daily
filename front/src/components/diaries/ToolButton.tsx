@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { Box, Button, IconButton } from '@material-ui/core'
+import React from 'react'
+import { Box, Button } from '@material-ui/core'
 import { Palette, EditLocation, Close } from '@material-ui/icons'
 import { useDiaryStyles } from '../../styles/js/diary'
 import { ToolAction, ToolState } from '../../types/index'

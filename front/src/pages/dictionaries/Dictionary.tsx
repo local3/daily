@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import axios from "axios"
 import { DictionaryType } from "../../types"
 import { List, ListItem, ListItemText, IconButton, ListItemSecondaryAction } from '@material-ui/core'
