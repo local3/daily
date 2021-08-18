@@ -66,9 +66,9 @@ class DiariesController < ApplicationController
     logger.debug "translate_text"
     translate = Google::Cloud::Translate::V2.new
     language = Language.find_by(id: params[:language_id])
-    translation = translate.translate(params[:ja_content], from: 'ja', to: language.code)
+    translation = translate.translate(params[:ja_content].gsub("\n", "<br></br>"), from: 'ja', to: language.code)
     # CGIをつかってアンエスケープ。Transition APIの戻り値はHTMLエスケープ文字列となっているので、それを解除
-    return render json: CGI.unescapeHTML(translation.text) 
+    return render json: CGI.unescapeHTML(translation.text).gsub("<br></br>", "\n")
   end
   
   private

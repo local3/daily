@@ -21,8 +21,9 @@ Rails.application.routes.draw do
   resources :memos, only: [:create, :show, :update, :destroy]
 
   # My辞書系
+  resources :dictionaries, only: [:create, :destroy]
   get '/dictionaries/user_dictionaries', to: 'dictionaries#user_dictionaries'
-  resources :dictionaries, only: [:create, :show, :destroy]
+  get '/dictionaries/translate_word', to: 'dictionaries#translate_word'
   
   # 認証系
   get '/current_user', to: 'sessions#current_user'

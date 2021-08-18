@@ -5,13 +5,9 @@ class DictionariesController < ApplicationController
   end
 
   def create
-    dic = @current_user.dictionaries.build(diary_params)
+    dic = @current_user.dictionaries.build(dictionary_params)
     dic.save
-    return render json: {dictionary: dic , state:"success", msg:"Success"}
-  end
-
-  def show
-    dic = Dictionary.where(id: @current_user.id)
+    return render json: {state:"success", msg:"My辞書に登録しました。"}, status: 200
   end
 
   def destroy
@@ -19,8 +15,15 @@ class DictionariesController < ApplicationController
     return render json: {state:"success", msg:"削除に成功しました。"}, status: 200 if dic.destroy
   end
 
+  def translate_word
+    translate = Google::Cloud::Translate::V2.new
+    language = Language.find_by(id: params[:language_id])
+    description = translate.translate(params[:word], from: language.code, to: 'ja')
+    return render json: CGI.unescapeHTML(description.text)
+  end
+
   private
-  def diary_params
-    params.require(:dictionary).permit(:word, :description)
+  def dictionary_params
+    params.permit(:word, :description, :language_id,)
   end
 end
