@@ -82,7 +82,8 @@ function Signup() {
         <br/>
 
         <label>パスワード：</label>
-        <input type="text"
+        <input 
+          type="password"
           name="password"  
           onChange={handleChangePassword}
         />
@@ -90,7 +91,8 @@ function Signup() {
         <br/>
 
         <label>パスワード確認用：</label>
-        <input type="text"
+        <input 
+          type="password"
           name="password_confirmation" 
           onChange={handleChangePasswordConfirmation}
         />
