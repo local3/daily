@@ -21,7 +21,7 @@ const MemoTop = () => {
 
   return (
     <div>
-      <h1>メモ一蘭</h1>
+      <h1>メモ一覧</h1>
       <List component="nav" aria-label="mailbox folders">
         {memos.map((memo) => (
           <MemoModalWrapper key={memo.id} existMemo={memo} />

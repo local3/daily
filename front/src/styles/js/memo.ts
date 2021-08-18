@@ -5,7 +5,8 @@ const memoStyles: any = {
   memoFormTextarea: {
     width: '100%',
     height: '70vh',
-    border: 'none'
+    border: 'none',
+    fontSize: '130%'
   },
   memoHeaderWrapper: {
     display: 'flex',

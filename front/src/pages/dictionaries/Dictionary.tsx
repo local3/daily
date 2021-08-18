@@ -4,8 +4,11 @@ import { DictionaryType } from "../../types"
 import { List, ListItem, ListItemText, IconButton, ListItemSecondaryAction } from '@material-ui/core'
 import { Delete } from '@material-ui/icons'
 import { axiosWithAlert } from "../../store/Axios"
+import { useDictionaryStyles } from "../../styles/js/dictionary"
+
 
 const Dictionary = () => {
+  const dictionaryClasses = useDictionaryStyles()
   const initialDictionaries: DictionaryType[] = []
   const [dictionaries, setDictionaries] = useState(initialDictionaries)
   

@@ -8,6 +8,7 @@ const themes = {
   clearWhite: '#fff',
   gray: '#ddd',
   baseFontColor: '#0e0e0e',
-  clear: '#00000000'
+  clear: '#00000000',
+  green: "#549b08"
 }
 export default themes
