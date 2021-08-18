@@ -61,6 +61,7 @@ const Translate: React.FC<Props> = (props: Props) => {
     })
   }
 
+  // dictionaryレコード作成
   const handleAddDictionary = () => {
     if(description){
       const word = translatedText.slice(toolState.startOffset, toolState.endOffset)
@@ -77,6 +78,8 @@ const Translate: React.FC<Props> = (props: Props) => {
   const getClickedLocation = (range) => {
     const pos = range.getBoundingClientRect()
     const caret = range.startOffset
+    console.log(pos)
+    console.log(caret)
     switch(toolState.mode){
     case('setStartLocation'):
       toolDispatch({type: 'setStartLocation', startOffset: caret ,startLocation: {x: pos.x-21, y: pos.y-152}})
@@ -87,38 +90,37 @@ const Translate: React.FC<Props> = (props: Props) => {
     }
   }
 
-  const translateWord = (translateParams: string) => {
+  // 範囲選択した英語を翻訳し、desctiptionに登録
+  const wordTranslate = () => {
+    const word = translatedText.slice(toolState.startOffset, toolState.endOffset)
+    const translateParams = `?word=${word}&language_id=${props.languageId}`
     axios.get(`/dictionaries/translate_word/${translateParams}`)
       .then((res) => {
         setDescription(res.data)
       })
-    }
-
-  const addDctionary = () => {
-    const word = translatedText.slice(toolState.startOffset, toolState.endOffset)
-    const translateParams = `?word=${word}&language_id=${props.languageId}`
-    translateWord(translateParams)
   }
 
+  // 指定している範囲をクォートで表す
   const Quote = (props) => {
+    console.log(toolState)
     switch(props.type){
     case('start'):
-      if(toolState.startLocation.x){
+      if(toolState.startLocation.x && toolState.startLocation.x >= -7.59375){
         return(<FormatQuote className={dicClasses.startQuote}/>)
       }else{
         return null
       }
     case('end'):
-      if(toolState.endLocation.x && toolState.startLocation.x){
+      if(toolState.endLocation.x && toolState.startLocation.x && toolState.startLocation.x >= -7.59375 && toolState.endLocation.x >= -7.59375){
         return(
           <>
             <FormatQuote className={dicClasses.endQuote}/>
-              <IconButton onClick={addDctionary} className={dicClasses.addButton}>
+              <IconButton onClick={wordTranslate} className={dicClasses.addButton}>
                 <PostAdd />
               </IconButton>
           </>
         )
-      }else if(toolState.endLocation.x){
+      }else if(toolState.endLocation.x && toolState.endLocation.x >= -7.59375){
         return(<FormatQuote className={dicClasses.endQuote}/>)
       }else{
         return null
@@ -137,7 +139,7 @@ const Translate: React.FC<Props> = (props: Props) => {
     <>
       <Quote type='start'/>
       <Quote type='end'/>
-      <div contentEditable={true} onKeyDown={preventKeydown}
+      <div contentEditable={true} onKeyDown={preventKeydown} suppressContentEditableWarning={true}
         className={`${diaryClasses.diaryFormTextarea}  ${diaryClasses.diaryFormContentEditable}`}>
         {translatedText}
         <script>
