@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def create
-    user = User.new(user_params)
+    user = User.new(signup_user_params)
     login(user) if user.save!
     return render json: {data: user, state:"success",msg:"Success"} , status: 200
   end
@@ -84,6 +84,10 @@ class UsersController < ApplicationController
       #   :password,
       #   :other
       # )
+    end
+
+    def signup_user_params
+      user_params.permit(:email, :password, :password_confirmation, :language_id)
     end
 
     # targetの値と一致するkeyのvalueのみを返す
