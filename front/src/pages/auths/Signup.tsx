@@ -2,8 +2,13 @@ import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios';
 import { AuthContext } from "../../store/Auth";
 import { SignupForm, Language } from '../../types'
+import { Box, TextField, Button, FormControl, Select } from '@material-ui/core'
+import layoutStyles, { useLayoutStyles } from '../../styles/js/layout'
+import { useUserStyles } from '../../styles/js/user';
 
 function Signup() {
+  const layoutClasses = useLayoutStyles()
+  const userClasses = useUserStyles()
   const auth = useContext(AuthContext);  
   const initUser: SignupForm =
       {
@@ -71,9 +76,95 @@ function Signup() {
   return(
     <div>
       <h1>会員登録ページ</h1>
-      <form onSubmit={handleSubmit}>
-        <label>メールアドレス：</label>
-        <input type="text"
+      {/* <form> */}
+        <Box>
+          <form>
+            <Box>
+              <Box className={layoutClasses.label}>
+                <label>メールアドレス</label>
+              </Box>
+              <TextField
+                id="email_form"
+                // label="メールアドレス"
+                placeholder="メールアドレス入力"
+                // helperText="Full width!"
+                fullWidth
+                margin="normal"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                onChange={handleChangeEmail}
+                value={user.email}
+              />
+
+              <Box className={layoutClasses.label}>
+                <label>パスワード</label>
+              </Box>
+              <TextField
+                id="email_form"
+                // label="メールアドレス"
+                placeholder="パスワード："
+                // helperText="Full width!"
+                fullWidth
+                margin="normal"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                onChange={handleChangePassword}
+                value={user.password}
+                type="password"
+              />
+
+              <Box className={layoutClasses.label}>
+                <label>パスワード確認用</label>
+              </Box>
+              <TextField
+                id="email_form"
+                // label="メールアドレス"
+                placeholder="パスワード確認用"
+                // helperText="Full width!"
+                fullWidth
+                margin="normal"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                onChange={handleChangePasswordConfirmation}
+                value={user.passwordConfirmation}
+                type="password"
+              />
+            </Box>
+
+            <Box className={layoutClasses.label}>
+              <label>言語選択</label>
+            </Box>
+            <FormControl variant="outlined">
+              <Select
+                native
+                value={user.languageId}
+                onChange={handleChangeLanguage}
+                inputProps={{
+                  name: 'language_id',
+                  id: 'user_language_id',
+                }}
+              >
+                <option key={0} value={0} disabled></option>
+                {languages.map(language => 
+                  <option key={Number(language.id)} value={Number(language.id)}>
+                    {language.name}
+                  </option>)
+                }
+              </Select>
+            </FormControl>
+
+            <Box className={userClasses.signUpButtonWrapper}>
+              <Button onClick={handleSubmit} variant="contained" className={userClasses.signUpButton}>登録する</Button>
+            </Box>
+          </form>
+        </Box>
+        {/* <input type="text"
           name="email"
           value={user.email}
           onChange={handleChangeEmail}
@@ -97,9 +188,9 @@ function Signup() {
           onChange={handleChangePasswordConfirmation}
         />
 
-        <br/>
+        <br/> */}
 
-        <label>言語選択：</label>
+        {/* <label>言語選択：</label>
         <select onChange={handleChangeLanguage}>
           {languages.map(language => 
             <option key={language.id} value={language.id}>
@@ -108,8 +199,8 @@ function Signup() {
           }
         </select>
         <br/>
-        <button type="submit">会員登録する</button>
-      </form>
+        <button type="submit">会員登録する</button> */}
+      {/* </form> */}
     </div>
   )
 }
