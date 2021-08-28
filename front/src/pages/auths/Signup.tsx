@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react'
-import axios from 'axios';
-import { AuthContext } from "../../store/Auth";
+import axios from 'axios'
+import { AuthContext } from "../../store/Auth"
 import { SignupForm, Language } from '../../types'
 import { Box, TextField, Button, FormControl, Select } from '@material-ui/core'
 import layoutStyles, { useLayoutStyles } from '../../styles/js/layout'
-import { useUserStyles } from '../../styles/js/user';
+import { useUserStyles } from '../../styles/js/user'
+import { AlertContext } from '../../store/AlertProvider'
+import STATUS_CODES from '../../utils/StatusCodes'
 
 function Signup() {
   const layoutClasses = useLayoutStyles()
@@ -19,7 +21,8 @@ function Signup() {
       }
   
   const [user, setUser] = useState(initUser);
-  const [languages, setLanguages] = useState<Language[]>([])  
+  const [languages, setLanguages] = useState<Language[]>([])
+  const {alertDispatch} = useContext(AlertContext)
 
   const componentDidMount = () => {
     axios.get(`/languages`)
@@ -69,6 +72,7 @@ function Signup() {
   };
 
   const handleSubmit = (e) => {
+    alertDispatch({status: STATUS_CODES.RESET_CODE})
     e.preventDefault();
     auth.signup(user)
   }
