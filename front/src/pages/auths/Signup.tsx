@@ -69,8 +69,8 @@ function Signup() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
     auth.signup(user)
+    e.preventDefault();
   }
 
   return(

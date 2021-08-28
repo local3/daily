@@ -10,10 +10,18 @@ class ApplicationController < ActionController::API
   def render_422(e = nil)
     logger.debug('れんだー４２２')
     if e
-      logger.error e
+      # logger.error e.inspect
+      # logger.error e.class
+      # logger.error e.message
+      # logger.error e.record
+      # logger.error e.record.errors
+      # e.record.errors.each do |error|
+      #   logger.debug error.inspect
+      # end
+      # logger.error e[:attribute].inspect
       # logger.error e.backtrace.join("\n")
     end
-    return render status: 422, json: { msg: e }
+    return render status: 422, json: { msg: e, errors: e.record.errors }
     logger.debug "renderごえs"
   end
 

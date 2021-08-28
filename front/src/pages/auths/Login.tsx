@@ -5,12 +5,18 @@ import { Box, TextField, Button, Checkbox } from '@material-ui/core'
 import { useLayoutStyles } from '../../styles/js/layout';
 import { useUserStyles } from '../../styles/js/user';
 import { Link } from 'react-router-dom';
+import { useForm, Controller } from 'react-hook-form'
+import { helperTexts } from '../../utils/helperTexts';
+// import { useForm, Controller } from '/Users/p10200/Projects/local/diary/front/node_modules/react-hook-form/dist/index'
 
 const Login = () => {
   const layoutClasses = useLayoutStyles()
   const userClasses = useUserStyles()
   const auth = useContext(AuthContext);
-
+  // フォームバリデーションを使用するためのメソッド等仕入れ
+  const { handleSubmit, control, formState: { errors } } = useForm<any>();
+  console.log(errors)
+  
   const initSession: Session = {
     email: '',
     password: '',
@@ -39,50 +45,77 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const onSubmit = (e) => {
     auth.login(session)
-  };
+    e.preventDefault();
+  }
+
+  // const handleClickLogin = (event) => {
+  //   auth.login(session)
+  //   event.preventDefault();
+  // };
+
+  const exec = (e) => {
+    onSubmit(e)
+    handleSubmit(onSubmit)
+  }
 
   return(
     <div>
       <h1>ログインページ</h1>
-        <form>
+        <form onSubmit={exec}>
           <Box className={layoutClasses.label}>
             <label>メールアドレス</label>
           </Box>
-          <TextField
-            id="email_form"
-            // label="メールアドレス"
-            placeholder="メールアドレス入力"
-            // helperText="Full width!"
-            fullWidth
-            margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            variant="outlined"
-            onChange={handleChangeEmail}
-            value={session.email}
+
+          <Controller
+            name="email_form"
+            control={control}
+            defaultValue={''}
+            rules={{ required: true }}
+            render={({ field }) => 
+              <TextField
+                id="email_form"
+                placeholder="メールアドレス入力"
+                fullWidth
+                margin="normal"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                onChange={handleChangeEmail}
+                value={session.email}
+                error={Boolean(errors.email_form)}
+                helperText={errors?.email_form && helperTexts.REQUIRE_EMAIL}
+              />
+            }
           />
 
           <Box className={layoutClasses.label}>
             <label>パスワード</label>
           </Box>
-          <TextField
-            id="email_form"
-            // label="メールアドレス"
-            placeholder="パスワード"
-            // helperText="Full width!"
-            fullWidth
-            margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            variant="outlined"
-            onChange={handleChangePassword}
-            value={session.password}
-            type="password"
+          <Controller
+            name="password_form"
+            control={control}
+            defaultValue={''}
+            rules={{ required: true }}
+            render={({ field }) => 
+              <TextField
+                id="password_form"
+                placeholder="パスワード"
+                fullWidth
+                margin="normal"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                onChange={handleChangePassword}
+                value={session.password}
+                type="password"
+                error={Boolean(errors.password_form)}
+                helperText={errors?.password_form && helperTexts.REQUIRE_PASSWORD}
+              />
+            }
           />
 
           <Box>
@@ -92,7 +125,7 @@ const Login = () => {
             />
 
             <Box className={userClasses.signUpButtonWrapper}>
-              <Button onClick={handleSubmit} variant="contained" className={userClasses.signUpButton}>ログイン</Button>
+              <Button type="submit" variant="contained" className={userClasses.signUpButton}>ログイン</Button>
             </Box>
           </Box>
         </form>
