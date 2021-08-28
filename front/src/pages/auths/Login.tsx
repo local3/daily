@@ -5,11 +5,14 @@ import { Box, TextField, Button, Checkbox } from '@material-ui/core'
 import { useLayoutStyles } from '../../styles/js/layout';
 import { useUserStyles } from '../../styles/js/user';
 import { Link } from 'react-router-dom';
+import { AlertContext } from '../../store/AlertProvider'
+import STATUS_CODES from '../../utils/StatusCodes'
 
 const Login = () => {
   const layoutClasses = useLayoutStyles()
   const userClasses = useUserStyles()
   const auth = useContext(AuthContext);
+  const {alertDispatch} = useContext(AlertContext)
 
   const initSession: Session = {
     email: '',
@@ -40,6 +43,7 @@ const Login = () => {
   };
 
   const handleSubmit = (event) => {
+    alertDispatch({status: STATUS_CODES.RESET_CODE})
     event.preventDefault();
     auth.login(session)
   };

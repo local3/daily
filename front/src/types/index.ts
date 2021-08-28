@@ -140,8 +140,15 @@ export type AlertState = {
   status: number
   severity: Color
   color: Color
+  // alertDispatch: React.Dispatch<any>
+}
+
+export type AlertListState = {
+  alertList: AlertState[] | [],
   alertDispatch: React.Dispatch<any>
 }
+
+export type AlertListAction = Partial<AlertState>
 
 // Convert関連
 export type ConvertState = {

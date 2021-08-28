@@ -1,9 +1,10 @@
 import React,{ useEffect, useReducer } from 'react'
 import { useLocation, useHistory } from 'react-router'
 import Axios from './Axios'
+import AlertMsg from '../components/universals/AlertMsg'
 import STATUS_CODES from '../utils/StatusCodes'
-import Check from '@material-ui/icons/Check'
-import { AlertState } from '../types'
+import { AlertState, AlertListState, AlertListAction } from '../types'
+import { Alert } from '@material-ui/lab'
 
 // 初期状態登録
 const initialState: AlertState = {
@@ -11,37 +12,49 @@ const initialState: AlertState = {
 	status: 0,
 	severity: 'success',
 	color: 'success',
-	alertDispatch: () => {}
+	// alertDispatch: () => {}
 }
+
+const initialList: AlertListState = {alertList: [], alertDispatch: () => {}}
+// const initialList: AlertList = []
+console.log(initialList.alertList.length)
+
 // Context作成　このAlertContextをインポートするとアラートが取得できる
-export const AlertContext = React.createContext(initialState)
+export const AlertContext = React.createContext(initialList)
 // alertDispatchでコールバックされる関数 ステータスコードによってアラートを変更する
-const alertReducer = (state, action) => {
-	// console.log(action)
+const alertReducer = (state: AlertListState, action: AlertListAction): AlertListState => {
+	console.log(action.status)
+	console.log(state)
 	switch(action.status){
 		case(STATUS_CODES.RESET_CODE): // 0
-			return { initialState }
+			return initialList
 		case(STATUS_CODES.FLAT_CODE): // 1
 			return state
 		case(STATUS_CODES.SUCCESS_CODE): // 200
-			return { ...state, msg: action.msg, severity: 'success', color: 'success' }
+			// return { ...state, alertList: [...state.alertList, {...initialState, ...state, msg: action.msg, severity: 'success', color: 'success' }]}
+			return { ...state, alertList: [...state.alertList, {...initialState, status: action.status, msg: action.msg, severity: 'success', color: 'success'}]}
 		case(STATUS_CODES.INFO_CODE): // 210
-			return { ...state, msg: action.msg, severity: 'success', color: 'info' }
+			return { ...state, alertList: [...state.alertList, {...initialState, msg: action.msg, severity: 'success', color: 'info' }]}
 		case(STATUS_CODES.NOT_FOUND_CODE): // 404
-			return { ...state, msg: action.msg, severity: 'error', color: 'info' }
+			// return [...state, {...initialState, msg: action.msg, severity: 'error', color: 'info' }]
+			return { ...state, alertList: [...state.alertList, {...initialState, status: action.status, msg: action.msg, severity: 'error', color: 'info'}]}
 		case(STATUS_CODES.INVALID_CODE): // 422
-			return { ...state, msg: action.msg, severity: 'error', color: 'error'}
+			// return { ...state, msg: action.msg, severity: 'error', color: 'error'}
+			// return [...state, {...initialState, status: action.status, msg: action.msg, severity: 'error', color: 'error'}]
+			return { ...state, alertList: [...state.alertList, {...initialState, status: action.status, msg: action.msg, severity: 'error', color: 'error'}]}
 		case(STATUS_CODES.SERVER_ERROR_CODE): // 500
-			return {}
-		}
+			return { ...state, alertList: [...state.alertList, {...initialState, status: action.status, msg: action.msg, severity: 'error', color: 'error'}]}
+			// return [...state, {...initialState, status: action.status, msg: action.msg, severity: 'error', color: 'error'}]
+		default:
+			return state
+	}
 }
 
 const AlertProvider = (props) => {
 	const history = useHistory()
-	const location = useLocation()
 	// アラートの変更をuseReducerで行う
-	const [alertState, alertDispatch] = useReducer(alertReducer, initialState)
-	const value: AlertState = {...alertState, alertDispatch}
+	const [alertList, alertDispatch] = useReducer(alertReducer, initialList)
+	const value: AlertListState = {alertList: alertList.alertList, alertDispatch: alertDispatch}
 	// ページが変わるごとにアラートをリセット
 	const resetAlertMsg = () => {
 		return history.listen(() => {

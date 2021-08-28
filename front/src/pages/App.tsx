@@ -13,7 +13,7 @@ import DiaryFormContentProvider from '../store/DiaryFormContentProvider';
 // components
 import Header from '../components/layouts/Header'
 import Footer from '../components/layouts/Footer'
-import AlertMsg from '../components/universals/AlertMsg'
+import AlertList from '../components/universals/AlertList'
 import Load from '../components/universals/Load';
 import '../styles/css/App.scss';
 import { useLayoutStyles } from '../styles/js/layout';
@@ -34,7 +34,7 @@ const App = () => {
                     <Header/>
                     <Load/>
                     <Box className={layoutClasses.contentWrapper}>
-                      <AlertMsg/>
+                      <AlertList/>
                       <Router/>
                     </Box>
                     <Footer/>
