@@ -21,6 +21,7 @@ const Axios = () => {
     // console.log(parseSnakeToCamel(res))
     const { data, status } =  res
     if(status !== STATUS_CODES.FLAT_CODE){
+      console.log('dispatch')
       alertDispatch({msg: data.msg, status: status})
     }
     // スネークケースからキャメルケースに変換

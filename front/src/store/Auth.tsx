@@ -27,7 +27,7 @@ const AuthProvider = (props) => {
   // state定義
   const [authState, setAuthState] = useState(initialContext)
   
-  const error = useContext(AlertContext)
+  const { alertDispatch } = useContext(AlertContext)
   const { loadDispatch } = useContext<Load>(LoadContext)
   // 他コンポーネントからauth.loginやauth.logoutの形で呼び出せる。
   // 呼び出すと、Contextで管理されているログイン情報が更新される
@@ -37,7 +37,8 @@ const AuthProvider = (props) => {
         // console.log(res)
         setAuthState({...authState, currentUser: res.data.data, isLoggedIn: true, isFetchingAuth: true})
         history.push('/')
-
+        // historyの更新でアラートが消えるため、push後に再dispatch
+        alertDispatch({msg: res.data.msg, status: res.status})
       })
   }
 
