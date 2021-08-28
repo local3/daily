@@ -5,11 +5,15 @@ import { SignupForm, Language } from '../../types'
 import { Box, TextField, Button, FormControl, Select } from '@material-ui/core'
 import layoutStyles, { useLayoutStyles } from '../../styles/js/layout'
 import { useUserStyles } from '../../styles/js/user';
+import { FormErrorContext } from '../../store/FormErrorProvider';
+import InputWithError from '../../components/layouts/InputWithError';
 
 function Signup() {
   const layoutClasses = useLayoutStyles()
   const userClasses = useUserStyles()
-  const auth = useContext(AuthContext);  
+  const auth = useContext(AuthContext)
+  const { formErrors } = useContext(FormErrorContext)
+
   const initUser: SignupForm =
       {
         email: '',
@@ -82,20 +86,30 @@ function Signup() {
             <Box className={layoutClasses.label}>
               <label>メールアドレス</label>
             </Box>
-            <TextField
-              id="email_form"
-              // label="メールアドレス"
-              placeholder="メールアドレス入力"
-              // helperText="Full width!"
-              fullWidth
-              margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant="outlined"
-              onChange={handleChangeEmail}
-              value={user.email}
-            />
+            <InputWithError
+              attribute='email'
+              formErrors={formErrors}
+            >
+              <TextField
+                id="email_form"
+                // label="メールアドレス"
+                placeholder="メールアドレス入力"
+                // helperText="Full width!"
+                fullWidth
+                margin="normal"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                onChange={handleChangeEmail}
+                value={user.email}
+                // error={formErrors?.filter(formError => formError.attribute === 'email').length >= 1}
+                // helperText={formErrors?.filter(formError => formError.attribute === 'email').length >= 1 &&
+                //   formErrors?.find(formError => formError.attribute === 'email')?.msgParts.map(msgPart => `メールアドレス${msgPart}`).join(",")
+                // }
+              />
+            </InputWithError>
+            { console.log(formErrors)}
 
             <Box className={layoutClasses.label}>
               <label>パスワード</label>

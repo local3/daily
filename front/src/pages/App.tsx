@@ -18,6 +18,7 @@ import Load from '../components/universals/Load';
 import '../styles/css/App.scss';
 import { useLayoutStyles } from '../styles/js/layout';
 import ConvertProvider from '../store/ConvertProvider';
+import FormErrorProvider from '../store/FormErrorProvider';
 
 // function App() 
 const App = () => {  
@@ -26,23 +27,25 @@ const App = () => {
     <div className="App">
       <BrowserRouter>
         <ConvertProvider>
-          <AlertProvider>
-            <LoadProvider>
-              <AuthProvider>
-                <DateProvider>
-                  <DiaryFormContentProvider>
-                    <Header/>
-                    <Load/>
-                    <Box className={layoutClasses.contentWrapper}>
-                      <AlertMsg/>
-                      <Router/>
-                    </Box>
-                    <Footer/>
-                  </DiaryFormContentProvider>
-                </DateProvider>
-              </AuthProvider>
-            </LoadProvider>
-          </AlertProvider>
+          <FormErrorProvider>
+            <AlertProvider>
+              <LoadProvider>
+                <AuthProvider>
+                  <DateProvider>
+                    <DiaryFormContentProvider>
+                      <Header/>
+                      <Load/>
+                      <Box className={layoutClasses.contentWrapper}>
+                        <AlertMsg/>
+                        <Router/>
+                      </Box>
+                      <Footer/>
+                    </DiaryFormContentProvider>
+                  </DateProvider>
+                </AuthProvider>
+              </LoadProvider>
+            </AlertProvider>
+          </FormErrorProvider>
         </ConvertProvider>
       </BrowserRouter>
     </div>

@@ -143,6 +143,17 @@ export type AlertState = {
   alertDispatch: React.Dispatch<any>
 }
 
+// FormError関連
+export type FormError = {
+  attribute: string
+  msgParts: string[]
+}
+
+export type FormErrorState = {
+  formErrors: FormError[] | []
+  formErrorDispatch: React.Dispatch<any>
+}
+
 // Convert関連
 export type ConvertState = {
   memoFlag: boolean
