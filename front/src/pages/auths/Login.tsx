@@ -5,18 +5,15 @@ import { Box, TextField, Button, Checkbox } from '@material-ui/core'
 import { useLayoutStyles } from '../../styles/js/layout';
 import { useUserStyles } from '../../styles/js/user';
 import { Link } from 'react-router-dom';
-import { useForm, Controller } from 'react-hook-form'
-import { helperTexts } from '../../utils/helperTexts';
-// import { useForm, Controller } from '/Users/p10200/Projects/local/diary/front/node_modules/react-hook-form/dist/index'
+import { AlertContext } from '../../store/AlertProvider'
+import STATUS_CODES from '../../utils/StatusCodes'
 
 const Login = () => {
   const layoutClasses = useLayoutStyles()
   const userClasses = useUserStyles()
   const auth = useContext(AuthContext);
-  // フォームバリデーションを使用するためのメソッド等仕入れ
-  const { handleSubmit, control, formState: { errors } } = useForm<any>();
-  console.log(errors)
-  
+  const {alertDispatch} = useContext(AlertContext)
+
   const initSession: Session = {
     email: '',
     password: '',
@@ -45,50 +42,31 @@ const Login = () => {
     });
   };
 
-  const onSubmit = (e) => {
-    auth.login(session)
+  const handleSubmit = (e) => {
+    alertDispatch({status: STATUS_CODES.RESET_CODE})
     e.preventDefault();
-  }
-
-  // const handleClickLogin = (event) => {
-  //   auth.login(session)
-  //   event.preventDefault();
-  // };
-
-  const exec = (e) => {
-    onSubmit(e)
-    handleSubmit(onSubmit)
+    auth.login(session)
   }
 
   return(
     <div>
       <h1>ログインページ</h1>
-        <form onSubmit={exec}>
+        <form>
           <Box className={layoutClasses.label}>
             <label>メールアドレス</label>
           </Box>
 
-          <Controller
-            name="email_form"
-            control={control}
-            defaultValue={''}
-            rules={{ required: true }}
-            render={({ field }) => 
-              <TextField
-                id="email_form"
-                placeholder="メールアドレス入力"
-                fullWidth
-                margin="normal"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-                onChange={handleChangeEmail}
-                value={session.email}
-                error={Boolean(errors.email_form)}
-                helperText={errors?.email_form && helperTexts.REQUIRE_EMAIL}
-              />
-            }
+          <TextField
+            id="email_form"
+            placeholder="メールアドレス入力"
+            fullWidth
+            margin="normal"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="outlined"
+            onChange={handleChangeEmail}
+            value={session.email}
           />
 
           <Box className={layoutClasses.label}>
@@ -106,8 +84,6 @@ const Login = () => {
             onChange={handleChangePassword}
             value={session.password}
             type="password"
-            error={Boolean(errors.password_form)}
-            helperText={errors?.password_form && helperTexts.REQUIRE_PASSWORD}
           />
 
           <Box>
@@ -117,7 +93,7 @@ const Login = () => {
             />
 
             <Box className={userClasses.signUpButtonWrapper}>
-              <Button type="submit" variant="contained" className={userClasses.signUpButton}>ログイン</Button>
+              <Button onClick={handleSubmit} variant="contained" className={userClasses.signUpButton}>ログイン</Button>
             </Box>
           </Box>
         </form>

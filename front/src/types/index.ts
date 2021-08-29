@@ -139,8 +139,15 @@ export type AlertState = {
   status: number
   severity: Color
   color: Color
+  // alertDispatch: React.Dispatch<any>
+}
+
+export type AlertListState = {
+  alertList: AlertState[] | [],
   alertDispatch: React.Dispatch<any>
 }
+
+export type AlertListAction = Partial<AlertState>
 
 // FormError関連
 export type FormError = {

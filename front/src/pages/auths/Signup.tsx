@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react'
-import axios from 'axios';
-import { AuthContext } from "../../store/Auth";
+import axios from 'axios'
+import { AuthContext } from "../../store/Auth"
 import { SignupForm, Language } from '../../types'
 import { Box, TextField, Button, FormControl, Select } from '@material-ui/core'
 import { useLayoutStyles } from '../../styles/js/layout'
-import { useUserStyles } from '../../styles/js/user';
 import { FormErrorContext } from '../../store/FormErrorProvider';
 import InputWithError from '../../components/layouts/InputWithError';
+import { AlertContext } from '../../store/AlertProvider'
+import STATUS_CODES from '../../utils/StatusCodes'
+import { useUserStyles } from '../../styles/js/user'
 
 function Signup() {
   const layoutClasses = useLayoutStyles()
@@ -23,7 +25,8 @@ function Signup() {
       }
   
   const [user, setUser] = useState(initUser);
-  const [languages, setLanguages] = useState<Language[]>([])  
+  const [languages, setLanguages] = useState<Language[]>([])
+  const {alertDispatch} = useContext(AlertContext)
 
   const componentDidMount = () => {
     axios.get(`/languages`)
@@ -73,8 +76,10 @@ function Signup() {
   };
 
   const handleSubmit = (e) => {
-    auth.signup(user)
+    alertDispatch({status: STATUS_CODES.RESET_CODE})
     e.preventDefault();
+    auth.signup(user)
+    // e.preventDefault();
   }
 
   return(
@@ -151,21 +156,6 @@ function Signup() {
                 type="password"
               />
             </InputWithError>
-            {/* <TextField
-              id="email_form"
-              // label="メールアドレス"
-              placeholder="パスワード確認用"
-              // helperText="Full width!"
-              fullWidth
-              margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant="outlined"
-              onChange={handleChangePasswordConfirmation}
-              value={user.passwordConfirmation}
-              type="password"
-            /> */}
           </Box>
 
           <Box className={layoutClasses.label}>
