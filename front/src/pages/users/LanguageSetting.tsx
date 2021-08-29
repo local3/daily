@@ -2,14 +2,12 @@ import React, {useState, useEffect, useContext} from 'react'
 import axios from 'axios'
 import { AuthContext } from "../../store/Auth"
 import { axiosWithAlert } from '../../store/Axios'
-import { useUserStyles } from '../../styles/js/user'
-import layoutStyles, { useLayoutStyles } from '../../styles/js/layout'
+import { useLayoutStyles } from '../../styles/js/layout'
 import { Typography, Box, Select, Button, FormControl } from '@material-ui/core'
 import { UserLanguageSetting, Language } from '../../types/index'
 
 const LanguageSetting = () => {
   const auth = useContext(AuthContext)
-  const userClasses = useUserStyles()
   const layoutClasses = useLayoutStyles()
   const initFormContent: UserLanguageSetting = {
     target: '',

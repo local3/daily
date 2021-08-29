@@ -3,15 +3,19 @@ import axios from 'axios'
 import { AuthContext } from "../../store/Auth"
 import { SignupForm, Language } from '../../types'
 import { Box, TextField, Button, FormControl, Select } from '@material-ui/core'
-import layoutStyles, { useLayoutStyles } from '../../styles/js/layout'
-import { useUserStyles } from '../../styles/js/user'
+import { useLayoutStyles } from '../../styles/js/layout'
+import { FormErrorContext } from '../../store/FormErrorProvider';
+import InputWithError from '../../components/layouts/InputWithError';
 import { AlertContext } from '../../store/AlertProvider'
 import STATUS_CODES from '../../utils/StatusCodes'
+import { useUserStyles } from '../../styles/js/user'
 
 function Signup() {
   const layoutClasses = useLayoutStyles()
   const userClasses = useUserStyles()
-  const auth = useContext(AuthContext);  
+  const auth = useContext(AuthContext)
+  const { formErrors } = useContext(FormErrorContext)
+
   const initUser: SignupForm =
       {
         email: '',
@@ -75,6 +79,7 @@ function Signup() {
     alertDispatch({status: STATUS_CODES.RESET_CODE})
     e.preventDefault();
     auth.signup(user)
+    // e.preventDefault();
   }
 
   return(
@@ -86,58 +91,71 @@ function Signup() {
             <Box className={layoutClasses.label}>
               <label>メールアドレス</label>
             </Box>
-            <TextField
-              id="email_form"
-              // label="メールアドレス"
-              placeholder="メールアドレス入力"
-              // helperText="Full width!"
-              fullWidth
-              margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant="outlined"
-              onChange={handleChangeEmail}
-              value={user.email}
-            />
+            <InputWithError
+              attribute='email'
+              formErrors={formErrors}
+            >
+              <TextField
+                id="email_form"
+                // label="メールアドレス"
+                placeholder="例：diary@example.com"
+                // helperText="Full width!"
+                fullWidth
+                margin="normal"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                onChange={handleChangeEmail}
+                value={user.email}
+              />
+            </InputWithError>
 
             <Box className={layoutClasses.label}>
               <label>パスワード</label>
             </Box>
-            <TextField
-              id="email_form"
-              // label="メールアドレス"
-              placeholder="パスワード："
-              // helperText="Full width!"
-              fullWidth
-              margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant="outlined"
-              onChange={handleChangePassword}
-              value={user.password}
-              type="password"
-            />
+            <InputWithError
+              attribute='password'
+              formErrors={formErrors}
+            >
+              <TextField
+                id="password_form"
+                placeholder="パスワード(半角英数字のみ6文字以上)"
+                fullWidth
+                margin="normal"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                onChange={handleChangePassword}
+                value={user.password}
+                type="password"
+              />
+            </InputWithError>
 
             <Box className={layoutClasses.label}>
               <label>パスワード確認用</label>
             </Box>
-            <TextField
-              id="email_form"
-              // label="メールアドレス"
-              placeholder="パスワード確認用"
-              // helperText="Full width!"
-              fullWidth
-              margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant="outlined"
-              onChange={handleChangePasswordConfirmation}
-              value={user.passwordConfirmation}
-              type="password"
-            />
+            <InputWithError
+              attribute='password_confirmation'
+              formErrors={formErrors}
+            >
+              <TextField
+                id="password_confirmation_form"
+                // label="メールアドレス"
+                placeholder="パスワード確認用"
+                // helperText="Full width!"
+                fullWidth
+                margin="normal"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                onChange={handleChangePasswordConfirmation}
+                value={user.passwordConfirmation}
+                type="password"
+              />
+            </InputWithError>
           </Box>
 
           <Box className={layoutClasses.label}>

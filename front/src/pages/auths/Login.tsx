@@ -42,11 +42,11 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (e) => {
     alertDispatch({status: STATUS_CODES.RESET_CODE})
-    event.preventDefault();
+    e.preventDefault();
     auth.login(session)
-  };
+  }
 
   return(
     <div>
@@ -55,11 +55,10 @@ const Login = () => {
           <Box className={layoutClasses.label}>
             <label>メールアドレス</label>
           </Box>
+
           <TextField
             id="email_form"
-            // label="メールアドレス"
             placeholder="メールアドレス入力"
-            // helperText="Full width!"
             fullWidth
             margin="normal"
             InputLabelProps={{
@@ -74,10 +73,8 @@ const Login = () => {
             <label>パスワード</label>
           </Box>
           <TextField
-            id="email_form"
-            // label="メールアドレス"
+            id="password_form"
             placeholder="パスワード"
-            // helperText="Full width!"
             fullWidth
             margin="normal"
             InputLabelProps={{

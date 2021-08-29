@@ -1,5 +1,5 @@
 import React,{ useEffect, useReducer } from 'react'
-import { useLocation, useHistory } from 'react-router'
+import { useHistory } from 'react-router'
 import Axios from './Axios'
 import AlertMsg from '../components/universals/AlertMsg'
 import STATUS_CODES from '../utils/StatusCodes'
@@ -58,7 +58,6 @@ const AlertProvider = (props) => {
 	// ページが変わるごとにアラートをリセット
 	const resetAlertMsg = () => {
 		return history.listen(() => {
-			console.log('useeffect')
 			alertDispatch({status: 0})
 		})
 	}

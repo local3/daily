@@ -3,7 +3,7 @@ import axios from 'axios'
 import { AuthContext } from "../../store/Auth"
 import { axiosWithAlert } from '../../store/Axios'
 import { useLayoutStyles } from '../../styles/js/layout'
-import { FormControl, InputLabel, OutlinedInput, InputAdornment, TextField } from '@material-ui/core'
+import { TextField } from '@material-ui/core'
 import { UserEditSession, UserEditInfo, Language } from '../../types/index'
 
 function UserEdit() {

@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
   def create
     user = User.new(signup_user_params)
+    # logger.debug user.inspect
     login(user) if user.save!
+    # logger.debug "saveクリア"
     return render json: {data: user, state:"success",msg:"Success"} , status: 200
   end
 

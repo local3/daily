@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { AlertContext } from '../store/AlertProvider'
 import axios from 'axios'
 import { axiosWithAlert } from '../store/Axios'
 import { useHistory } from 'react-router';
 import { LoadContext } from './LoadProvider';
 import { Auth, Load, Session, SignupForm } from '../types/index'
+import { AlertContext } from './AlertProvider';
 
 // 初期状態登録
 const initialContext: Auth = {
@@ -15,8 +15,6 @@ const initialContext: Auth = {
   signup: () => {},
   logout: () => {}
 }
-
-type Props = {}
 
 // Context作成。このAuthContextに他のコンポーネントからアクセスすることで、ログイン情報を持ってこれる
 const AuthContext = React.createContext(initialContext);
@@ -70,7 +68,7 @@ const AuthProvider = (props) => {
   // レンダリング後にユーザーの取得を行う
   useEffect(() => {
     fetchCurrentUser()
-  }, [authState.isLoggedIn]);
+  }, [authState.isLoggedIn])
 
   // 各コンポーネントに最終的に送る内容
   const value: Auth = {...authState, login, logout, signup}

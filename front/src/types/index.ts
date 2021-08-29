@@ -1,5 +1,4 @@
 import React from 'react'
-import { Moment } from 'moment'
 import { Color } from '@material-ui/lab'
 
 // User関連
@@ -149,6 +148,17 @@ export type AlertListState = {
 }
 
 export type AlertListAction = Partial<AlertState>
+
+// FormError関連
+export type FormError = {
+  attribute: string
+  msgParts: string[]
+}
+
+export type FormErrorState = {
+  formErrors: FormError[] | []
+  formErrorDispatch: React.Dispatch<any>
+}
 
 // Convert関連
 export type ConvertState = {

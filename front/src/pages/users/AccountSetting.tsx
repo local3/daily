@@ -1,15 +1,15 @@
-import React, {useState, useEffect, useContext} from 'react'
-import axios from 'axios'
-import { AuthContext } from "../../store/Auth"
+import React, { useContext, useState } from 'react'
 import { axiosWithAlert } from '../../store/Axios'
-import { useUserStyles } from '../../styles/js/user'
-import layoutStyles, { useLayoutStyles } from '../../styles/js/layout'
+import { useLayoutStyles } from '../../styles/js/layout'
 import { Typography, Box, TextField, Button } from '@material-ui/core'
 import { UserAccountSetting } from '../../types/index'
+import InputWithError from '../../components/layouts/InputWithError'
+import { FormErrorContext } from '../../store/FormErrorProvider'
 
 const AccountSetting = () => {
-  const userClasses = useUserStyles()
   const layoutClasses = useLayoutStyles()
+  const { formErrors } = useContext(FormErrorContext)
+
   const initFormContent: UserAccountSetting = {
     target: '',
     email: {
@@ -95,19 +95,24 @@ const AccountSetting = () => {
             <Box className={layoutClasses.label}>
               <label>メールアドレス</label>
             </Box>
-            <TextField
-              id="email_form"
-              // label="メールアドレス"
-              placeholder="メールアドレス入力"
-              // helperText="Full width!"
-              fullWidth
-              margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant="outlined"
-              onChange={handleChangeEmail}
-            />
+            <InputWithError
+              formErrors={formErrors}
+              attribute='email'
+            >
+              <TextField
+                id="email_form"
+                // label="メールアドレス"
+                placeholder="メールアドレス入力"
+                // helperText="Full width!"
+                fullWidth
+                margin="normal"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                onChange={handleChangeEmail}
+              />
+            </InputWithError>
           </Box>
           <Box className={layoutClasses.submitButtonWrapper}>
             <Button onClick={(e) => {handleClickUpdate("email", e)}} variant="contained" className={layoutClasses.submitButton}>変更する</Button>

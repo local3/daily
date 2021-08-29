@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext } from "react"
-import axios from 'axios'
 import { SingleDatePicker } from "react-dates"
 import moment from "moment"
-import { IconButton, Box } from "@material-ui/core"
+import { IconButton } from "@material-ui/core"
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore"
 import NavigateNextIcon from "@material-ui/icons/NavigateNext"
 import { DateContext } from "../../store/DateProvider"
