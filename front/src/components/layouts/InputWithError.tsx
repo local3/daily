@@ -9,19 +9,22 @@ const getIsDisplayError = (formErrors, attribute) => {
 }
 
 const genHelperText = (formErrors, attribute) => {
+  console.log(formErrors, attribute)
+  console.log(formErrors?.find(formError => formError.attribute === attribute)?.msgParts)
   return formErrors?.find(formError => formError.attribute === attribute)?.msgParts.map(msgPart => `${convertToJaAttribute(attribute)}${msgPart}`).join(",")
 }
 
 const convertToJaAttribute = (attribute) => {
   const attributePairList = [
-    { en: 'email', ja: 'メールアドレス'}
+    { en: 'email', ja: 'メールアドレス'},
+    { en: 'password', ja: 'パスワード'},
+    { en: 'password_confirmation', ja: '確認用パスワード'}
   ]
 
   return attributePairList.find(attributePair => attributePair.en === attribute)?.ja
 }
 
-const InputWithError = ({children, formErrors, attribute, }) => {
-  const layoutClasses = useLayoutStyles();
+const InputWithError = ({　children, formErrors, attribute }) => {
 
   return (
     <>

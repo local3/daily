@@ -93,7 +93,7 @@ function Signup() {
               <TextField
                 id="email_form"
                 // label="メールアドレス"
-                placeholder="メールアドレス入力"
+                placeholder="例：diary@example.com"
                 // helperText="Full width!"
                 fullWidth
                 margin="normal"
@@ -103,37 +103,55 @@ function Signup() {
                 variant="outlined"
                 onChange={handleChangeEmail}
                 value={user.email}
-                // error={formErrors?.filter(formError => formError.attribute === 'email').length >= 1}
-                // helperText={formErrors?.filter(formError => formError.attribute === 'email').length >= 1 &&
-                //   formErrors?.find(formError => formError.attribute === 'email')?.msgParts.map(msgPart => `メールアドレス${msgPart}`).join(",")
-                // }
               />
             </InputWithError>
-            { console.log(formErrors)}
 
             <Box className={layoutClasses.label}>
               <label>パスワード</label>
             </Box>
-            <TextField
-              id="email_form"
-              // label="メールアドレス"
-              placeholder="パスワード："
-              // helperText="Full width!"
-              fullWidth
-              margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant="outlined"
-              onChange={handleChangePassword}
-              value={user.password}
-              type="password"
-            />
+            <InputWithError
+              attribute='password'
+              formErrors={formErrors}
+            >
+              <TextField
+                id="password_form"
+                placeholder="パスワード(半角英数字のみ6文字以上)"
+                fullWidth
+                margin="normal"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                onChange={handleChangePassword}
+                value={user.password}
+                type="password"
+              />
+            </InputWithError>
 
             <Box className={layoutClasses.label}>
               <label>パスワード確認用</label>
             </Box>
-            <TextField
+            <InputWithError
+              attribute='password_confirmation'
+              formErrors={formErrors}
+            >
+              <TextField
+                id="password_confirmation_form"
+                // label="メールアドレス"
+                placeholder="パスワード確認用"
+                // helperText="Full width!"
+                fullWidth
+                margin="normal"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                onChange={handleChangePasswordConfirmation}
+                value={user.passwordConfirmation}
+                type="password"
+              />
+            </InputWithError>
+            {/* <TextField
               id="email_form"
               // label="メールアドレス"
               placeholder="パスワード確認用"
@@ -147,7 +165,7 @@ function Signup() {
               onChange={handleChangePasswordConfirmation}
               value={user.passwordConfirmation}
               type="password"
-            />
+            /> */}
           </Box>
 
           <Box className={layoutClasses.label}>

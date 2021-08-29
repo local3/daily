@@ -94,28 +94,20 @@ const Login = () => {
           <Box className={layoutClasses.label}>
             <label>パスワード</label>
           </Box>
-          <Controller
-            name="password_form"
-            control={control}
-            defaultValue={''}
-            rules={{ required: true }}
-            render={({ field }) => 
-              <TextField
-                id="password_form"
-                placeholder="パスワード"
-                fullWidth
-                margin="normal"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-                onChange={handleChangePassword}
-                value={session.password}
-                type="password"
-                error={Boolean(errors.password_form)}
-                helperText={errors?.password_form && helperTexts.REQUIRE_PASSWORD}
-              />
-            }
+          <TextField
+            id="password_form"
+            placeholder="パスワード"
+            fullWidth
+            margin="normal"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="outlined"
+            onChange={handleChangePassword}
+            value={session.password}
+            type="password"
+            error={Boolean(errors.password_form)}
+            helperText={errors?.password_form && helperTexts.REQUIRE_PASSWORD}
           />
 
           <Box>

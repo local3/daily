@@ -38,14 +38,12 @@ const alertReducer = (state, action) => {
 
 const AlertProvider = (props) => {
 	const history = useHistory()
-	const location = useLocation()
 	// アラートの変更をuseReducerで行う
 	const [alertState, alertDispatch] = useReducer(alertReducer, initialState)
 	const value: AlertState = {...alertState, alertDispatch}
 	// ページが変わるごとにアラートをリセット
 	const resetAlertMsg = () => {
 		return history.listen(() => {
-			console.log('useeffect')
 			alertDispatch({status: 0})
 		})
 	}

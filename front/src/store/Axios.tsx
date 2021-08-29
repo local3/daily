@@ -29,7 +29,7 @@ const Axios = () => {
   }
   // 成功
   const onSuccess = (res) => {
-    console.log(res)
+    // console.log(res)
     // console.log(parseSnakeToCamel(res))
     const { data, status } =  res
     if(status !== STATUS_CODES.FLAT_CODE){
@@ -45,7 +45,7 @@ const Axios = () => {
     // console.log(data.errors)
     if(status !== STATUS_CODES.FLAT_CODE){
       alertDispatch({msg: data.msg, status: status})
-      formErrorDispatch({ type: ADD_ERRORS, formErrors: genFormErrors(data.errors) })
+      data.errors && formErrorDispatch({ type: ADD_ERRORS, formErrors: genFormErrors(data.errors) })
     }
     // PromiseStatusをresolveにして.thenを実行しないようにする
     return Promise.reject(err)

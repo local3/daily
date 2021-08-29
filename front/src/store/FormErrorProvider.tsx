@@ -1,4 +1,4 @@
-import React,{ useReducer } from 'react'
+import React,{ useReducer, useEffect } from 'react'
 import { useHistory } from 'react-router';
 import { FormErrorState } from '../types/index'
 import { ADD_ERRORS, RESET_ERRORS } from '../utils/formErrorActions'
@@ -6,7 +6,6 @@ import { ADD_ERRORS, RESET_ERRORS } from '../utils/formErrorActions'
 const initialState: FormErrorState = { formErrors: [], formErrorDispatch: () => {} }
 export const FormErrorContext = React.createContext(initialState)
 const formErrorReducer = (state, action) => {
-  console.log(action)
   switch(action.type){
     case ADD_ERRORS:
       return { ...state, formErrors: action.formErrors }
@@ -17,10 +16,17 @@ const formErrorReducer = (state, action) => {
   }
 }
 const FormErrorProvider = (props) => {
-	// const history = useHistory()
+	const history = useHistory()
 	const [formErrorState, formErrorDispatch] = useReducer(formErrorReducer, initialState)
 	const value: FormErrorState = { ...formErrorState, formErrorDispatch }
-  console.log(value)
+  const resetFormError = () => {
+		return history.listen(() => {
+			formErrorDispatch({type: RESET_ERRORS})
+		})
+	}
+
+	useEffect(resetFormError, [history])
+
 	return(
 		<FormErrorContext.Provider
 			value={value}
