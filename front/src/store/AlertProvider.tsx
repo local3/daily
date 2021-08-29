@@ -1,8 +1,7 @@
 import React,{ useEffect, useReducer } from 'react'
-import { useLocation, useHistory } from 'react-router'
+import { useHistory } from 'react-router'
 import Axios from './Axios'
 import STATUS_CODES from '../utils/StatusCodes'
-import Check from '@material-ui/icons/Check'
 import { AlertState } from '../types'
 
 // 初期状態登録

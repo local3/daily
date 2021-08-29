@@ -3,7 +3,7 @@ import axios from 'axios';
 import { AuthContext } from "../../store/Auth";
 import { SignupForm, Language } from '../../types'
 import { Box, TextField, Button, FormControl, Select } from '@material-ui/core'
-import layoutStyles, { useLayoutStyles } from '../../styles/js/layout'
+import { useLayoutStyles } from '../../styles/js/layout'
 import { useUserStyles } from '../../styles/js/user';
 import { FormErrorContext } from '../../store/FormErrorProvider';
 import InputWithError from '../../components/layouts/InputWithError';

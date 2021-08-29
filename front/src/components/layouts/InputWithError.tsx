@@ -1,17 +1,17 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../../store/Auth";
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
-import { useLayoutStyles } from "../../styles/js/layout";
+import React from "react";
 import "../../styles/css/layout.scss";
+import { FormError } from "../../types";
 
-const getIsDisplayError = (formErrors, attribute) => {
+// エラーを表示するかしないかを返す
+const getIsDisplayError = (formErrors: FormError[], attribute: string): boolean => {
   return formErrors?.filter(formError => formError.attribute === attribute).length >= 1
 }
 
-const genHelperText = (formErrors, attribute) => {
-  console.log(formErrors, attribute)
-  console.log(formErrors?.find(formError => formError.attribute === attribute)?.msgParts)
-  return formErrors?.find(formError => formError.attribute === attribute)?.msgParts.map(msgPart => `${convertToJaAttribute(attribute)}${msgPart}`).join(",")
+const genHelperText = (formErrors: FormError[], attribute: string): string => {
+  const formError = formErrors?.find(formError => formError.attribute === attribute)
+  return formError?.msgParts.map(msgPart => `${convertToJaAttribute(attribute)}${msgPart}`).join(",") 
+    ? formError?.msgParts.map(msgPart => `${convertToJaAttribute(attribute)}${msgPart}`).join(",") 
+    : ''
 }
 
 const convertToJaAttribute = (attribute) => {

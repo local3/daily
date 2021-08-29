@@ -1,6 +1,5 @@
-import React, {useState, useEffect, useContext} from 'react'
+import { useState } from 'react'
 import axios from 'axios';
-import { AuthContext } from "../../store/Auth";
 
 function ResetPassword() {
   const initPasswordContent = {

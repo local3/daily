@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import moment, { Moment } from "moment";
+import moment from "moment";
 import { dateFormat } from '../utils/Date';
 import { DateContextType } from '../types'
 const initialState: DateContextType = {

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Moment } from 'moment'
 import { Color } from '@material-ui/lab'
 
 // User関連

@@ -1,7 +1,6 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { AlertContext } from '../../store/AlertProvider'
 import Alert from '@material-ui/lab/Alert'
-import AlertTitle from '@material-ui/lab/AlertTitle'
 
 const AlertMsg: React.FC = () => {
 	const alertState = useContext(AlertContext)

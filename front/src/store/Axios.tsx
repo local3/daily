@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { AlertContext } from './AlertProvider'
-import axios, { AxiosStatic, AxiosInstance, AxiosInterceptorManager, AxiosResponse, } from 'axios'
+import axios, { AxiosResponse, } from 'axios'
 import { parseSnakeToCamel } from '../utils/StringCases'
 import STATUS_CODES from '../utils/StatusCodes'
 import { FormErrorContext } from './FormErrorProvider'

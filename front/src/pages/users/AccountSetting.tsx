@@ -1,14 +1,10 @@
-import React, {useState, useEffect, useContext} from 'react'
-import axios from 'axios'
-import { AuthContext } from "../../store/Auth"
+import React, { useState } from 'react'
 import { axiosWithAlert } from '../../store/Axios'
-import { useUserStyles } from '../../styles/js/user'
-import layoutStyles, { useLayoutStyles } from '../../styles/js/layout'
+import { useLayoutStyles } from '../../styles/js/layout'
 import { Typography, Box, TextField, Button } from '@material-ui/core'
 import { UserAccountSetting } from '../../types/index'
 
 const AccountSetting = () => {
-  const userClasses = useUserStyles()
   const layoutClasses = useLayoutStyles()
   const initFormContent: UserAccountSetting = {
     target: '',

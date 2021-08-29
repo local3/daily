@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
 import axios from 'axios'
-import { AuthContext } from "../../store/Auth"
 import { useHistory } from 'react-router';
 import { useMemoStyles } from '../../styles/js/memo'
 import { ConvertContext } from '../../store/ConvertProvider'
@@ -10,7 +9,6 @@ type Props = {
   toggleModal: () => void
 }
 const MemoForm: React.FC<Props> = (props: Props) => {
-  const auth = useContext(AuthContext);
   const { convertDispatch } = useContext(ConvertContext)
   const history = useHistory()
   const memoClasses = useMemoStyles()
