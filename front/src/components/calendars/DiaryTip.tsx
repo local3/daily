@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react"
 import axios from "axios"
 import { DateContext } from "../../store/DateProvider"
 import { Drawer, Typography, Divider }  from '@material-ui/core'
+import { makeStyles } from "@material-ui/core/styles"
 import { useCalendarStyles } from "../../styles/js/calendar"
 
 const DiaryTip = () => {
@@ -12,11 +13,20 @@ const DiaryTip = () => {
   const [diaryContent, setDiaryContetnt] = useState('')
   const calendarClasses = useCalendarStyles()
 
+  // const addDictionaryStyles = makeStyles(
+  //   {
+  //     tipAnimation: {
+  //       transition: '1s',
+  //       opacity: isOpen ? 1 : 0,
+  //     }
+  //   }
+  // )
+  // const tipClasses = addDictionaryStyles()
+
   // 日付に変更があった場合、日本語の日記内容を取得
   const updateDiaryTipEffect = () => {
     axios.get(`/diaries/${date}`)
     .then(res => {
-      console.log(res)
       if(res.data.diary){
         if(res.data.diary.ja_content.length > 40){
           setDiaryContetnt(res.data.diary.ja_content.substring( 0, 40 ) + '...')

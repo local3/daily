@@ -11,13 +11,11 @@ const calendarStyles: any = {
   // DiaryTip.tsx
   drawerStyle: {
     zIndex: `${0}!important`,
-    backgroundColor: `${themes.clear}!important`,
-    position: 'static!important',
+    // backgroundColor: `${themes.clear}!important`,
+    position: 'relative!important',
   },
   tipPaperStyle: {
-    height: 155,
-    // height: '19vh',
-    marginBottom: 40
+    height: '27vh',
   },
   tipDateStyle: {
     fontWeight: 600,
