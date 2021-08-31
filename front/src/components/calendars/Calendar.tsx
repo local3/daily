@@ -87,7 +87,9 @@ function Calendar() {
         date={date}
         onDateChange={(date: Moment | null) => handleChangeDate(date)}
         focused={focused} // デフォルトではfocus=inputを洗濯中の時。強制的に常に表示にする
-        onFocusChange={() => setFocused(focused)}
+        onFocusChange={() => {
+          setFocused(focused)
+        }}
         isOutsideRange={ () => false}
         numberOfMonths={1} // 表示するのを１つの月だけにする
         verticalSpacing={0} // カレンダーとinputの間にでる三角吹き出しを消す
