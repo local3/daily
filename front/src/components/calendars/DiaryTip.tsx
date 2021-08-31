@@ -11,20 +11,18 @@ const DiaryTip = () => {
   const date = dateContext.globalDate
   const displayDate = date.replace(/(\d+)-(\d+)-(\d+)/, "$1年$2月$3日")
   const [diaryContent, setDiaryContetnt] = useState('')
+  const [existDiary, setExistDiary] = useState(false)
   const calendarClasses = useCalendarStyles()
-
-  // const addDictionaryStyles = makeStyles(
-  //   {
-  //     tipAnimation: {
-  //       transition: '1s',
-  //       opacity: isOpen ? 1 : 0,
-  //     }
-  //   }
-  // )
-  // const tipClasses = addDictionaryStyles()
 
   // 日付に変更があった場合、日本語の日記内容を取得
   const updateDiaryTipEffect = () => {
+    // DiaryTipの切り替え
+    setExistDiary(false)
+    if(diaryContent){
+      setTimeout(() => {
+        setExistDiary(true)
+      }, 300)
+    }
     axios.get(`/diaries/${date}`)
     .then(res => {
       if(res.data.diary){
@@ -48,8 +46,8 @@ const DiaryTip = () => {
   if (diaryContent) {
     return(
       <>
-        <Drawer anchor={'bottom'} open={true} className={calendarClasses.drawerStyle}
-          classes={{ paperAnchorBottom: calendarClasses.tipPaperStyle }}>
+        <Drawer anchor={'bottom'} open={existDiary} className={calendarClasses.drawerStyle}
+          classes={{ paperAnchorBottom: calendarClasses.tipPaperStyle }} transitionDuration={300}>
             <Typography variant="h6" classes={{ h6: calendarClasses.tipDateStyle}} >{displayDate}</Typography>
             <Divider />
             <Typography className={calendarClasses.tipContentStyle}>{diaryContent}</Typography>

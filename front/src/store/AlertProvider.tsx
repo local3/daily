@@ -23,8 +23,6 @@ console.log(initialList.alertList.length)
 export const AlertContext = React.createContext(initialList)
 // alertDispatchでコールバックされる関数 ステータスコードによってアラートを変更する
 const alertReducer = (state: AlertListState, action: AlertListAction): AlertListState => {
-	console.log(action.status)
-	console.log(state)
 	switch(action.status){
 		case(STATUS_CODES.RESET_CODE): // 0
 			return initialList
