@@ -20,6 +20,11 @@ const EtcDrawer = (props: Props) => {
     history.push(url)
     props.toggleEtcDrawer()
   }
+  const logoutAction = () => {
+    auth.logout()
+    props.toggleEtcDrawer()
+  }
+
   const userSettingList = [
     {name: '基本設定', action: () => redirectAction('/settings/account'), icon: <SettingsOutlined />},
     {name: 'その他設定', action: () => redirectAction('/settings/language'), icon: <BuildOutlined />}
@@ -34,6 +39,9 @@ const EtcDrawer = (props: Props) => {
     {name: 'ログイン', action: () => redirectAction('/login'), icon: <ExitToAppOutlined />},
     {name: 'ユーザー登録', action: () => redirectAction('/signup'), icon: <PersonAddOutlined />}
   ]
+  const actionList = [
+    {name: 'ログアウト', action: logoutAction, icon: <ExitToAppOutlined />},
+  ]
   return(
     <>
       <SwipeableDrawer
@@ -44,6 +52,11 @@ const EtcDrawer = (props: Props) => {
       >
         
         <Box className={layoutClasses.etcDrawerWrapper}>
+          {/* 
+            *
+            * ログインユーザーがいる時
+            * 
+          */}
           {auth.currentUser &&
             <>
               <Typography variant="inherit" className={layoutClasses.etcDrawerMainTitle}>設定</Typography>
@@ -56,8 +69,25 @@ const EtcDrawer = (props: Props) => {
                   </ListItem>
                 ))}
               </List>
+
+              <Typography variant="inherit" className={layoutClasses.etcDrawerMainTitle}>アクション</Typography>
+              <Divider/>
+              <List>
+                {actionList.map((value) => (
+                  <ListItem button key={value.name} onClick={value.action}>
+                    <ListItemIcon>{value.icon}</ListItemIcon>
+                    <ListItemText primary={value.name} />
+                  </ListItem>
+                ))}
+              </List>
             </>
           }
+
+          {/* 
+            *
+            * ログインユーザーがいない時
+            * 
+          */}
           {!auth.currentUser &&
             <>
               <Typography variant="inherit" className={layoutClasses.etcDrawerMainTitle}>ユーザー登録など</Typography>
@@ -72,15 +102,17 @@ const EtcDrawer = (props: Props) => {
               </List>
             </>
           }
+
+
           <Typography variant="inherit" className={layoutClasses.etcDrawerMainTitle}>その他</Typography>
           <Divider/>
           <List>
           {guideList.map((value) => (
-              <ListItem button key={value.name} onClick={value.action}>
-                <ListItemIcon>{value.icon}</ListItemIcon>
-                <ListItemText primary={value.name} />
-              </ListItem>
-            ))}
+            <ListItem button key={value.name} onClick={value.action}>
+              <ListItemIcon>{value.icon}</ListItemIcon>
+              <ListItemText primary={value.name} />
+            </ListItem>
+          ))}
           </List>
         </Box>
       </SwipeableDrawer>
