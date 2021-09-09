@@ -1,4 +1,4 @@
-import React,{ useState, useContext }  from 'react'
+import React,{ useState, useContext, useEffect }  from 'react'
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core'
 import { 
   CalendarToday, FileCopy, Create, LocalOffer, MoreHoriz,
@@ -39,6 +39,7 @@ const Footer = () => {
   const toggleEtcDrawer = () => {
     setIsOpenEtcDrawer(!isOpenEtcDrawer)
   }
+
   // FooterのBottomNavigationに使うボタン情報
   const navActions = [
     {id: 0, label: "カレンダー", icon: <CalendarToday />, iconSelected: <CalendarTodayOutlined />, className: "footerButton", selectedClassName: "selectedFooterButton",　url: CALENDAR_URL, action: ()=>redirectAction(CALENDAR_URL)},
@@ -48,11 +49,24 @@ const Footer = () => {
     {id: 4, label: "My辞書", icon: <LocalOffer />, iconSelected: <LocalOfferOutlined />, className: "footerButton", selectedClassName: "selectedFooterButton", url: DICTIONARIES_URL, action: ()=>redirectAction(DICTIONARIES_URL)},
     {id: 5, label: "その他", icon: <MoreHoriz />, iconSelected: <MoreHorizOutlined />, className: "footerButton", selectedClassName: "selectedFooterButton", url: null, action: toggleEtcDrawer}
   ]
+  const getCurrentNavAction = () => {
+    return navActions.find(navAction => navAction.url === history.location.pathname)
+  }
   // URLによって選択中のnavActionの番号を決定する
   const getInitFooterValue = () => {
-    const selectedNavAction = navActions.find(navAction => navAction.url === history.location.pathname)
-    return selectedNavAction ? selectedNavAction.id : 0
+    return getCurrentNavAction() ? getCurrentNavAction().id : 0
   }
+
+  // URLの変更を検知した際に発火する関数
+  // フッターの選択されているNavActonを変更する
+  const watchHistory = () => {
+		return history.listen(() => {
+			setValue(getInitFooterValue)
+		})
+	}
+
+  // histrory検知でフッターの選択されているNavActonを変更する関数を発火させる
+	useEffect(watchHistory, [history])
 
   const initFooterValue = getInitFooterValue
   // 選択中のnavAcitonの番号
@@ -61,9 +75,6 @@ const Footer = () => {
     <>
       <BottomNavigation
         value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue)
-        }}
         showLabels
         className={layoutClasses.footer}
       >
